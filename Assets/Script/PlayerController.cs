@@ -2,18 +2,25 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float speed = 5f;
+    public float speed = 8f;
     public GameObject projectilePrefab;
+    public int ammo;
+    public float reloadTime = 5f;
+    public bool Reload = false;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        ammo = 6;
     }
 
     // Update is called once per frame
     void Update()
     {
         movement();
+        Shot();
+        reload();
+        Debug.Log("Ammo: " + ammo);
     }
 
     void movement()
@@ -28,10 +35,26 @@ public class PlayerController : MonoBehaviour
 
     void Shot()
     {
-        if(Input.GetMouseButtonDown(0))
+        if(Input.GetMouseButtonDown(0) && ammo > 0)
         {
-            Debug.Log("Shot");
             Instantiate(projectilePrefab, transform.position, transform.rotation);
+            ammo--;
         }
+    }
+
+    void reload()
+    {
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            speed = 3f;
+            Invoke("ReloadAmmo", reloadTime);
+        }
+    }
+    void ReloadAmmo()
+    {     
+        ammo = 6;
+        Reload = true;
+        speed = 8f;
+        Reload = false;
     }
 }
