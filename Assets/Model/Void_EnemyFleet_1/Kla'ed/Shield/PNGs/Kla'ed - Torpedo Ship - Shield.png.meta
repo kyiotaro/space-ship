@@ -1,31 +1,37 @@
 fileFormatVersion: 2
-guid: c987d3b8256f1f242b665c5d0dbd7fb3
+guid: e2ba3497cd2cee04abc182afbee3d4b9
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1224981832804390656
-    second: Main ship weapon - Projectile - Zapper_0
+      213: 4974217781421795358
+    second: Kla'ed - Torpedo Ship - Shield_0
   - first:
-      213: 3204600389847400455
-    second: Main ship weapon - Projectile - Zapper_1
+      213: 7021354019407607293
+    second: Kla'ed - Torpedo Ship - Shield_1
   - first:
-      213: -596982838872072440
-    second: Main ship weapon - Projectile - Zapper_2
+      213: 3286617582184533806
+    second: Kla'ed - Torpedo Ship - Shield_2
   - first:
-      213: 545894370982134639
-    second: Main ship weapon - Projectile - Zapper_3
+      213: -8906974700468540767
+    second: Kla'ed - Torpedo Ship - Shield_3
   - first:
-      213: -5924213035578874020
-    second: Main ship weapon - Projectile - Zapper_4
+      213: 3581286443679495840
+    second: Kla'ed - Torpedo Ship - Shield_4
   - first:
-      213: -5731724567461003116
-    second: Main ship weapon - Projectile - Zapper_5
+      213: -242067435922671422
+    second: Kla'ed - Torpedo Ship - Shield_5
   - first:
-      213: 3007546863773292764
-    second: Main ship weapon - Projectile - Zapper_6
+      213: 2403234761067258025
+    second: Kla'ed - Torpedo Ship - Shield_6
   - first:
-      213: 2038064369345424858
-    second: Main ship weapon - Projectile - Zapper_7
+      213: -3801307661422101376
+    second: Kla'ed - Torpedo Ship - Shield_7
+  - first:
+      213: 7523427303705248278
+    second: Kla'ed - Torpedo Ship - Shield_8
+  - first:
+      213: 307246375943061831
+    second: Kla'ed - Torpedo Ship - Shield_9
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -58,7 +64,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -134,13 +140,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Main ship weapon - Projectile - Zapper_0
+      name: Kla'ed - Torpedo Ship - Shield_0
       rect:
         serializedVersion: 2
-        x: 12
-        y: 0
-        width: 8
-        height: 32
+        x: 1
+        y: 37
+        width: 62
+        height: 12
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -149,20 +155,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 007dc989c72000110800000000000000
-      internalID: 1224981832804390656
+      spriteID: e18e319b7b8f70540800000000000000
+      internalID: 4974217781421795358
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Main ship weapon - Projectile - Zapper_1
+      name: Kla'ed - Torpedo Ship - Shield_1
       rect:
         serializedVersion: 2
-        x: 44
-        y: 0
+        x: 92
+        y: 37
         width: 8
-        height: 32
+        height: 7
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -171,20 +177,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 700ceeb6317097c20800000000000000
-      internalID: 3204600389847400455
+      spriteID: df53d09a74cd07160800000000000000
+      internalID: 7021354019407607293
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Main ship weapon - Projectile - Zapper_2
+      name: Kla'ed - Torpedo Ship - Shield_2
       rect:
         serializedVersion: 2
-        x: 76
-        y: 0
-        width: 8
-        height: 32
+        x: 154
+        y: 37
+        width: 12
+        height: 12
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -193,20 +199,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 80f9600654717b7f0800000000000000
-      internalID: -596982838872072440
+      spriteID: e2f89aa17496c9d20800000000000000
+      internalID: 3286617582184533806
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Main ship weapon - Projectile - Zapper_3
+      name: Kla'ed - Torpedo Ship - Shield_3
       rect:
         serializedVersion: 2
-        x: 108
-        y: 0
-        width: 8
-        height: 32
+        x: 213
+        y: 37
+        width: 22
+        height: 12
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -215,20 +221,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f638643c908639700800000000000000
-      internalID: 545894370982134639
+      spriteID: 1aa6e2b73b1146480800000000000000
+      internalID: -8906974700468540767
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Main ship weapon - Projectile - Zapper_4
+      name: Kla'ed - Torpedo Ship - Shield_4
       rect:
         serializedVersion: 2
-        x: 140
-        y: 0
-        width: 8
-        height: 32
+        x: 272
+        y: 37
+        width: 32
+        height: 12
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -237,20 +243,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c572598c1a7f8cda0800000000000000
-      internalID: -5924213035578874020
+      spriteID: 0a6307acb0943b130800000000000000
+      internalID: 3581286443679495840
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Main ship weapon - Projectile - Zapper_5
+      name: Kla'ed - Torpedo Ship - Shield_5
       rect:
         serializedVersion: 2
-        x: 172
-        y: 0
-        width: 8
-        height: 32
+        x: 331
+        y: 37
+        width: 42
+        height: 12
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -259,20 +265,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4908b16bfd2d470b0800000000000000
-      internalID: -5731724567461003116
+      spriteID: 2c8b32613f004acf0800000000000000
+      internalID: -242067435922671422
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Main ship weapon - Projectile - Zapper_6
+      name: Kla'ed - Torpedo Ship - Shield_6
       rect:
         serializedVersion: 2
-        x: 204
-        y: 0
-        width: 8
-        height: 32
+        x: 390
+        y: 37
+        width: 52
+        height: 12
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -281,20 +287,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: cd81c8c10f3fcb920800000000000000
-      internalID: 3007546863773292764
+      spriteID: 9a0e84548410a5120800000000000000
+      internalID: 2403234761067258025
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Main ship weapon - Projectile - Zapper_7
+      name: Kla'ed - Torpedo Ship - Shield_7
       rect:
         serializedVersion: 2
-        x: 236
-        y: 0
-        width: 8
-        height: 32
+        x: 450
+        y: 37
+        width: 60
+        height: 12
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -303,8 +309,52 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: adde63ceeb8a84c10800000000000000
-      internalID: 2038064369345424858
+      spriteID: 08cf6f672da0f3bc0800000000000000
+      internalID: -3801307661422101376
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kla'ed - Torpedo Ship - Shield_8
+      rect:
+        serializedVersion: 2
+        x: 513
+        y: 37
+        width: 62
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 61283da9545986860800000000000000
+      internalID: 7523427303705248278
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kla'ed - Torpedo Ship - Shield_9
+      rect:
+        serializedVersion: 2
+        x: 577
+        y: 37
+        width: 62
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 741cc9873fe834400800000000000000
+      internalID: 307246375943061831
       vertices: []
       indices: 
       edges: []
@@ -323,14 +373,16 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Main ship weapon - Projectile - Zapper_0: 1224981832804390656
-      Main ship weapon - Projectile - Zapper_1: 3204600389847400455
-      Main ship weapon - Projectile - Zapper_2: -596982838872072440
-      Main ship weapon - Projectile - Zapper_3: 545894370982134639
-      Main ship weapon - Projectile - Zapper_4: -5924213035578874020
-      Main ship weapon - Projectile - Zapper_5: -5731724567461003116
-      Main ship weapon - Projectile - Zapper_6: 3007546863773292764
-      Main ship weapon - Projectile - Zapper_7: 2038064369345424858
+      Kla'ed - Torpedo Ship - Shield_0: 4974217781421795358
+      Kla'ed - Torpedo Ship - Shield_1: 7021354019407607293
+      Kla'ed - Torpedo Ship - Shield_2: 3286617582184533806
+      Kla'ed - Torpedo Ship - Shield_3: -8906974700468540767
+      Kla'ed - Torpedo Ship - Shield_4: 3581286443679495840
+      Kla'ed - Torpedo Ship - Shield_5: -242067435922671422
+      Kla'ed - Torpedo Ship - Shield_6: 2403234761067258025
+      Kla'ed - Torpedo Ship - Shield_7: -3801307661422101376
+      Kla'ed - Torpedo Ship - Shield_8: 7523427303705248278
+      Kla'ed - Torpedo Ship - Shield_9: 307246375943061831
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

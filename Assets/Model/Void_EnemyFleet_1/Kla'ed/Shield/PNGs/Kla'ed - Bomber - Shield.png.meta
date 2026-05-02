@@ -1,31 +1,25 @@
 fileFormatVersion: 2
-guid: c987d3b8256f1f242b665c5d0dbd7fb3
+guid: 4de29c333c9e70644b25c74073f70c33
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1224981832804390656
-    second: Main ship weapon - Projectile - Zapper_0
+      213: 9151069920253735267
+    second: Kla'ed - Bomber - Shield_0
   - first:
-      213: 3204600389847400455
-    second: Main ship weapon - Projectile - Zapper_1
+      213: -7701403790428255198
+    second: Kla'ed - Bomber - Shield_1
   - first:
-      213: -596982838872072440
-    second: Main ship weapon - Projectile - Zapper_2
+      213: -1104822974727554365
+    second: Kla'ed - Bomber - Shield_2
   - first:
-      213: 545894370982134639
-    second: Main ship weapon - Projectile - Zapper_3
+      213: 1911936948723593266
+    second: Kla'ed - Bomber - Shield_3
   - first:
-      213: -5924213035578874020
-    second: Main ship weapon - Projectile - Zapper_4
+      213: 6894738624611423755
+    second: Kla'ed - Bomber - Shield_4
   - first:
-      213: -5731724567461003116
-    second: Main ship weapon - Projectile - Zapper_5
-  - first:
-      213: 3007546863773292764
-    second: Main ship weapon - Projectile - Zapper_6
-  - first:
-      213: 2038064369345424858
-    second: Main ship weapon - Projectile - Zapper_7
+      213: -6410874521561399579
+    second: Kla'ed - Bomber - Shield_5
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -58,7 +52,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -134,13 +128,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Main ship weapon - Projectile - Zapper_0
+      name: Kla'ed - Bomber - Shield_0
       rect:
         serializedVersion: 2
-        x: 12
-        y: 0
-        width: 8
-        height: 32
+        x: 13
+        y: 36
+        width: 38
+        height: 13
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -149,20 +143,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 007dc989c72000110800000000000000
-      internalID: 1224981832804390656
+      spriteID: 3617c77ab912ffe70800000000000000
+      internalID: 9151069920253735267
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Main ship weapon - Projectile - Zapper_1
+      name: Kla'ed - Bomber - Shield_1
       rect:
         serializedVersion: 2
-        x: 44
-        y: 0
-        width: 8
-        height: 32
+        x: 77
+        y: 36
+        width: 38
+        height: 13
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -171,20 +165,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 700ceeb6317097c20800000000000000
-      internalID: 3204600389847400455
+      spriteID: 22c4daf6e0e1f1590800000000000000
+      internalID: -7701403790428255198
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Main ship weapon - Projectile - Zapper_2
+      name: Kla'ed - Bomber - Shield_2
       rect:
         serializedVersion: 2
-        x: 76
-        y: 0
-        width: 8
-        height: 32
+        x: 141
+        y: 36
+        width: 38
+        height: 13
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -193,20 +187,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 80f9600654717b7f0800000000000000
-      internalID: -596982838872072440
+      spriteID: 3ca7cabab51eaa0f0800000000000000
+      internalID: -1104822974727554365
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Main ship weapon - Projectile - Zapper_3
+      name: Kla'ed - Bomber - Shield_3
       rect:
         serializedVersion: 2
-        x: 108
-        y: 0
-        width: 8
-        height: 32
+        x: 205
+        y: 36
+        width: 38
+        height: 13
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -215,20 +209,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f638643c908639700800000000000000
-      internalID: 545894370982134639
+      spriteID: 2303d956680988a10800000000000000
+      internalID: 1911936948723593266
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Main ship weapon - Projectile - Zapper_4
+      name: Kla'ed - Bomber - Shield_4
       rect:
         serializedVersion: 2
-        x: 140
-        y: 0
-        width: 8
-        height: 32
+        x: 269
+        y: 36
+        width: 38
+        height: 13
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -237,20 +231,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c572598c1a7f8cda0800000000000000
-      internalID: -5924213035578874020
+      spriteID: b06112bcf380faf50800000000000000
+      internalID: 6894738624611423755
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Main ship weapon - Projectile - Zapper_5
+      name: Kla'ed - Bomber - Shield_5
       rect:
         serializedVersion: 2
-        x: 172
-        y: 0
-        width: 8
-        height: 32
+        x: 333
+        y: 36
+        width: 38
+        height: 13
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -259,52 +253,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4908b16bfd2d470b0800000000000000
-      internalID: -5731724567461003116
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Main ship weapon - Projectile - Zapper_6
-      rect:
-        serializedVersion: 2
-        x: 204
-        y: 0
-        width: 8
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: cd81c8c10f3fcb920800000000000000
-      internalID: 3007546863773292764
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Main ship weapon - Projectile - Zapper_7
-      rect:
-        serializedVersion: 2
-        x: 236
-        y: 0
-        width: 8
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: adde63ceeb8a84c10800000000000000
-      internalID: 2038064369345424858
+      spriteID: 5eefab2c69ff707a0800000000000000
+      internalID: -6410874521561399579
       vertices: []
       indices: 
       edges: []
@@ -323,14 +273,12 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Main ship weapon - Projectile - Zapper_0: 1224981832804390656
-      Main ship weapon - Projectile - Zapper_1: 3204600389847400455
-      Main ship weapon - Projectile - Zapper_2: -596982838872072440
-      Main ship weapon - Projectile - Zapper_3: 545894370982134639
-      Main ship weapon - Projectile - Zapper_4: -5924213035578874020
-      Main ship weapon - Projectile - Zapper_5: -5731724567461003116
-      Main ship weapon - Projectile - Zapper_6: 3007546863773292764
-      Main ship weapon - Projectile - Zapper_7: 2038064369345424858
+      Kla'ed - Bomber - Shield_0: 9151069920253735267
+      Kla'ed - Bomber - Shield_1: -7701403790428255198
+      Kla'ed - Bomber - Shield_2: -1104822974727554365
+      Kla'ed - Bomber - Shield_3: 1911936948723593266
+      Kla'ed - Bomber - Shield_4: 6894738624611423755
+      Kla'ed - Bomber - Shield_5: -6410874521561399579
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

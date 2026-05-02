@@ -1,31 +1,34 @@
 fileFormatVersion: 2
-guid: c987d3b8256f1f242b665c5d0dbd7fb3
+guid: bbe00c20158bcbb47a07658f5b68479a
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1224981832804390656
-    second: Main ship weapon - Projectile - Zapper_0
+      213: -4564131210668769047
+    second: Kla'ed - Wave_0
   - first:
-      213: 3204600389847400455
-    second: Main ship weapon - Projectile - Zapper_1
+      213: -4189981823700655040
+    second: Kla'ed - Wave_1
   - first:
-      213: -596982838872072440
-    second: Main ship weapon - Projectile - Zapper_2
+      213: -6686521393948607839
+    second: Kla'ed - Wave_2
   - first:
-      213: 545894370982134639
-    second: Main ship weapon - Projectile - Zapper_3
+      213: 6798621020568410254
+    second: Kla'ed - Wave_3
   - first:
-      213: -5924213035578874020
-    second: Main ship weapon - Projectile - Zapper_4
+      213: 1193329019843643074
+    second: Kla'ed - Wave_4
   - first:
-      213: -5731724567461003116
-    second: Main ship weapon - Projectile - Zapper_5
+      213: -7278474217243644602
+    second: Kla'ed - Wave_5
   - first:
-      213: 3007546863773292764
-    second: Main ship weapon - Projectile - Zapper_6
+      213: 3987913116132364654
+    second: Kla'ed - Wave_6
   - first:
-      213: 2038064369345424858
-    second: Main ship weapon - Projectile - Zapper_7
+      213: 3261019638927942434
+    second: Kla'ed - Wave_7
+  - first:
+      213: -9192571847043950864
+    second: Kla'ed - Wave_8
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -58,7 +61,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -134,13 +137,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Main ship weapon - Projectile - Zapper_0
+      name: Kla'ed - Wave_0
       rect:
         serializedVersion: 2
-        x: 12
-        y: 0
-        width: 8
-        height: 32
+        x: 14
+        y: 26
+        width: 36
+        height: 11
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -149,20 +152,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 007dc989c72000110800000000000000
-      internalID: 1224981832804390656
+      spriteID: 9e080df78d2f8a0c0800000000000000
+      internalID: -4564131210668769047
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Main ship weapon - Projectile - Zapper_1
+      name: Kla'ed - Wave_1
       rect:
         serializedVersion: 2
-        x: 44
-        y: 0
-        width: 8
-        height: 32
+        x: 78
+        y: 24
+        width: 36
+        height: 13
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -171,20 +174,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 700ceeb6317097c20800000000000000
-      internalID: 3204600389847400455
+      spriteID: 044aaf61bb13ad5c0800000000000000
+      internalID: -4189981823700655040
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Main ship weapon - Projectile - Zapper_2
+      name: Kla'ed - Wave_2
       rect:
         serializedVersion: 2
-        x: 76
-        y: 0
-        width: 8
-        height: 32
+        x: 142
+        y: 22
+        width: 36
+        height: 15
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -193,20 +196,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 80f9600654717b7f0800000000000000
-      internalID: -596982838872072440
+      spriteID: 1aab4aa0834b433a0800000000000000
+      internalID: -6686521393948607839
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Main ship weapon - Projectile - Zapper_3
+      name: Kla'ed - Wave_3
       rect:
         serializedVersion: 2
-        x: 108
-        y: 0
-        width: 8
-        height: 32
+        x: 206
+        y: 28
+        width: 36
+        height: 9
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -215,20 +218,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f638643c908639700800000000000000
-      internalID: 545894370982134639
+      spriteID: e88db7d2ccd895e50800000000000000
+      internalID: 6798621020568410254
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Main ship weapon - Projectile - Zapper_4
+      name: Kla'ed - Wave_4
       rect:
         serializedVersion: 2
-        x: 140
-        y: 0
-        width: 8
-        height: 32
+        x: 206
+        y: 22
+        width: 36
+        height: 9
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -237,20 +240,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c572598c1a7f8cda0800000000000000
-      internalID: -5924213035578874020
+      spriteID: 2c602f7cb6e8f8010800000000000000
+      internalID: 1193329019843643074
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Main ship weapon - Projectile - Zapper_5
+      name: Kla'ed - Wave_5
       rect:
         serializedVersion: 2
-        x: 172
-        y: 0
-        width: 8
-        height: 32
+        x: 270
+        y: 28
+        width: 36
+        height: 9
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -259,20 +262,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4908b16bfd2d470b0800000000000000
-      internalID: -5731724567461003116
+      spriteID: 64d6a5e234aadfa90800000000000000
+      internalID: -7278474217243644602
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Main ship weapon - Projectile - Zapper_6
+      name: Kla'ed - Wave_6
       rect:
         serializedVersion: 2
-        x: 204
-        y: 0
-        width: 8
-        height: 32
+        x: 270
+        y: 20
+        width: 36
+        height: 11
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -281,20 +284,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: cd81c8c10f3fcb920800000000000000
-      internalID: 3007546863773292764
+      spriteID: e61d03aa9d9e75730800000000000000
+      internalID: 3987913116132364654
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Main ship weapon - Projectile - Zapper_7
+      name: Kla'ed - Wave_7
       rect:
         serializedVersion: 2
-        x: 236
-        y: 0
-        width: 8
-        height: 32
+        x: 334
+        y: 28
+        width: 36
+        height: 9
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -303,8 +306,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: adde63ceeb8a84c10800000000000000
-      internalID: 2038064369345424858
+      spriteID: 2236fdf7518714d20800000000000000
+      internalID: 3261019638927942434
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kla'ed - Wave_8
+      rect:
+        serializedVersion: 2
+        x: 334
+        y: 18
+        width: 36
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f650b40c9c6d6080800000000000000
+      internalID: -9192571847043950864
       vertices: []
       indices: 
       edges: []
@@ -323,14 +348,15 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Main ship weapon - Projectile - Zapper_0: 1224981832804390656
-      Main ship weapon - Projectile - Zapper_1: 3204600389847400455
-      Main ship weapon - Projectile - Zapper_2: -596982838872072440
-      Main ship weapon - Projectile - Zapper_3: 545894370982134639
-      Main ship weapon - Projectile - Zapper_4: -5924213035578874020
-      Main ship weapon - Projectile - Zapper_5: -5731724567461003116
-      Main ship weapon - Projectile - Zapper_6: 3007546863773292764
-      Main ship weapon - Projectile - Zapper_7: 2038064369345424858
+      Kla'ed - Wave_0: -4564131210668769047
+      Kla'ed - Wave_1: -4189981823700655040
+      Kla'ed - Wave_2: -6686521393948607839
+      Kla'ed - Wave_3: 6798621020568410254
+      Kla'ed - Wave_4: 1193329019843643074
+      Kla'ed - Wave_5: -7278474217243644602
+      Kla'ed - Wave_6: 3987913116132364654
+      Kla'ed - Wave_7: 3261019638927942434
+      Kla'ed - Wave_8: -9192571847043950864
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

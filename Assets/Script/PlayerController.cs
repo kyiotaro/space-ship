@@ -2,15 +2,16 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float speed = 8f;
+    public float speed;
     public GameObject projectilePrefab;
     public int ammo;
-    public float reloadTime = 5f;
+    public float reloadTime = 3f;
     public bool Reload = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        speed = 10f;
         ammo = 6;
     }
 
@@ -46,7 +47,7 @@ public class PlayerController : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.R))
         {
-            speed = 3f;
+            speed = 5f;
             Invoke("ReloadAmmo", reloadTime);
         }
     }
@@ -54,7 +55,7 @@ public class PlayerController : MonoBehaviour
     {     
         ammo = 6;
         Reload = true;
-        speed = 8f;
+        speed = 10f;
         Reload = false;
     }
 }

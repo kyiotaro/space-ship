@@ -1,31 +1,25 @@
 fileFormatVersion: 2
-guid: c987d3b8256f1f242b665c5d0dbd7fb3
+guid: 686762985469e7c4e93318772df7c1c0
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1224981832804390656
-    second: Main ship weapon - Projectile - Zapper_0
+      213: -4968243437462496032
+    second: Kla'ed - Frigate - Weapons_0
   - first:
-      213: 3204600389847400455
-    second: Main ship weapon - Projectile - Zapper_1
+      213: 4307325168427530638
+    second: Kla'ed - Frigate - Weapons_1
   - first:
-      213: -596982838872072440
-    second: Main ship weapon - Projectile - Zapper_2
+      213: -6998670831711484635
+    second: Kla'ed - Frigate - Weapons_2
   - first:
-      213: 545894370982134639
-    second: Main ship weapon - Projectile - Zapper_3
+      213: 5660462278584853985
+    second: Kla'ed - Frigate - Weapons_3
   - first:
-      213: -5924213035578874020
-    second: Main ship weapon - Projectile - Zapper_4
+      213: 1733872414266724719
+    second: Kla'ed - Frigate - Weapons_4
   - first:
-      213: -5731724567461003116
-    second: Main ship weapon - Projectile - Zapper_5
-  - first:
-      213: 3007546863773292764
-    second: Main ship weapon - Projectile - Zapper_6
-  - first:
-      213: 2038064369345424858
-    second: Main ship weapon - Projectile - Zapper_7
+      213: -8001467842335806565
+    second: Kla'ed - Frigate - Weapons_5
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -58,7 +52,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -134,13 +128,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Main ship weapon - Projectile - Zapper_0
+      name: Kla'ed - Frigate - Weapons_0
       rect:
         serializedVersion: 2
-        x: 12
-        y: 0
-        width: 8
-        height: 32
+        x: 13
+        y: 13
+        width: 38
+        height: 41
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -149,20 +143,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 007dc989c72000110800000000000000
-      internalID: 1224981832804390656
+      spriteID: 0ecd160aae04d0bb0800000000000000
+      internalID: -4968243437462496032
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Main ship weapon - Projectile - Zapper_1
+      name: Kla'ed - Frigate - Weapons_1
       rect:
         serializedVersion: 2
-        x: 44
-        y: 0
-        width: 8
-        height: 32
+        x: 77
+        y: 13
+        width: 38
+        height: 41
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -171,20 +165,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 700ceeb6317097c20800000000000000
-      internalID: 3204600389847400455
+      spriteID: e89f8346b61b6cb30800000000000000
+      internalID: 4307325168427530638
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Main ship weapon - Projectile - Zapper_2
+      name: Kla'ed - Frigate - Weapons_2
       rect:
         serializedVersion: 2
-        x: 76
-        y: 0
-        width: 8
-        height: 32
+        x: 141
+        y: 13
+        width: 38
+        height: 41
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -193,20 +187,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 80f9600654717b7f0800000000000000
-      internalID: -596982838872072440
+      spriteID: 52503f785f9bfde90800000000000000
+      internalID: -6998670831711484635
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Main ship weapon - Projectile - Zapper_3
+      name: Kla'ed - Frigate - Weapons_3
       rect:
         serializedVersion: 2
-        x: 108
-        y: 0
-        width: 8
-        height: 32
+        x: 205
+        y: 13
+        width: 38
+        height: 41
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -215,20 +209,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f638643c908639700800000000000000
-      internalID: 545894370982134639
+      spriteID: 1e56c83b3700e8e40800000000000000
+      internalID: 5660462278584853985
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Main ship weapon - Projectile - Zapper_4
+      name: Kla'ed - Frigate - Weapons_4
       rect:
         serializedVersion: 2
-        x: 140
-        y: 0
-        width: 8
-        height: 32
+        x: 269
+        y: 13
+        width: 38
+        height: 41
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -237,20 +231,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c572598c1a7f8cda0800000000000000
-      internalID: -5924213035578874020
+      spriteID: f61973a36c3ff0810800000000000000
+      internalID: 1733872414266724719
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Main ship weapon - Projectile - Zapper_5
+      name: Kla'ed - Frigate - Weapons_5
       rect:
         serializedVersion: 2
-        x: 172
-        y: 0
-        width: 8
-        height: 32
+        x: 333
+        y: 13
+        width: 38
+        height: 41
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -259,52 +253,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4908b16bfd2d470b0800000000000000
-      internalID: -5731724567461003116
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Main ship weapon - Projectile - Zapper_6
-      rect:
-        serializedVersion: 2
-        x: 204
-        y: 0
-        width: 8
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: cd81c8c10f3fcb920800000000000000
-      internalID: 3007546863773292764
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Main ship weapon - Projectile - Zapper_7
-      rect:
-        serializedVersion: 2
-        x: 236
-        y: 0
-        width: 8
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: adde63ceeb8a84c10800000000000000
-      internalID: 2038064369345424858
+      spriteID: b9becd7146315f090800000000000000
+      internalID: -8001467842335806565
       vertices: []
       indices: 
       edges: []
@@ -323,14 +273,12 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Main ship weapon - Projectile - Zapper_0: 1224981832804390656
-      Main ship weapon - Projectile - Zapper_1: 3204600389847400455
-      Main ship weapon - Projectile - Zapper_2: -596982838872072440
-      Main ship weapon - Projectile - Zapper_3: 545894370982134639
-      Main ship weapon - Projectile - Zapper_4: -5924213035578874020
-      Main ship weapon - Projectile - Zapper_5: -5731724567461003116
-      Main ship weapon - Projectile - Zapper_6: 3007546863773292764
-      Main ship weapon - Projectile - Zapper_7: 2038064369345424858
+      Kla'ed - Frigate - Weapons_0: -4968243437462496032
+      Kla'ed - Frigate - Weapons_1: 4307325168427530638
+      Kla'ed - Frigate - Weapons_2: -6998670831711484635
+      Kla'ed - Frigate - Weapons_3: 5660462278584853985
+      Kla'ed - Frigate - Weapons_4: 1733872414266724719
+      Kla'ed - Frigate - Weapons_5: -8001467842335806565
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
