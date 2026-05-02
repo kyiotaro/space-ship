@@ -16,20 +16,15 @@ public class PlayerController : MonoBehaviour
     }
 
     void movement()
-    {
-        Vector3 mousePos = Input.mousePosition;
-        mousePos.z = -Camera.main.transform.position.z;
-        Vector2 targetPos = Camera.main.ScreenToWorldPoint(mousePos);
+    {   
+        Vector2 forward = transform.up;
+        transform.Translate(forward * speed * Time.deltaTime);
 
-        transform.position = Vector2.MoveTowards(transform.position, targetPos, speed * Time.deltaTime);
 
-        Vector3 mouseScreenPos = Input.mousePosition;
-        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(mouseScreenPos);
-
-        Vector2 direction = (mouseWorldPos - transform.position).normalized;
-
+        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 direction = mousePos - transform.position;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
-        transform.rotation = Quaternion.Euler(0, 0, angle - 90f);        
+        transform.rotation = Quaternion.Euler(0, 0, angle);
     }
 }
