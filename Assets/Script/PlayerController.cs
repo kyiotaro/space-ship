@@ -1,65 +1,90 @@
 using UnityEngine;
+using UnityEngine.XR;
 
 public class PlayerController : MonoBehaviour
 {
-    private float speed;
     public GameObject projectilePrefab;
-    public int ammo;
+    public int maxAmmo = 6;
+    public float speed = 10f;
     public float reloadTime = 3f;
-    
-    private bool isReloading = false;
+    public int Ammo => ammo;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    private int ammo;
+    private bool isReloading;
+    private float reloadTimer;
+    private Camera mainCamera;
+
     void Start()
     {
-        speed = 10f;
-        ammo = 6;
+        mainCamera = Camera.main;
+        if (mainCamera == null)
+            mainCamera = GameObject.FindWithTag("MainCamera")?.GetComponent<Camera>();
+
+        ammo = maxAmmo;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        movement();
-        Shot();
-        reload();
-        Debug.Log("Ammo: " + ammo);
+        HandleAiming();
+        HandleShooting();
+        HandleReload();
+        HandleMovement();
     }
 
-    void movement()
-    {   
-        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    void HandleAiming()
+    {
+        if (mainCamera == null)
+        {
+            mainCamera = Camera.main;
+            if (mainCamera == null)
+                return;
+        }
+
+        Vector3 mousePos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+        mousePos.z = 0f;
+
         Vector2 direction = mousePos - transform.position;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-       
         transform.rotation = Quaternion.Euler(0, 0, angle - 90f);
-
-        float forwardInput = Input.GetAxis("Vertical");
-        transform.Translate(Vector2.up * forwardInput * speed * Time.deltaTime);
     }
 
-    void Shot()
+    void HandleShooting()
     {
-        if(Input.GetMouseButtonDown(0) && ammo > 0 && !isReloading)
+        if (isReloading) return;
+
+        if (Input.GetButtonDown("Fire1") && ammo > 0)
         {
             Instantiate(projectilePrefab, transform.position, transform.rotation);
             ammo--;
         }
     }
 
-    void reload()
+    void HandleReload()
     {
-        if(Input.GetKeyDown(KeyCode.R) && !isReloading)
+        if (isReloading)
+        {
+            reloadTimer -= Time.deltaTime;
+            if (reloadTimer <= 0f)
+            {
+                ammo = maxAmmo;
+                isReloading = false;
+            }
+            return;
+        }
+
+        if (Input.GetKeyDown(KeyCode.R) && ammo < maxAmmo)
         {
             isReloading = true;
-            speed = 5f;
-            Invoke("ReloadAmmo", reloadTime);
+            reloadTimer = reloadTime;
         }
     }
 
-    void ReloadAmmo()
-    {     
-        ammo = 6;
-        speed = 10f;
-        isReloading = false;
+    void HandleMovement()
+    {
+        float forwardInput = Input.GetAxis("Vertical");
+        float strafeInput = Input.GetAxis("Horizontal");
+
+        Vector2 move = transform.up * forwardInput + transform.right * strafeInput;
+        transform.Translate(move * speed * Time.deltaTime, Space.World);
     }
 }

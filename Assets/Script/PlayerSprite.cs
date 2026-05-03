@@ -19,7 +19,7 @@ public class PlayerSprite : MonoBehaviour
     {
         for (int i = 0; i < RocketHolder.Length; i++)
         {
-            RocketHolder[i].SetActive(i < playerController.ammo);
+            RocketHolder[i].SetActive(i < playerController.Ammo);
         }
     }
 }

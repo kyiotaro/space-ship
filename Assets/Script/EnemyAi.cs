@@ -12,12 +12,13 @@ public class EnemyAi : MonoBehaviour
     private float speed;
     public float rotationSpeed = 90f;
     private Quaternion targetRotation;
-
+    private Renderer rend;
     private float shootTimer;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        rend = GetComponent<Renderer>();
         speed = 4f;
         shootTimer = Random.Range(3f, 5f);
     }
@@ -25,6 +26,15 @@ public class EnemyAi : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!rend.isVisible)
+        {
+            IsShootingEnabled = false;
+        }
+        else
+        {
+            IsMovementEnabled = true;
+            IsShootingEnabled = true;
+        }
         if (IsShootingEnabled)
         {
             shootTimer -= Time.deltaTime;
