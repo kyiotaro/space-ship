@@ -2,11 +2,12 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float speed;
+    private float speed;
     public GameObject projectilePrefab;
     public int ammo;
     public float reloadTime = 3f;
-    public bool Reload = false;
+    
+    private bool isReloading = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -29,14 +30,16 @@ public class PlayerController : MonoBehaviour
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector2 direction = mousePos - transform.position;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+       
+        transform.rotation = Quaternion.Euler(0, 0, angle - 90f);
 
-        transform.position = Vector2.MoveTowards(transform.position, mousePos, speed * Time.deltaTime);
-        transform.rotation = Quaternion.Euler(0, 0, angle -90f);
+        float forwardInput = Input.GetAxis("Vertical");
+        transform.Translate(Vector2.up * forwardInput * speed * Time.deltaTime);
     }
 
     void Shot()
     {
-        if(Input.GetMouseButtonDown(0) && ammo > 0)
+        if(Input.GetMouseButtonDown(0) && ammo > 0 && !isReloading)
         {
             Instantiate(projectilePrefab, transform.position, transform.rotation);
             ammo--;
@@ -45,17 +48,18 @@ public class PlayerController : MonoBehaviour
 
     void reload()
     {
-        if(Input.GetKeyDown(KeyCode.R))
+        if(Input.GetKeyDown(KeyCode.R) && !isReloading)
         {
+            isReloading = true;
             speed = 5f;
             Invoke("ReloadAmmo", reloadTime);
         }
     }
+
     void ReloadAmmo()
     {     
         ammo = 6;
-        Reload = true;
         speed = 10f;
-        Reload = false;
+        isReloading = false;
     }
 }
