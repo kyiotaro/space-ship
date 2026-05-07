@@ -664,9 +664,6 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: -2253911629886400664, guid: 003a395f6668d7a48b9da94e4615fada, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1192435335060080507}
-    - targetCorrespondingSourceObject: {fileID: -2253911629886400664, guid: 003a395f6668d7a48b9da94e4615fada, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 1023125424887942983}
   m_SourcePrefab: {fileID: -8435245712485981826, guid: 003a395f6668d7a48b9da94e4615fada, type: 3}
 --- !u!1 &8366947944654620996 stripped
@@ -674,22 +671,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: -2253911629886400664, guid: 003a395f6668d7a48b9da94e4615fada, type: 3}
   m_PrefabInstance: {fileID: 1487632099080740396}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1192435335060080507
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8366947944654620996}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1594f7795bc425e47adb1ac413e642ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  projectilePrefab: {fileID: 1673425871937612518, guid: b9ae0014a50dbd747a8e35a39525f11e, type: 3}
-  maxAmmo: 6
-  speed: 10
-  reloadTime: 3
 --- !u!114 &1023125424887942983
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -709,7 +690,7 @@ MonoBehaviour:
   - {fileID: 3779368159184541297}
   - {fileID: 4553485789772668455}
   - {fileID: 3339702845466972567}
-  playerController: {fileID: 1192435335060080507}
+  playerController: {fileID: 0}
 --- !u!4 &8786703591417405729 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7878350319992209165, guid: 003a395f6668d7a48b9da94e4615fada, type: 3}
