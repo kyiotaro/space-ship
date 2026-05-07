@@ -81,10 +81,9 @@ public class PlayerController : MonoBehaviour
 
     void HandleMovement()
     {
-        float forwardInput = Input.GetAxis("Vertical");
-        float strafeInput = Input.GetAxis("Horizontal");
-
-        Vector2 move = transform.up * forwardInput + transform.right * strafeInput;
-        transform.Translate(move * speed * Time.deltaTime, Space.World);
+        if(Input.GetMouseButton(1))
+        {
+            transform.Translate(Vector3.up * speed * Time.deltaTime);
+        }    
     }
 }
