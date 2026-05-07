@@ -3,14 +3,14 @@ using UnityEngine;
 public class EnemyAi : MonoBehaviour
 {
     public GameObject laserPrefab;
-    public GameObject player;
+    private GameObject player;
     public int segment = 10;
     public float space = 1.6f;
     public float start = 1f;
     public bool IsMovementEnabled = true;
     public bool IsShootingEnabled = true;
-    private float speed;
-    public float rotationSpeed = 90f;
+    public float speed;
+    public float rotationSpeed = 180f;
     private Quaternion targetRotation;
     private Renderer rend;
     private float shootTimer;
@@ -18,6 +18,7 @@ public class EnemyAi : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        player = GameObject.FindWithTag("Player");
         rend = GetComponent<Renderer>();
         speed = 4f;
         shootTimer = Random.Range(3f, 5f);
@@ -79,7 +80,7 @@ public class EnemyAi : MonoBehaviour
     }
     void Movement()
     {   
-        if (player == null) return;
+        
 
         //face the player
         Vector3 direction = player.transform.position - transform.position;

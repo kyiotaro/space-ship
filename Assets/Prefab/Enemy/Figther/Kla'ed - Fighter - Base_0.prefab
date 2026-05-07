@@ -111,4 +111,5 @@ MonoBehaviour:
   start: 1
   IsMovementEnabled: 1
   IsShootingEnabled: 1
+  speed: 0
   rotationSpeed: 90
