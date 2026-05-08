@@ -10,10 +10,14 @@ public class EnemyAi : MonoBehaviour
     public bool IsMovementEnabled = true;
     public bool IsShootingEnabled = true;
     public float speed;
-    public float rotationSpeed = 180f;
+    public float rotationSpeed = 200f;
     private Quaternion targetRotation;
     private Renderer rend;
     private float shootTimer;
+    private Vector2 velocity;
+    public float thrustForce = 7f;
+    public float damping = 0.99f;
+    public float maxSpeed = 8f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -80,17 +84,25 @@ public class EnemyAi : MonoBehaviour
     }
     void Movement()
     {   
-        
-
         //face the player
         Vector3 direction = player.transform.position - transform.position;
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        targetRotation = Quaternion.Euler(0, 0, angle - 90f);
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
+        targetRotation = Quaternion.Euler(0, 0, angle);
 
         transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
 
 
         //move towards the player
-        transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
+        Vector2 forward = transform.up;
+        
+        velocity += forward * thrustForce * Time.deltaTime;
+        velocity *= damping;
+
+        if (velocity.magnitude > maxSpeed)
+        {
+            velocity = velocity.normalized * maxSpeed;
+        }
+        
+        transform.position += (Vector3)velocity * Time.deltaTime;
     }
 }
