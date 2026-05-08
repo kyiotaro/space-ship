@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - Lasser
+  - Bullet
   layers:
   - Default
   - TransparentFX
