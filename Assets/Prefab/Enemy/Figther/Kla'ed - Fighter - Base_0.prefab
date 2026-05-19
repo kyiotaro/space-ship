@@ -104,8 +104,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de1b1362639dbf74093d51bf051229c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAi
-  laserPrefab: {fileID: 1130041129884593395, guid: 94437e229419b49488cd94af235bc6b0, type: 3}
-  player: {fileID: 0}
+  bulletPrefab: {fileID: 7114540553049302992, guid: befbc013e8fcde3428f6973d53ca07db, type: 3}
   segment: 10
   space: 1.6
   start: 1
@@ -113,3 +112,6 @@ MonoBehaviour:
   IsShootingEnabled: 1
   speed: 0
   rotationSpeed: 90
+  thrustForce: 7
+  damping: 0.99
+  maxSpeed: 8
