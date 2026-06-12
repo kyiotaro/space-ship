@@ -60,11 +60,6 @@ public class EnemyAi : MonoBehaviour
         Instantiate(bulletPrefab, transform.position, transform.rotation);
     }
 
-    void EnableMovement()
-    {
-        IsMovementEnabled = true;
-    }
-
     void Movement()
     {   
         //face the player
@@ -88,14 +83,4 @@ public class EnemyAi : MonoBehaviour
         
         transform.position += (Vector3)velocity * Time.deltaTime;
     }
-
-    void OnTriggerEnter2D(Collider2D collision)
-    {
-        Debug.Log("Collided with: " + collision.gameObject.name);
-        if (collision.gameObject.CompareTag("Bullet"))
-        {
-            Destroy(gameObject);
-            Debug.Log("Hit!");
-        }
-     }
 }

@@ -1,8 +1,9 @@
 using UnityEngine;
 
-public class PlayerBullet : MonoBehaviour
+public class EnemyBullet : MonoBehaviour
 {
     private float speed;
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         speed = 20f;
@@ -23,10 +24,10 @@ public class PlayerBullet : MonoBehaviour
     {   
         Debug.Log("Has Collided");
         Debug.Log("Collided with: " + collision.gameObject.name);
-        if (collision.gameObject.CompareTag("Enemy"))
+        if (collision.gameObject.CompareTag("Player"))
         {
             Destroy(gameObject);
             Debug.Log("Hit!");
         }
-    }
+    }    
 }
