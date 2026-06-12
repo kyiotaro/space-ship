@@ -107,7 +107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf7ff68befbf9244a8900d7c82edb242, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHit
-  health: 100
+  maxhealth: 100
 --- !u!114 &8485696462363252550
 MonoBehaviour:
   m_ObjectHideFlags: 0

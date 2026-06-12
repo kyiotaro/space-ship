@@ -21,12 +21,9 @@ public class PlayerBullet : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {   
-        Debug.Log("Has Collided");
-        Debug.Log("Collided with: " + collision.gameObject.name);
         if (collision.gameObject.CompareTag("Enemy"))
         {
             Destroy(gameObject);
-            Debug.Log("Hit!");
         }
     }
 }

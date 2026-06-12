@@ -2,11 +2,12 @@ using UnityEngine;
 
 public class EnemyHit : MonoBehaviour
 {
-    public float health;
+    public float maxhealth;
+    public float currenthealth;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        currenthealth = maxhealth;
     }
 
     // Update is called once per frame
@@ -17,10 +18,10 @@ public class EnemyHit : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {   
-        if (collision.gameObject.CompareTag("Bullet"))
+        if (collision.gameObject.CompareTag("Player_Bullet"))
         {
-            health -= 10f;
-            if (health <= 0)
+            currenthealth -= 10f;
+            if (currenthealth <= 0)
             {
                 Destroy(gameObject);
             }

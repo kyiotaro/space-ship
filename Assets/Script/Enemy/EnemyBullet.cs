@@ -22,12 +22,9 @@ public class EnemyBullet : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {   
-        Debug.Log("Has Collided");
-        Debug.Log("Collided with: " + collision.gameObject.name);
         if (collision.gameObject.CompareTag("Player"))
         {
             Destroy(gameObject);
-            Debug.Log("Hit!");
         }
     }    
 }
