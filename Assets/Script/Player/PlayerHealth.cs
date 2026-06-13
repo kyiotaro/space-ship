@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class PlayerHealth : MonoBehaviour
 {
     public Slider healthBar;
-
+    public GameOver gameOver;
     public float maxHealth;
     public float currentHealth;
 
@@ -28,7 +28,7 @@ public class PlayerHealth : MonoBehaviour
             currentHealth -= 10f;
             if (currentHealth <= 0)
             {
-                Debug.Log("Game Over!");
+                gameOver.setup();
             }
         }
     }

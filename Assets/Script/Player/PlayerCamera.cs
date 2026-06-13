@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class FollowPlayer : MonoBehaviour
+public class PlayerCamera : MonoBehaviour
 {
     public float leadStrength = 0.3f; // seberapa jauh kamera geser ke cursor (0-1)
     public float smoothSpeed = 5f;    // seberapa smooth pergerakan kamera

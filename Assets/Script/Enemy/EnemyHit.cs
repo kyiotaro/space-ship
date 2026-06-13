@@ -23,6 +23,7 @@ public class EnemyHit : MonoBehaviour
             currenthealth -= 10f;
             if (currenthealth <= 0)
             {
+                Score.instance.AddScore(10);
                 Destroy(gameObject);
             }
         }
