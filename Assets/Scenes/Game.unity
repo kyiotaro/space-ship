@@ -159,10 +159,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 83bee4fe4dbdbdd48b0f39ad3b9ba3ee, type: 3}
-    m_FontSize: 48
+    m_FontSize: 18
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 4
+    m_MinSize: 1
     m_MaxSize: 76
     m_Alignment: 1
     m_AlignByGeometry: 0
@@ -195,8 +195,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 407}
-  m_SizeDelta: {x: 415.9536, y: 93.9884}
+  m_AnchoredPosition: {x: 0, y: 116.57}
+  m_SizeDelta: {x: 105.2674, y: 22.9816}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &76413337
 GameObject:
@@ -542,10 +542,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 83bee4fe4dbdbdd48b0f39ad3b9ba3ee, type: 3}
-    m_FontSize: 76
+    m_FontSize: 28
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 5
+    m_MinSize: 2
     m_MaxSize: 76
     m_Alignment: 1
     m_AlignByGeometry: 0
@@ -578,8 +578,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 463}
-  m_SizeDelta: {x: 415.9536, y: 93.9884}
+  m_AnchoredPosition: {x: 0.0000095367, y: 144.28}
+  m_SizeDelta: {x: 135.3213, y: 32.4465}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &248244825
 GameObject:
@@ -698,7 +698,7 @@ RectTransform:
   m_GameObject: {fileID: 268271321}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 622340822}
@@ -708,7 +708,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -688, y: -510}
+  m_AnchoredPosition: {x: -199, y: -144}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &268271323
@@ -1683,8 +1683,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -4.8655, y: -106.41742}
-  m_SizeDelta: {x: 724.3982, y: 97.4043}
+  m_AnchoredPosition: {x: -4.8655, y: -52.364}
+  m_SizeDelta: {x: 155.0912, y: 27.3757}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1321598040
 MonoBehaviour:
@@ -1708,7 +1708,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 83bee4fe4dbdbdd48b0f39ad3b9ba3ee, type: 3}
-    m_FontSize: 58
+    m_FontSize: 24
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -1928,7 +1928,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1641470236
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2684,8 +2684,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -4.8655, y: -0.000015259}
-  m_SizeDelta: {x: 724.3982, y: 250.5695}
+  m_AnchoredPosition: {x: -4.8655, y: -0.0000019073}
+  m_SizeDelta: {x: 282.5008, y: 77.352}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2128778759
 MonoBehaviour:
@@ -2709,7 +2709,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 83bee4fe4dbdbdd48b0f39ad3b9ba3ee, type: 3}
-    m_FontSize: 198
+    m_FontSize: 72
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -2848,11 +2848,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8786703591417405729, guid: 7dfc71a16a9cf4945a4a587c03d7aee3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.06
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8786703591417405729, guid: 7dfc71a16a9cf4945a4a587c03d7aee3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.98
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8786703591417405729, guid: 7dfc71a16a9cf4945a4a587c03d7aee3, type: 3}
       propertyPath: m_LocalPosition.z
