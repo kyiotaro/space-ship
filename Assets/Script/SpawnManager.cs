@@ -5,7 +5,6 @@ public class SpawnManager : MonoBehaviour
 {
     public GameObject[] enemyPrefab;
     public GameObject CameraPos;
-    private GameObject[] spawnedEnemies;
     private int enemyCount;
     private int maxEnemy;
     private int targetScore;
@@ -18,20 +17,19 @@ public class SpawnManager : MonoBehaviour
         targetScore = 30;
         maxEnemy = 1;
         Debug.Log("Max Enemy: " + maxEnemy);
-        spawnedEnemies = GameObject.FindGameObjectsWithTag("Enemy");
-        enemyCount = spawnedEnemies.Length;
+        enemyCount = GameObject.FindGameObjectsWithTag("Enemy").Length;
         SpawnEnemy();
     }
 
     // Update is called once per frame
     void Update()
     {
+        transform.position = new Vector3(CameraPos.transform.position.x, CameraPos.transform.position.y + 10, transform.position.z);
         spawnTimer += Time.deltaTime;
         if (spawnTimer >= spawnInterval && enemyCount < maxEnemy)
         {
-            spawnTimer = 0f;
+            spawnTimer = 0f;           
             SpawnEnemy();
-            Debug.Log("Enemy count: " + enemyCount);
         }
 
         if (Score.instance.score == targetScore && Score.instance.score > 0)
@@ -39,9 +37,7 @@ public class SpawnManager : MonoBehaviour
             maxEnemy += 1;
             Debug.Log("Max Enemy: " + maxEnemy);   
             targetScore += 30;
-        }
-
-        
+        }    
     }
 
     void SpawnEnemy()
