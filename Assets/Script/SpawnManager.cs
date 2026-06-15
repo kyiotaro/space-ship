@@ -17,13 +17,13 @@ public class SpawnManager : MonoBehaviour
         targetScore = 30;
         maxEnemy = 1;
         Debug.Log("Max Enemy: " + maxEnemy);
-        enemyCount = GameObject.FindGameObjectsWithTag("Enemy").Length;
         SpawnEnemy();
     }
 
     // Update is called once per frame
     void Update()
     {
+        enemyCount = GameObject.FindGameObjectsWithTag("Enemy").Length;
         transform.position = new Vector3(CameraPos.transform.position.x, CameraPos.transform.position.y + 10, transform.position.z);
         spawnTimer += Time.deltaTime;
         if (spawnTimer >= spawnInterval && enemyCount < maxEnemy)

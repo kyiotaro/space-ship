@@ -10,9 +10,9 @@ public class PlayerController : MonoBehaviour
     public float reloadTime;
 
     [Header("Movement")]
-    public float thrustForce = 10f;
-    public float damping = 0.99f;
-    public float maxSpeed = 12f;
+    public float thrustForce = 25f;
+    public float damping = 0.995f;
+    public float maxSpeed = 14f;
 
     [Header("Rotation")]
     public float rotationSpeed = 200f;

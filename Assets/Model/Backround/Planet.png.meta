@@ -5,6 +5,12 @@ TextureImporter:
   - first:
       213: 8016960355062802271
     second: Planet_0
+  - first:
+      213: 1095573800834144694
+    second: Planet_1
+  - first:
+      213: 7546481892259325517
+    second: Planet_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -75,7 +81,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -116,10 +122,10 @@ TextureImporter:
       name: Planet_0
       rect:
         serializedVersion: 2
-        x: 124
-        y: 1861
-        width: 43
-        height: 43
+        x: 34
+        y: 151
+        width: 42
+        height: 42
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -130,6 +136,50 @@ TextureImporter:
       bones: []
       spriteID: f5768ed97f6f14f60800000000000000
       internalID: 8016960355062802271
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Planet_1
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 111
+        width: 23
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6b991f73192443f00800000000000000
+      internalID: 1095573800834144694
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Planet_2
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 3
+        width: 44
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d46e80c4c4d7ab860800000000000000
+      internalID: 7546481892259325517
       vertices: []
       indices: 
       edges: []
@@ -149,6 +199,8 @@ TextureImporter:
       entries: []
     nameFileIdTable:
       Planet_0: 8016960355062802271
+      Planet_1: 1095573800834144694
+      Planet_2: 7546481892259325517
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

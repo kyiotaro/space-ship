@@ -613,19 +613,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7878350319992209165, guid: 003a395f6668d7a48b9da94e4615fada, type: 3}
       propertyPath: m_LocalScale.x
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7878350319992209165, guid: 003a395f6668d7a48b9da94e4615fada, type: 3}
       propertyPath: m_LocalScale.y
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7878350319992209165, guid: 003a395f6668d7a48b9da94e4615fada, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.06
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7878350319992209165, guid: 003a395f6668d7a48b9da94e4615fada, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.98
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7878350319992209165, guid: 003a395f6668d7a48b9da94e4615fada, type: 3}
       propertyPath: m_LocalPosition.z
@@ -718,7 +718,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   projectilePrefab: {fileID: 1673425871937612518, guid: b9ae0014a50dbd747a8e35a39525f11e, type: 3}
   maxAmmo: 6
-  reloadTime: 3
+  reloadTime: 5
   thrustForce: 10
   damping: 0.995
   maxSpeed: 12
