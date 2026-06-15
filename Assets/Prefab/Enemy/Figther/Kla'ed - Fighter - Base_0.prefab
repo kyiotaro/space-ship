@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8485696462363252550}
   - component: {fileID: 2163584694841656429}
   - component: {fileID: 2401598973562314211}
+  - component: {fileID: 6061715260952155280}
   m_Layer: 0
   m_Name: Kla'ed - Fighter - Base_0
   m_TagString: Enemy
@@ -205,3 +206,17 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
+--- !u!114 &6061715260952155280
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 45304726155840080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14161f39ca8000b47806bb61378b97d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HitEffect
+  flashMaterial: {fileID: 2100000, guid: 663e95abdb79fbe4981c7ee96d06c8d6, type: 2}
+  flashDuration: 0.1

@@ -10,10 +10,13 @@ public class PlayerHealth : MonoBehaviour
     private float respawnTime = 3f;
     private float respawnTimer;
 
+    private HitEffect hitEffect;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         currentHealth = maxHealth;
+        hitEffect = GetComponent<HitEffect>();
     }
 
     // Update is called once per frame
@@ -28,6 +31,12 @@ public class PlayerHealth : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy_Bullet"))
         {
             currentHealth -= 10f;
+            
+            if (hitEffect != null)
+            {
+                hitEffect.Play();
+            }
+
             if (currentHealth <= 0)
             {
                 gameOver.setup(true);
