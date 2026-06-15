@@ -6,8 +6,8 @@ public class PlayerController : MonoBehaviour
 {
     [Header("Shooting")]
     public GameObject projectilePrefab;
-    public int maxAmmo = 6;
-    public float reloadTime = 3f;
+    public int maxAmmo;
+    public float reloadTime;
 
     [Header("Movement")]
     public float thrustForce = 10f;
@@ -19,7 +19,6 @@ public class PlayerController : MonoBehaviour
 
     // Private variables
     private int ammo;
-    private bool isReloading;
     private float reloadTimer;
     private Camera mainCamera;
     private Vector2 velocity;
@@ -40,7 +39,7 @@ public class PlayerController : MonoBehaviour
         HandleAiming();
         HandleMovement();
         HandleShooting();
-        HandleReload();       
+        HandleReload();
     }
 
     void HandleAiming()
@@ -67,7 +66,6 @@ public class PlayerController : MonoBehaviour
 
     void HandleShooting()
     {
-        if (isReloading) return;
 
         if (Input.GetButtonDown("Fire1") && ammo > 0)
         {
@@ -77,22 +75,12 @@ public class PlayerController : MonoBehaviour
     }
 
     void HandleReload()
-    {
-        if (isReloading)
+    {   
+        reloadTimer += Time.deltaTime;
+        if (reloadTimer >= reloadTime)
         {
-            reloadTimer -= Time.deltaTime;
-            if (reloadTimer <= 0f)
-            {
-                ammo = maxAmmo;
-                isReloading = false;
-            }
-            return;
-        }
-
-        if (Input.GetKeyDown(KeyCode.R) && ammo < maxAmmo)
-        {
-            isReloading = true;
-            reloadTimer = reloadTime;
+            ammo = maxAmmo;
+            reloadTimer = 0f;
         }
     }
 

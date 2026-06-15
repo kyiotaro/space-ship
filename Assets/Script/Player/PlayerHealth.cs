@@ -7,6 +7,8 @@ public class PlayerHealth : MonoBehaviour
     public GameOver gameOver;
     public float maxHealth;
     public float currentHealth;
+    private float respawnTime = 3f;
+    private float respawnTimer;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -28,7 +30,12 @@ public class PlayerHealth : MonoBehaviour
             currentHealth -= 10f;
             if (currentHealth <= 0)
             {
-                gameOver.setup();
+                gameOver.setup(true);
+                respawnTimer += Time.deltaTime;
+                if (respawnTimer >= respawnTime)
+                {
+                    respawnTimer = 0f;
+                }
             }
         }
     }
