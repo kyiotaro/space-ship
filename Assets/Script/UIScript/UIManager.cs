@@ -7,7 +7,6 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         Time.timeScale = 1;
-        UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
     }
 
     void Update()
@@ -27,6 +26,12 @@ public class UIManager : MonoBehaviour
     {
         Time.timeScale = 1;
         UnityEngine.SceneManagement.SceneManager.LoadScene("Game");
+        pauseMenu.SetActive(false);
+    }
+    public void onHomeButtonClicked()
+    {
+        Time.timeScale = 1;
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Home");
         pauseMenu.SetActive(false);
     }
 }
