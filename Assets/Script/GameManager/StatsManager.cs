@@ -1,32 +1,47 @@
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 public class StatsManager : MonoBehaviour
 {
-    private
-     float Health;
-    public float maxHealth;
-    public float Attack;
-    public float Defense;
-    public float Speed;
-
+    [Header("UI")]
     public TextMeshProUGUI HealthText;
     public TextMeshProUGUI AttackText;
     public TextMeshProUGUI DefenseText;
     public TextMeshProUGUI SpeedText;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+
+    private PlayerStats playerStats;
+
+    private void Start()
     {
-        Health = maxHealth;
+        playerStats = PlayerStats.Instance;
+        if (playerStats == null)
+        {
+            playerStats = GetComponent<PlayerStats>();
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        HealthText.text = "Health: " + Health.ToString() + "/" + maxHealth.ToString();
-        AttackText.text = "Attack: " + Attack.ToString();
-        DefenseText.text = "Defense: " + Defense.ToString();
-        SpeedText.text = "Speed: " + Speed.ToString();
+        if (playerStats == null) return;
 
+        if (HealthText != null)
+        {
+            HealthText.text = "Health: " + playerStats.Health.ToString("F0") + "/" + playerStats.MaxHealth.ToString("F0");
+        }
+
+        if (AttackText != null)
+        {
+            AttackText.text = "Attack: " + playerStats.Attack.ToString("F0");
+        }
+
+        if (DefenseText != null)
+        {
+            DefenseText.text = "Defense: " + playerStats.Defense.ToString("F0");
+        }
+
+        if (SpeedText != null)
+        {
+            SpeedText.text = "Speed: " + playerStats.Speed.ToString("F0");
+        }
     }
 }
