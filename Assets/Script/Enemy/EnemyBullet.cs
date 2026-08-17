@@ -2,17 +2,17 @@ using UnityEngine;
 
 public class EnemyBullet : MonoBehaviour
 {
-    private float speed;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [SerializeField] private float moveSpeed = 20f;
+    [SerializeField] private float damage = 10f;
+
+    public void SetDamage(float amount)
     {
-        speed = 20f;
+        damage = amount;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        transform.Translate(Vector3.up * speed * Time.deltaTime);
+        transform.Translate(Vector3.up * moveSpeed * Time.deltaTime);
     }
 
     void OnBecameInvisible()
@@ -21,10 +21,12 @@ public class EnemyBullet : MonoBehaviour
     }
 
     void OnTriggerEnter2D(Collider2D collision)
-    {   
+    {
         if (collision.gameObject.CompareTag("Player"))
         {
+            // Deal damage to player
+            PlayerStats.Instance?.TakeDamage(damage);
             Destroy(gameObject);
         }
-    }    
+    }
 }

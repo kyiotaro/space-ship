@@ -1,18 +1,16 @@
 using Unity.Mathematics;
 using UnityEngine;
 
-
 public class PlayerController : MonoBehaviour
 {
     [Header("Shooting")]
     public GameObject projectilePrefab;
-    public int maxAmmo;
-    public float reloadTime;
+    public int maxAmmo = 6;
+    public float reloadTime = 2f;
 
-    [Header("Movement")]
+    [Header("Movement Base")]
     public float thrustForce = 25f;
     public float damping = 0.995f;
-    public float maxSpeed = 14f;
 
     [Header("Rotation")]
     public float rotationSpeed = 200f;
@@ -23,14 +21,19 @@ public class PlayerController : MonoBehaviour
     private Camera mainCamera;
     private Vector2 velocity;
 
-    // Public getter untuk Ammo (dipakai PlayerSprite.cs)
+    // Cached reference
+    private PlayerStats stats;
+
+    // Public getter for Ammo (used by PlayerSprite.cs)
     public int Ammo => ammo;
+
     void Start()
     {
         mainCamera = Camera.main;
         if (mainCamera == null)
             mainCamera = GameObject.FindWithTag("MainCamera")?.GetComponent<Camera>();
 
+        stats = PlayerStats.Instance;
         ammo = maxAmmo;
     }
 
@@ -66,16 +69,22 @@ public class PlayerController : MonoBehaviour
 
     void HandleShooting()
     {
-
         if (Input.GetButtonDown("Fire1") && ammo > 0)
         {
-            Instantiate(projectilePrefab, transform.position, transform.rotation);
+            GameObject bullet = Instantiate(projectilePrefab, transform.position, transform.rotation);
+
+            // Pass attack damage to the bullet
+            if (bullet.TryGetComponent<PlayerBullet>(out var playerBullet))
+            {
+                playerBullet.SetDamage(stats != null ? stats.Attack : 10f);
+            }
+
             ammo--;
         }
     }
 
     void HandleReload()
-    {   
+    {
         reloadTimer += Time.deltaTime;
         if (reloadTimer >= reloadTime)
         {
@@ -88,17 +97,17 @@ public class PlayerController : MonoBehaviour
     {
         Vector2 forward = transform.up;
 
-        if(Input.GetMouseButton(1))
+        if (Input.GetMouseButton(1))
         {
             velocity += forward * thrustForce * Time.deltaTime;
         }
         velocity *= damping;
 
-        if (velocity.magnitude > maxSpeed)
+        if (velocity.magnitude > PlayerStats.Instance.TopSpeed)
         {
-            velocity = velocity.normalized * maxSpeed;
+            velocity = velocity.normalized * PlayerStats.Instance.TopSpeed;
         }
-        
+
         transform.position += (Vector3)velocity * Time.deltaTime;
     }
 }

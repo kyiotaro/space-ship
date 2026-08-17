@@ -2,16 +2,17 @@ using UnityEngine;
 
 public class PlayerBullet : MonoBehaviour
 {
-    private float speed;
-    void Start()
+    [SerializeField] private float moveSpeed = 20f;
+    private float damage = 10f;
+
+    public void SetDamage(float amount)
     {
-        speed = 20f;
+        damage = amount;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        transform.Translate(Vector3.up * speed * Time.deltaTime);
+        transform.Translate(Vector3.up * moveSpeed * Time.deltaTime);
     }
 
     void OnBecameInvisible()
@@ -20,9 +21,15 @@ public class PlayerBullet : MonoBehaviour
     }
 
     void OnTriggerEnter2D(Collider2D collision)
-    {   
+    {
         if (collision.gameObject.CompareTag("Enemy"))
         {
+            // Deal damage to enemy
+            if (collision.TryGetComponent<EnemyHit>(out var enemy))
+            {
+                enemy.TakeDamage(damage);
+            }
+
             Destroy(gameObject);
         }
     }

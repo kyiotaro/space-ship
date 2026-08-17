@@ -9,7 +9,6 @@ public class PlayerHealth : MonoBehaviour
 
     [Header("Respawn")]
     [SerializeField] private float respawnTime = 3f;
-    [SerializeField] private float damageAmount = 10f;
 
     private float respawnTimer;
     private bool isDead;
@@ -21,18 +20,42 @@ public class PlayerHealth : MonoBehaviour
         playerStats = PlayerStats.Instance;
         if (playerStats == null)
         {
-            playerStats = GetComponent<PlayerStats>();
-        }
-
-        if (playerStats != null)
-        {
-            playerStats.ResetStats();
+            Debug.LogError("PlayerHealth: PlayerStats.Instance is null!");
+            enabled = false;
+            return;
         }
 
         hitEffect = GetComponent<HitEffect>();
+
+        // Subscribe to events
+        playerStats.OnHealthChanged += UpdateHealthBar;
+        playerStats.OnDied += HandleDeath;
+
+        UpdateHealthBar();
+    }
+
+    private void OnDestroy()
+    {
+        if (playerStats != null)
+        {
+            playerStats.OnHealthChanged -= UpdateHealthBar;
+            playerStats.OnDied -= HandleDeath;
+        }
     }
 
     private void Update()
+    {
+        if (isDead)
+        {
+            respawnTimer += Time.deltaTime;
+            if (respawnTimer >= respawnTime)
+            {
+                Respawn();
+            }
+        }
+    }
+
+    private void UpdateHealthBar()
     {
         if (healthBar != null && playerStats != null)
         {
@@ -40,39 +63,27 @@ public class PlayerHealth : MonoBehaviour
             healthBar.value = playerStats.Health;
         }
 
-        if (isDead)
-        {
-            respawnTimer += Time.deltaTime;
-            if (respawnTimer >= respawnTime)
-            {
-                respawnTimer = 0f;
-                isDead = false;
-                if (playerStats != null)
-                {
-                    playerStats.ResetStats();
-                }
-            }
-        }
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (!collision.CompareTag("Enemy_Bullet")) return;
-
-        if (playerStats != null)
-        {
-            playerStats.TakeDamage(damageAmount);
-        }
-
-        if (hitEffect != null)
+        // Play hit effect whenever health changes (damage taken)
+        if (hitEffect != null && playerStats != null && playerStats.Health > 0f)
         {
             hitEffect.Play();
         }
+    }
 
-        if (playerStats != null && playerStats.Health <= 0f && !isDead)
+    private void HandleDeath()
+    {
+        if (!isDead)
         {
             isDead = true;
             gameOver?.setup(true);
         }
+    }
+
+    private void Respawn()
+    {
+        respawnTimer = 0f;
+        isDead = false;
+        playerStats?.ResetStats();
+        gameOver?.setup(false);
     }
 }

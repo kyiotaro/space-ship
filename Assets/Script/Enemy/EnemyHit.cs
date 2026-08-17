@@ -2,39 +2,34 @@ using UnityEngine;
 
 public class EnemyHit : MonoBehaviour
 {
-    public float maxhealth;
-    public float currenthealth;
+    [SerializeField] private float maxHealth = 30f;
+    private float currentHealth;
     private HitEffect hitEffect;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        currenthealth = maxhealth;
+        currentHealth = maxHealth;
         hitEffect = GetComponent<HitEffect>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void TakeDamage(float amount)
     {
-        
+        currentHealth -= amount;
+
+        if (hitEffect != null)
+        {
+            hitEffect.Play();
+        }
+
+        if (currentHealth <= 0f)
+        {
+            Die();
+        }
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
-    {   
-        if (collision.gameObject.CompareTag("Player_Bullet"))
-        {
-            currenthealth -= 10f;
-            
-            if (hitEffect != null)
-            {
-                hitEffect.Play();
-            }
-
-            if (currenthealth <= 0)
-            {
-                Score.instance.AddScore(10);
-                Destroy(gameObject);
-            }
-        }
+    private void Die()
+    {
+        Score.instance?.AddScore(10);
+        Destroy(gameObject);
     }
 }

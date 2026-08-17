@@ -16,32 +16,47 @@ public class StatsManager : MonoBehaviour
         playerStats = PlayerStats.Instance;
         if (playerStats == null)
         {
-            playerStats = GetComponent<PlayerStats>();
+            Debug.LogError("StatsManager: PlayerStats.Instance is null!");
+            enabled = false;
+            return;
+        }
+
+        playerStats.OnHealthChanged += UpdateHealthUI;
+        playerStats.OnStatsChanged += UpdateStatsUI;
+
+        // Initial update
+        UpdateHealthUI();
+        UpdateStatsUI();
+    }
+
+    private void OnDestroy()
+    {
+        if (playerStats != null)
+        {
+            playerStats.OnHealthChanged -= UpdateHealthUI;
+            playerStats.OnStatsChanged -= UpdateStatsUI;
         }
     }
 
-    private void Update()
+    private void UpdateHealthUI()
+    {
+        if (HealthText != null && playerStats != null)
+        {
+            HealthText.text = $"Health: {playerStats.Health:F0}/{playerStats.MaxHealth:F0}";
+        }
+    }
+
+    private void UpdateStatsUI()
     {
         if (playerStats == null) return;
 
-        if (HealthText != null)
-        {
-            HealthText.text = "Health: " + playerStats.Health.ToString("F0") + "/" + playerStats.MaxHealth.ToString("F0");
-        }
-
         if (AttackText != null)
-        {
-            AttackText.text = "Attack: " + playerStats.Attack.ToString("F0");
-        }
+            AttackText.text = $"Attack: {playerStats.Attack:F0}";
 
         if (DefenseText != null)
-        {
-            DefenseText.text = "Defense: " + playerStats.Defense.ToString("F0");
-        }
+            DefenseText.text = $"Defense: {playerStats.Defense:F0}";
 
         if (SpeedText != null)
-        {
-            SpeedText.text = "Speed: " + playerStats.Speed.ToString("F0");
-        }
+            SpeedText.text = $"Speed: {playerStats.TopSpeed:F0}";
     }
 }

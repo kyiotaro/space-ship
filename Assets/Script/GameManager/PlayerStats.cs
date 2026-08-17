@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
@@ -9,12 +10,29 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] private float health = 100f;
     [SerializeField] private float attack = 10f;
     [SerializeField] private float defense = 5f;
-    [SerializeField] private float speed = 5f;
+    [SerializeField] private float topSpeed = 5f;
+
+    // Events — anything that cares about stats subscribes here
+    public event Action OnHealthChanged;
+    public event Action OnDied;
+    public event Action OnStatsChanged;
 
     public float Health
     {
         get => health;
-        private set => health = Mathf.Clamp(value, 0f, maxHealth);
+        private set
+        {
+            float previous = health;
+            health = Mathf.Clamp(value, 0f, maxHealth);
+            if (!Mathf.Approximately(previous, health))
+            {
+                OnHealthChanged?.Invoke();
+                if (previous > health)
+                    OnStatsChanged?.Invoke(); // took damage
+            }
+            if (health <= 0f && previous > 0f)
+                OnDied?.Invoke();
+        }
     }
 
     public float MaxHealth => maxHealth;
@@ -22,19 +40,19 @@ public class PlayerStats : MonoBehaviour
     public float Attack
     {
         get => attack;
-        set => attack = Mathf.Max(0f, value);
+        set { attack = Mathf.Max(0f, value); OnStatsChanged?.Invoke(); }
     }
 
     public float Defense
     {
         get => defense;
-        set => defense = Mathf.Max(0f, value);
+        set { defense = Mathf.Max(0f, value); OnStatsChanged?.Invoke(); }
     }
 
-    public float Speed
+    public float TopSpeed
     {
-        get => speed;
-        set => speed = Mathf.Max(0f, value);
+        get => topSpeed;
+        set { topSpeed = Mathf.Max(0f, value); OnStatsChanged?.Invoke(); }
     }
 
     private void Awake()
@@ -51,7 +69,8 @@ public class PlayerStats : MonoBehaviour
 
     public void TakeDamage(float amount)
     {
-        Health -= Mathf.Max(0f, amount);
+        float reduced = Mathf.Max(0f, amount - Defense);
+        Health -= reduced;
     }
 
     public void Heal(float amount)
@@ -62,5 +81,6 @@ public class PlayerStats : MonoBehaviour
     public void ResetStats()
     {
         Health = maxHealth;
+        OnStatsChanged?.Invoke();
     }
 }
