@@ -3,6 +3,7 @@ using UnityEngine;
 public class EnemyHit : MonoBehaviour
 {
     [SerializeField] private float maxHealth = 30f;
+    [SerializeField] private int expValue = 20;
     private float currentHealth;
     private HitEffect hitEffect;
 
@@ -29,6 +30,7 @@ public class EnemyHit : MonoBehaviour
 
     private void Die()
     {
+        LevelSystem.instance?.AddExp(expValue);
         Score.instance?.AddScore(10);
         Destroy(gameObject);
     }

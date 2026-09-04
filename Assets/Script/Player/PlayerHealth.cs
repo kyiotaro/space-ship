@@ -7,10 +7,6 @@ public class PlayerHealth : MonoBehaviour
     public Slider healthBar;
     public GameOver gameOver;
 
-    [Header("Respawn")]
-    [SerializeField] private float respawnTime = 3f;
-
-    private float respawnTimer;
     private bool isDead;
     private HitEffect hitEffect;
     private PlayerStats playerStats;
@@ -30,6 +26,8 @@ public class PlayerHealth : MonoBehaviour
         // Subscribe to events
         playerStats.OnHealthChanged += UpdateHealthBar;
         playerStats.OnDied += HandleDeath;
+        if (LevelSystem.instance != null)
+            LevelSystem.instance.OnLevelUp += HandleLevelUp;
 
         UpdateHealthBar();
     }
@@ -41,18 +39,9 @@ public class PlayerHealth : MonoBehaviour
             playerStats.OnHealthChanged -= UpdateHealthBar;
             playerStats.OnDied -= HandleDeath;
         }
-    }
 
-    private void Update()
-    {
-        if (isDead)
-        {
-            respawnTimer += Time.deltaTime;
-            if (respawnTimer >= respawnTime)
-            {
-                Respawn();
-            }
-        }
+        if (LevelSystem.instance != null)
+            LevelSystem.instance.OnLevelUp -= HandleLevelUp;
     }
 
     private void UpdateHealthBar()
@@ -79,11 +68,9 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
-    private void Respawn()
+    private void HandleLevelUp(int newLevel)
     {
-        respawnTimer = 0f;
-        isDead = false;
-        playerStats?.ResetStats();
-        gameOver?.setup(false);
+        playerStats?.Heal(playerStats.MaxHealth * 0.25f);
     }
+
 }
