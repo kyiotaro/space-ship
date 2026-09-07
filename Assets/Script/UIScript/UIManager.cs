@@ -3,6 +3,7 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+    public GameObject PlayerStats;
     public GameObject pauseMenu;
     void Start()
     {
@@ -11,6 +12,20 @@ public class UIManager : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            if (PlayerStats.activeSelf)
+            {
+                PlayerStats.SetActive(false);
+                Time.timeScale = 1;
+            }
+            else
+            {
+                PlayerStats.SetActive(true);
+                Time.timeScale = 0;
+            }
+
+        }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Time.timeScale = 0;

@@ -12,6 +12,12 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] private float defense = 5f;
     [SerializeField] private float topSpeed = 5f;
 
+    [Header("Upgrade Amounts")]
+    [SerializeField] private float attackUpgrade = 2f;
+    [SerializeField] private float defenseUpgrade = 1f;
+    [SerializeField] private float topSpeedUpgrade = 0.5f;
+    [SerializeField] private float maxHealthUpgrade = 20f;
+
     // Events — anything that cares about stats subscribes here
     public event Action OnHealthChanged;
     public event Action OnDied;
@@ -24,6 +30,8 @@ public class PlayerStats : MonoBehaviour
         {
             float previous = health;
             health = Mathf.Clamp(value, 0f, maxHealth);
+            if (health <= 0f)
+                Debug.LogWarning($"[PlayerStats] HP reached 0. Previous: {previous}, Current: {health}", this);
             if (!Mathf.Approximately(previous, health))
             {
                 OnHealthChanged?.Invoke();
@@ -31,7 +39,10 @@ public class PlayerStats : MonoBehaviour
                     OnStatsChanged?.Invoke(); // took damage
             }
             if (health <= 0f && previous > 0f)
+            {
+                Debug.LogWarning("[PlayerStats] OnDied event invoked.", this);
                 OnDied?.Invoke();
+            }
         }
     }
 
@@ -59,12 +70,14 @@ public class PlayerStats : MonoBehaviour
     {
         if (Instance != null && Instance != this)
         {
-            Destroy(gameObject);
+            Debug.LogWarning("[PlayerStats] Duplicate PlayerStats found. Removing only the duplicate component.", this);
+            Destroy(this);
             return;
         }
 
         Instance = this;
         Health = maxHealth;
+        Debug.Log($"[PlayerStats] Initialized on {gameObject.name} with {Health}/{MaxHealth} HP.", this);
     }
 
     public void TakeDamage(float amount)
@@ -82,5 +95,40 @@ public class PlayerStats : MonoBehaviour
     {
         Health = maxHealth;
         OnStatsChanged?.Invoke();
+    }
+
+    public void UpgradeAttack()
+    {
+        if (!TrySpendUpgradePoint()) return;
+
+        Attack += attackUpgrade;
+    }
+
+    public void UpgradeDefense()
+    {
+        if (!TrySpendUpgradePoint()) return;
+
+        Defense += defenseUpgrade;
+    }
+
+    public void UpgradeTopSpeed()
+    {
+        if (!TrySpendUpgradePoint()) return;
+
+        TopSpeed += topSpeedUpgrade;
+    }
+
+    public void UpgradeMaxHealth()
+    {
+        if (!TrySpendUpgradePoint()) return;
+
+        maxHealth += maxHealthUpgrade;
+        Health += maxHealthUpgrade;
+        OnStatsChanged?.Invoke();
+    }
+
+    private bool TrySpendUpgradePoint()
+    {
+        return LevelSystem.instance != null && LevelSystem.instance.SpendUpgradePoint();
     }
 }

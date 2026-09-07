@@ -5,10 +5,9 @@ public class GameOver : MonoBehaviour
 {
     private bool isSetup;
 
-    void Start()
-    {   
+    void Awake()
+    {
         isSetup = false;
-        setup(false);
     }
 
     void Update()
@@ -21,8 +20,10 @@ public class GameOver : MonoBehaviour
 
     public void setup(bool value)
     {
+        Debug.Log($"[GameOver] setup({value}) called. Panel before: {gameObject.activeSelf}", this);
         gameObject.SetActive(value); 
         isSetup = value;
+        Debug.Log($"[GameOver] Panel after: {gameObject.activeSelf}, isSetup: {isSetup}", this);
     }
     public void restart()
     {

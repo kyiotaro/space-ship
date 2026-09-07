@@ -22,14 +22,15 @@ public class PlayerHealth : MonoBehaviour
         }
 
         hitEffect = GetComponent<HitEffect>();
+        Debug.Log($"[PlayerHealth] Started. HP: {playerStats.Health}/{playerStats.MaxHealth}, GameOver reference: {gameOver}", this);
 
         // Subscribe to events
         playerStats.OnHealthChanged += UpdateHealthBar;
         playerStats.OnDied += HandleDeath;
-        if (LevelSystem.instance != null)
-            LevelSystem.instance.OnLevelUp += HandleLevelUp;
 
         UpdateHealthBar();
+        if (playerStats.Health <= 0f)
+            HandleDeath();
     }
 
     private void OnDestroy()
@@ -40,8 +41,6 @@ public class PlayerHealth : MonoBehaviour
             playerStats.OnDied -= HandleDeath;
         }
 
-        if (LevelSystem.instance != null)
-            LevelSystem.instance.OnLevelUp -= HandleLevelUp;
     }
 
     private void UpdateHealthBar()
@@ -59,18 +58,26 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if (!isDead && playerStats != null && playerStats.Health <= 0f)
+            HandleDeath();
+    }
+
     private void HandleDeath()
     {
         if (!isDead)
         {
             isDead = true;
-            gameOver?.setup(true);
-        }
-    }
+            if (gameOver == null)
+            {
+                Debug.LogError("[PlayerHealth] Player died, but GameOver reference is not assigned!", this);
+                return;
+            }
 
-    private void HandleLevelUp(int newLevel)
-    {
-        playerStats?.Heal(playerStats.MaxHealth * 0.25f);
+            Debug.Log("[PlayerHealth] HandleDeath called. Activating GameOver.", this);
+            gameOver.setup(true);
+        }
     }
 
 }

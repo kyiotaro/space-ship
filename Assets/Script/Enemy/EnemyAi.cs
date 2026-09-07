@@ -31,6 +31,16 @@ public class EnemyAi : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (player == null)
+        {
+            player = GameObject.FindWithTag("Player");
+            if (player == null)
+            {
+                enabled = false;
+                return;
+            }
+        }
+
         if (!rend.isVisible)
         {
             IsShootingEnabled = false;
@@ -62,6 +72,8 @@ public class EnemyAi : MonoBehaviour
 
     void Movement()
     {   
+        if (player == null) return;
+
         //face the player
         Vector3 direction = player.transform.position - transform.position;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;

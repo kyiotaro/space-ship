@@ -24,8 +24,8 @@ public class PlayerBullet : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            // Deal damage to enemy
-            if (collision.TryGetComponent<EnemyHit>(out var enemy))
+            EnemyHit enemy = collision.GetComponentInParent<EnemyHit>();
+            if (enemy != null)
             {
                 enemy.TakeDamage(damage);
             }

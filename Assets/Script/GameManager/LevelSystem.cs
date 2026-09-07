@@ -7,28 +7,20 @@ public class LevelSystem : MonoBehaviour
 {
     public static LevelSystem instance;
 
-    [Header("UI References")]
-    [Tooltip("Drag your Slider here (EXP Bar)")]
     public Slider expSlider;
-
-    [Tooltip("Drag your TextMeshPro - Text (UI) here (Level Display)")]
     public TMP_Text levelText;
-
-    [Header("Level Settings")]
-    [Tooltip("Base EXP required for Level 1 → 2")]
     public int baseExpRequired = 100;
-
-    [Tooltip("Multiplied each level. 1.5 = 50% more EXP needed per level")]
     public float expCurveMultiplier = 1.5f;
-
-    [Header("Current Stats (Runtime Only)")]
+    [Range(0f, 1f)] public float levelUpHealPercent = 0.25f;
     [SerializeField] private int currentLevel = 1;
     [SerializeField] private int currentExp = 0;
     [SerializeField] private int expToNextLevel = 100;
+    [SerializeField] private int upgradePoints = 0;
 
     // Events you can hook into from other scripts
     public event Action<int> OnLevelUp;      // Fires with new level
     public event Action<int, int> OnExpChanged; // Fires with (currentExp, expToNextLevel)
+    public event Action<int> OnUpgradePointsChanged;
 
     private void Awake()
     {
@@ -96,11 +88,11 @@ public class LevelSystem : MonoBehaviour
     private void LevelUp()
     {
         currentLevel++;
+        upgradePoints++;
         RecalculateExpToNextLevel();
+        PlayerStats.Instance?.Heal(PlayerStats.Instance.MaxHealth * levelUpHealPercent);
         OnLevelUp?.Invoke(currentLevel);
-
-        // Optional: feel free to add VFX / SFX here
-        Debug.Log($"🎉 Level Up! You are now Level {currentLevel}");
+        OnUpgradePointsChanged?.Invoke(upgradePoints);
     }
 
     private void RecalculateExpToNextLevel()
@@ -126,5 +118,15 @@ public class LevelSystem : MonoBehaviour
     public int GetCurrentLevel() => currentLevel;
     public int GetCurrentExp() => currentExp;
     public int GetExpToNextLevel() => expToNextLevel;
+    public int GetUpgradePoints() => upgradePoints;
     public float GetExpPercent() => expToNextLevel > 0 ? (float)currentExp / expToNextLevel : 0f;
+
+    public bool SpendUpgradePoint()
+    {
+        if (upgradePoints <= 0) return false;
+
+        upgradePoints--;
+        OnUpgradePointsChanged?.Invoke(upgradePoints);
+        return true;
+    }
 }

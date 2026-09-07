@@ -15,6 +15,15 @@ public class PlayerCamera : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
+        if (cam == null)
+            cam = GetComponent<Camera>();
+
+        if (player == null)
+        {
+            enabled = false;
+            return;
+        }
+
         Vector3 mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
         mousePos.z = 0f;
 

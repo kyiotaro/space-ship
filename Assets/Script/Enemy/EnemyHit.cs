@@ -31,7 +31,6 @@ public class EnemyHit : MonoBehaviour
     private void Die()
     {
         LevelSystem.instance?.AddExp(expValue);
-        Score.instance?.AddScore(10);
         Destroy(gameObject);
     }
 }

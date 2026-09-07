@@ -15,6 +15,12 @@ public class MiniMapCamera : MonoBehaviour
     // LateUpdate is called once per frame, after Update
     void LateUpdate()
     {
+        if (player == null)
+        {
+            enabled = false;
+            return;
+        }
+
         Vector3 targetPosition = new Vector3(player.transform.position.x, player.transform.position.y, -10);
         transform.position = Vector3.Lerp(transform.position, targetPosition, smoothSpeed * Time.deltaTime);
     }
