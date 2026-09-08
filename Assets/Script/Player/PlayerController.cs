@@ -1,3 +1,4 @@
+using System;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -26,6 +27,7 @@ public class PlayerController : MonoBehaviour
 
     // Public getter for Ammo (used by PlayerSprite.cs)
     public int Ammo => ammo;
+    public event Action OnAmmoChanged;
 
     void Start()
     {
@@ -35,6 +37,7 @@ public class PlayerController : MonoBehaviour
 
         stats = PlayerStats.Instance;
         ammo = maxAmmo;
+        OnAmmoChanged?.Invoke();
     }
 
     void Update()
@@ -80,6 +83,7 @@ public class PlayerController : MonoBehaviour
             }
 
             ammo--;
+            OnAmmoChanged?.Invoke();
         }
     }
 
@@ -88,7 +92,11 @@ public class PlayerController : MonoBehaviour
         reloadTimer += Time.deltaTime;
         if (reloadTimer >= reloadTime)
         {
-            ammo = maxAmmo;
+            if (ammo != maxAmmo)
+            {
+                ammo = maxAmmo;
+                OnAmmoChanged?.Invoke();
+            }
             reloadTimer = 0f;
         }
     }

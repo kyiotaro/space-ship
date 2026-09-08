@@ -8,8 +8,7 @@ public class UpgradePointsUI : MonoBehaviour
 
     private void Start()
     {
-        if (levelSystem == null)
-            levelSystem = LevelSystem.instance;
+        levelSystem = LevelSystem.instance;
 
         if (levelSystem == null)
         {

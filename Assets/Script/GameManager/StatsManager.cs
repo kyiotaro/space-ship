@@ -8,8 +8,10 @@ public class StatsManager : MonoBehaviour
     public TextMeshProUGUI AttackText;
     public TextMeshProUGUI DefenseText;
     public TextMeshProUGUI SpeedText;
+    public TextMeshProUGUI AmmoText;
 
     private PlayerStats playerStats;
+    private PlayerController playerController;
 
     private void Start()
     {
@@ -24,9 +26,14 @@ public class StatsManager : MonoBehaviour
         playerStats.OnHealthChanged += UpdateHealthUI;
         playerStats.OnStatsChanged += UpdateStatsUI;
 
+        playerController = FindFirstObjectByType<PlayerController>();
+        if (playerController != null)
+            playerController.OnAmmoChanged += UpdateAmmoUI;
+
         // Initial update
         UpdateHealthUI();
         UpdateStatsUI();
+        UpdateAmmoUI();
     }
 
     private void OnDestroy()
@@ -36,6 +43,9 @@ public class StatsManager : MonoBehaviour
             playerStats.OnHealthChanged -= UpdateHealthUI;
             playerStats.OnStatsChanged -= UpdateStatsUI;
         }
+
+        if (playerController != null)
+            playerController.OnAmmoChanged -= UpdateAmmoUI;
     }
 
     private void UpdateHealthUI()
@@ -58,5 +68,11 @@ public class StatsManager : MonoBehaviour
 
         if (SpeedText != null)
             SpeedText.text = $"Speed: {playerStats.TopSpeed:F0}";
+    }
+
+    private void UpdateAmmoUI()
+    {
+        if (AmmoText != null && playerController != null)
+            AmmoText.text = $"{playerController.Ammo}/{playerController.maxAmmo}";
     }
 }

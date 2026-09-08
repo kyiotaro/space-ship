@@ -70,8 +70,7 @@ public class PlayerStats : MonoBehaviour
     {
         if (Instance != null && Instance != this)
         {
-            Debug.LogWarning("[PlayerStats] Duplicate PlayerStats found. Removing only the duplicate component.", this);
-            Destroy(this);
+            Debug.LogWarning("[PlayerStats] Duplicate PlayerStats found. Upgrade calls will use the primary instance.", this);
             return;
         }
 
@@ -99,6 +98,12 @@ public class PlayerStats : MonoBehaviour
 
     public void UpgradeAttack()
     {
+        if (Instance != null && Instance != this)
+        {
+            Instance.UpgradeAttack();
+            return;
+        }
+
         if (!TrySpendUpgradePoint()) return;
 
         Attack += attackUpgrade;
@@ -106,6 +111,12 @@ public class PlayerStats : MonoBehaviour
 
     public void UpgradeDefense()
     {
+        if (Instance != null && Instance != this)
+        {
+            Instance.UpgradeDefense();
+            return;
+        }
+
         if (!TrySpendUpgradePoint()) return;
 
         Defense += defenseUpgrade;
@@ -113,6 +124,12 @@ public class PlayerStats : MonoBehaviour
 
     public void UpgradeTopSpeed()
     {
+        if (Instance != null && Instance != this)
+        {
+            Instance.UpgradeTopSpeed();
+            return;
+        }
+
         if (!TrySpendUpgradePoint()) return;
 
         TopSpeed += topSpeedUpgrade;
@@ -120,6 +137,12 @@ public class PlayerStats : MonoBehaviour
 
     public void UpgradeMaxHealth()
     {
+        if (Instance != null && Instance != this)
+        {
+            Instance.UpgradeMaxHealth();
+            return;
+        }
+
         if (!TrySpendUpgradePoint()) return;
 
         maxHealth += maxHealthUpgrade;
@@ -129,6 +152,22 @@ public class PlayerStats : MonoBehaviour
 
     private bool TrySpendUpgradePoint()
     {
-        return LevelSystem.instance != null && LevelSystem.instance.SpendUpgradePoint();
+        LevelSystem levelSystem = LevelSystem.instance;
+        if (levelSystem == null)
+            levelSystem = FindFirstObjectByType<LevelSystem>();
+
+        if (levelSystem == null)
+        {
+            Debug.LogError("[PlayerStats] Cannot upgrade because no LevelSystem exists.", this);
+            return false;
+        }
+
+        if (!levelSystem.SpendUpgradePoint())
+        {
+            Debug.LogWarning($"[PlayerStats] Cannot upgrade: no upgrade points available. Current points: {levelSystem.GetUpgradePoints()}", this);
+            return false;
+        }
+
+        return true;
     }
 }

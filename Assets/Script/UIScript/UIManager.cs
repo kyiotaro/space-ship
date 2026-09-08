@@ -4,6 +4,7 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     public GameObject PlayerStats;
+    public GameObject GamePlayUI;
     public GameObject pauseMenu;
     void Start()
     {
@@ -14,16 +15,13 @@ public class UIManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            if (PlayerStats.activeSelf)
-            {
-                PlayerStats.SetActive(false);
-                Time.timeScale = 1;
-            }
-            else
-            {
-                PlayerStats.SetActive(true);
-                Time.timeScale = 0;
-            }
+            bool showStats = !PlayerStats.activeSelf;
+            PlayerStats.SetActive(showStats);
+
+            if (GamePlayUI != null)
+                GamePlayUI.SetActive(!showStats);
+
+            Time.timeScale = showStats ? 0 : 1;
 
         }
         if (Input.GetKeyDown(KeyCode.Escape))

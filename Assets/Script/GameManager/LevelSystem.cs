@@ -22,13 +22,29 @@ public class LevelSystem : MonoBehaviour
     public event Action<int, int> OnExpChanged; // Fires with (currentExp, expToNextLevel)
     public event Action<int> OnUpgradePointsChanged;
 
+    private bool isPrimary;
+
     private void Awake()
     {
-        instance = this;
+        if (instance == null)
+        {
+            instance = this;
+            isPrimary = true;
+        }
     }
 
     private void Start()
     {
+        if (!isPrimary)
+        {
+            if (instance != null)
+            {
+                instance.OnExpChanged += MirrorPrimaryUI;
+                MirrorPrimaryUI(instance.currentExp, instance.expToNextLevel);
+            }
+            return;
+        }
+
         if (expSlider == null)
             Debug.LogError("[LevelSystem] EXP Slider is not assigned!", this);
 
@@ -38,11 +54,26 @@ public class LevelSystem : MonoBehaviour
         UpdateUI();
     }
 
+    private void OnDestroy()
+    {
+        if (!isPrimary && instance != null)
+            instance.OnExpChanged -= MirrorPrimaryUI;
+
+        if (instance == this)
+            instance = null;
+    }
+
     /// <summary>
     /// Call this when the player earns EXP.
     /// </summary>
     public void AddExp(int amount)
     {
+        if (!isPrimary)
+        {
+            instance?.AddExp(amount);
+            return;
+        }
+
         if (amount <= 0) return;
 
         currentExp += amount;
@@ -63,6 +94,12 @@ public class LevelSystem : MonoBehaviour
     /// </summary>
     public void SetExp(int exp)
     {
+        if (!isPrimary)
+        {
+            instance?.SetExp(exp);
+            return;
+        }
+
         currentExp = Mathf.Max(0, exp);
 
         while (currentExp >= expToNextLevel)
@@ -80,8 +117,15 @@ public class LevelSystem : MonoBehaviour
     /// </summary>
     public void SetLevel(int level)
     {
+        if (!isPrimary)
+        {
+            instance?.SetLevel(level);
+            return;
+        }
+
         currentLevel = Mathf.Max(1, level);
         RecalculateExpToNextLevel();
+        OnExpChanged?.Invoke(currentExp, expToNextLevel);
         UpdateUI();
     }
 
@@ -113,16 +157,37 @@ public class LevelSystem : MonoBehaviour
         }
     }
 
+    private void MirrorPrimaryUI(int exp, int expRequired)
+    {
+        if (instance == null) return;
+
+        if (levelText != null)
+            levelText.text = $"Lv. {instance.currentLevel}";
+
+        if (expSlider != null)
+        {
+            expSlider.maxValue = expRequired;
+            expSlider.value = exp;
+        }
+    }
+
     // --- Getters for external scripts ---
 
-    public int GetCurrentLevel() => currentLevel;
-    public int GetCurrentExp() => currentExp;
-    public int GetExpToNextLevel() => expToNextLevel;
-    public int GetUpgradePoints() => upgradePoints;
-    public float GetExpPercent() => expToNextLevel > 0 ? (float)currentExp / expToNextLevel : 0f;
+    public int GetCurrentLevel() => isPrimary ? currentLevel : instance != null ? instance.currentLevel : currentLevel;
+    public int GetCurrentExp() => isPrimary ? currentExp : instance != null ? instance.currentExp : currentExp;
+    public int GetExpToNextLevel() => isPrimary ? expToNextLevel : instance != null ? instance.expToNextLevel : expToNextLevel;
+    public int GetUpgradePoints() => isPrimary ? upgradePoints : instance != null ? instance.upgradePoints : upgradePoints;
+    public float GetExpPercent()
+    {
+        int required = GetExpToNextLevel();
+        return required > 0 ? (float)GetCurrentExp() / required : 0f;
+    }
 
     public bool SpendUpgradePoint()
     {
+        if (!isPrimary)
+            return instance != null && instance.SpendUpgradePoint();
+
         if (upgradePoints <= 0) return false;
 
         upgradePoints--;
