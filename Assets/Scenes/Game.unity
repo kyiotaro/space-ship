@@ -436,7 +436,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SpawnManager
   enemyPrefab:
   - {fileID: 45304726155840080, guid: 64f91f3b97aba3f4a879bbf477ffedfe, type: 3}
+  rareEnemyPrefab:
+  - {fileID: 45304726155840080, guid: 23820435e6dec5241ab1a0db6c36078a, type: 3}
   CameraPos: {fileID: 519420028}
+  minimapCamera: {fileID: 1064557019}
+  spawnMargin: 2
 --- !u!4 &160235119
 Transform:
   m_ObjectHideFlags: 0
@@ -446,7 +450,7 @@ Transform:
   m_GameObject: {fileID: 160235117}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 10, z: 0}
+  m_LocalPosition: {x: 0, y: 25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4734,6 +4738,7 @@ GameObject:
   - component: {fileID: 1944157783}
   - component: {fileID: 1944157785}
   - component: {fileID: 1944157784}
+  - component: {fileID: 1944157786}
   m_Layer: 0
   m_Name: UIManager
   m_TagString: Untagged
@@ -4801,7 +4806,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UpgradePointsUI
   pointsText: {fileID: 1977020424}
-  levelSystem: {fileID: 1590937519}
+  levelSystem: {fileID: 1958975136}
 --- !u!114 &1944157785
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4823,6 +4828,18 @@ MonoBehaviour:
   defenseUpgrade: 1
   topSpeedUpgrade: 0.5
   maxHealthUpgrade: 20
+--- !u!114 &1944157786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1944157780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b94db5922dd4c54892a36b5d11fb23b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ButtonTest
 --- !u!1 &1958975133
 GameObject:
   m_ObjectHideFlags: 0
@@ -5490,6 +5507,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5291739427647798289, guid: 7dfc71a16a9cf4945a4a587c03d7aee3, type: 3}
+      propertyPath: dashForce
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 6561168651078097892, guid: 7dfc71a16a9cf4945a4a587c03d7aee3, type: 3}
       propertyPath: gameOver
       value: 
@@ -5565,8 +5586,8 @@ SceneRoots:
   m_Roots:
   - {fileID: 519420032}
   - {fileID: 1064557020}
-  - {fileID: 619394802}
   - {fileID: 160235119}
+  - {fileID: 619394802}
   - {fileID: 6729511747949502301}
   - {fileID: 445750033}
   - {fileID: 2111129962}

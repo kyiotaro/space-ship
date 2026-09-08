@@ -9,6 +9,11 @@ public class PlayerController : MonoBehaviour
     public int maxAmmo = 6;
     public float reloadTime = 2f;
 
+    [Header("Dash")]
+    public float dashSpeed = 16f;
+    public float dashDuration = 0.25f;
+    public float dashCooldown = 1f;
+
     [Header("Movement Base")]
     public float thrustForce = 25f;
     public float damping = 0.995f;
@@ -21,6 +26,8 @@ public class PlayerController : MonoBehaviour
     private float reloadTimer;
     private Camera mainCamera;
     private Vector2 velocity;
+    private float dashTimer;
+    private float dashTimeRemaining;
 
     // Cached reference
     private PlayerStats stats;
@@ -45,7 +52,10 @@ public class PlayerController : MonoBehaviour
         HandleAiming();
         HandleMovement();
         HandleShooting();
+        HandleDash();
         HandleReload();
+        dashTimer -= Time.deltaTime;
+        dashTimeRemaining -= Time.deltaTime;
     }
 
     void HandleAiming()
@@ -87,6 +97,16 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    void HandleDash()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftShift) && dashTimer <= 0f)
+        {
+            velocity = (Vector2)transform.up * dashSpeed;
+            dashTimeRemaining = dashDuration;
+            dashTimer = dashCooldown;
+        }
+    }
+
     void HandleReload()
     {
         reloadTimer += Time.deltaTime;
@@ -111,7 +131,7 @@ public class PlayerController : MonoBehaviour
         }
         velocity *= damping;
 
-        if (velocity.magnitude > PlayerStats.Instance.TopSpeed)
+        if (dashTimeRemaining <= 0f && velocity.magnitude > PlayerStats.Instance.TopSpeed)
         {
             velocity = velocity.normalized * PlayerStats.Instance.TopSpeed;
         }
