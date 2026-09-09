@@ -5,10 +5,12 @@
 [Bb]uilds/
 [Ll]ogs/
 [Uu]ser[Ss]ettings/
-
+BMC
 .vs/
 *.csproj
 *.sln
 
 .DS_Store
 Thumbs.db
+
+BMC
