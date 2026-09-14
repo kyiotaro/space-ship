@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 8119065542283142011}
   - component: {fileID: 6787770098687958722}
   - component: {fileID: 1295795260158002853}
+  - component: {fileID: 3660542435559853119}
   m_Layer: 0
   m_Name: Figther
   m_TagString: Enemy
@@ -187,6 +188,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHit
   maxHealth: 30
   expValue: 30
+  deathAnimation: {fileID: 3660542435559853119}
 --- !u!114 &6061715260952155280
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -252,6 +254,32 @@ MonoBehaviour:
   IsMovementEnabled: 1
   IsShootingEnabled: 1
   pauseWhenInvisible: 1
+--- !u!114 &3660542435559853119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 45304726155840080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7ada1ad7eef02f41b5ec8231c65f735, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AnimatedSprite
+  frames:
+  - {fileID: -2585407298343817241, guid: 33313be570c1aa9428a7cf11525d9b92, type: 3}
+  - {fileID: 5515153032251011373, guid: 33313be570c1aa9428a7cf11525d9b92, type: 3}
+  - {fileID: 3956333529943996837, guid: 33313be570c1aa9428a7cf11525d9b92, type: 3}
+  - {fileID: 1237885881015524949, guid: 33313be570c1aa9428a7cf11525d9b92, type: 3}
+  - {fileID: 5791137323519358520, guid: 33313be570c1aa9428a7cf11525d9b92, type: 3}
+  - {fileID: -3228317435703377596, guid: 33313be570c1aa9428a7cf11525d9b92, type: 3}
+  - {fileID: 3978886274531221682, guid: 33313be570c1aa9428a7cf11525d9b92, type: 3}
+  - {fileID: 5035985710184411535, guid: 33313be570c1aa9428a7cf11525d9b92, type: 3}
+  spriteRenderer: {fileID: 0}
+  framesPerSecond: 12
+  playOnEnable: 0
+  loop: 0
+  destroyAfterPlaying: 1
 --- !u!1 &3900885351251069331
 GameObject:
   m_ObjectHideFlags: 0

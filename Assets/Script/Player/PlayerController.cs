@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    AudioManager AudioManager;
+    private void Awake()
+    {
+        AudioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+    }
     [Header("Shooting")]
     public GameObject projectilePrefab;
     public int maxAmmo = 6;
@@ -84,6 +89,7 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetButtonDown("Fire1") && ammo > 0)
         {
+            AudioManager.playSFX(AudioManager.ShootSFX);
             GameObject bullet = Instantiate(projectilePrefab, transform.position, transform.rotation);
 
             // Pass attack damage to the bullet

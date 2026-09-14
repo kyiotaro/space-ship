@@ -3277,7 +3277,7 @@ GameObject:
   - component: {fileID: 1202230265}
   m_Layer: 0
   m_Name: AudioManager
-  m_TagString: Untagged
+  m_TagString: Audio
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3297,7 +3297,9 @@ MonoBehaviour:
   musicSource: {fileID: 1979839452}
   sfxSource: {fileID: 366134369}
   BGM: {fileID: 8300000, guid: 6b7cae8b7774cf544b5046d8c225295e, type: 3}
-  DieSFX: {fileID: 8300000, guid: 71f6bd8479406f148a04395d75a92d68, type: 3}
+  DieSFX: {fileID: 8300000, guid: b192d4a553accbc438e90fface27ace9, type: 3}
+  HitSFX: {fileID: 8300000, guid: 209e845bad903274eb3d06c062c8f395, type: 3}
+  ShootSFX: {fileID: 8300000, guid: f37a27f395495db4e81515baffb4e4c0, type: 3}
 --- !u!4 &1202230266
 Transform:
   m_ObjectHideFlags: 0
@@ -5330,7 +5332,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 0
   Mute: 0

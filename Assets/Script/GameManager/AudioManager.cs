@@ -6,6 +6,8 @@ public class AudioManager : MonoBehaviour
     public AudioSource sfxSource;
 
     public AudioClip BGM;
+    public AudioClip DieSFX;
+    public AudioClip HitSFX;
     public AudioClip ShootSFX;
 
     void Start()
