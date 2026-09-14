@@ -5,7 +5,7 @@ public class EnemyHit : MonoBehaviour
     AudioManager AudioManager;
     private void Awake()
     {
-        AudioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+        AudioManager = FindFirstObjectByType<AudioManager>();
     }
     [SerializeField] private float maxHealth = 30f;
     [SerializeField] private int expValue = 20;
@@ -32,7 +32,8 @@ public class EnemyHit : MonoBehaviour
             return;
         }
 
-        AudioManager.playSFX(AudioManager.HitSFX);
+        if (AudioManager != null)
+            AudioManager.playSFX(AudioManager.HitSFX);
         currentHealth -= amount;
 
         if (hitEffect != null)
@@ -49,7 +50,8 @@ public class EnemyHit : MonoBehaviour
     private void Die()
     {
         isDead = true;
-        AudioManager.playSFX(AudioManager.DieSFX);
+        if (AudioManager != null)
+            AudioManager.playSFX(AudioManager.DieSFX);
         LevelSystem.instance?.AddExp(expValue);
 
         if (deathAnimation != null)

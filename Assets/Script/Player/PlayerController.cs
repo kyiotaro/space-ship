@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
     AudioManager AudioManager;
     private void Awake()
     {
-        AudioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+        AudioManager = FindFirstObjectByType<AudioManager>();
     }
     [Header("Shooting")]
     public GameObject projectilePrefab;
@@ -89,7 +89,9 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetButtonDown("Fire1") && ammo > 0)
         {
-            AudioManager.playSFX(AudioManager.ShootSFX);
+            if (AudioManager != null)
+                AudioManager.playSFX(AudioManager.ShootSFX);
+
             GameObject bullet = Instantiate(projectilePrefab, transform.position, transform.rotation);
 
             // Pass attack damage to the bullet
@@ -137,7 +139,7 @@ public class PlayerController : MonoBehaviour
         }
         velocity *= damping;
 
-        if (dashTimeRemaining <= 0f && velocity.magnitude > PlayerStats.Instance.TopSpeed)
+        if (PlayerStats.Instance != null && dashTimeRemaining <= 0f && velocity.magnitude > PlayerStats.Instance.TopSpeed)
         {
             velocity = velocity.normalized * PlayerStats.Instance.TopSpeed;
         }
