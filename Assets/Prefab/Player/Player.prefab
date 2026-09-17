@@ -599,7 +599,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3375958410286860599
 Transform:
   m_ObjectHideFlags: 0
@@ -819,6 +819,9 @@ MonoBehaviour:
   projectilePrefab: {fileID: 1673425871937612518, guid: b9ae0014a50dbd747a8e35a39525f11e, type: 3}
   maxAmmo: 6
   reloadTime: 5
+  dashSpeed: 16
+  dashDuration: 0.25
+  dashCooldown: 1
   thrustForce: 10
   damping: 0.995
   rotationSpeed: 200
@@ -882,7 +885,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
   healthBar: {fileID: 0}
   gameOver: {fileID: 0}
-  respawnTime: 3
 --- !u!114 &6223604723257077082
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -914,6 +916,10 @@ MonoBehaviour:
   attack: 10
   defense: 5
   topSpeed: 5
+  attackUpgrade: 2
+  defenseUpgrade: 1
+  topSpeedUpgrade: 0.5
+  maxHealthUpgrade: 20
 --- !u!4 &8786703591417405729 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7878350319992209165, guid: 003a395f6668d7a48b9da94e4615fada, type: 3}

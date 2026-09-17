@@ -10,6 +10,11 @@ public class EnemyBullet : MonoBehaviour
         damage = amount;
     }
 
+    public void SetMoveSpeed(float speed)
+    {
+        moveSpeed = Mathf.Max(0f, speed);
+    }
+
     void Update()
     {
         transform.Translate(Vector3.up * moveSpeed * Time.deltaTime);

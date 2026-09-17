@@ -1,45 +1,30 @@
 using UnityEngine;
 
-public class EnemyShooter : MonoBehaviour
+public class ScoutShooter : MonoBehaviour
 {
-    [Header("Shooting")]
+    [Header("Scout Weapon")]
     [SerializeField] private GameObject bulletPrefab;
-    [SerializeField] private float shotsPerSecond = 1.5f;
-    [SerializeField] private float projectileSpeed = 20f;
     [SerializeField] private Transform muzzle;
-    [SerializeField] private float aimTolerance = 12f;
-    [SerializeField] private float aimReactionTime = 0.4f;
-    [SerializeField] private float aimError = 8f;
+    [SerializeField] private float fireRate = 0.8f;
+    [SerializeField] private float projectileSpeed = 28f;
+    [SerializeField] private float aimTolerance = 10f;
+    [SerializeField] private float reactionTime = 0.2f;
+    [SerializeField] private float aimError = 5f;
 
     private EnemyCore core;
     private float nextShotTime;
-    private float targetInAimTime;
+    private float aimTime;
 
     private void Awake()
     {
         core = GetComponent<EnemyCore>();
     }
 
-    public void SetBulletPrefab(GameObject prefab)
-    {
-        bulletPrefab = prefab;
-    }
-
-    public void SetFireRate(float perSecond)
-    {
-        shotsPerSecond = Mathf.Max(0.1f, perSecond);
-    }
-
-    public void SetProjectileSpeed(float speed)
-    {
-        projectileSpeed = Mathf.Max(0f, speed);
-    }
-
     private void Update()
     {
         if (core == null || !core.CanShoot || core.Target == null || bulletPrefab == null)
         {
-            targetInAimTime = 0f;
+            aimTime = 0f;
             return;
         }
 
@@ -48,13 +33,13 @@ public class EnemyShooter : MonoBehaviour
 
         if (angleToTarget > aimTolerance)
         {
-            targetInAimTime = 0f;
+            aimTime = 0f;
             return;
         }
 
-        targetInAimTime += Time.deltaTime;
+        aimTime += Time.deltaTime;
 
-        if (targetInAimTime < aimReactionTime || Time.time < nextShotTime)
+        if (aimTime < reactionTime || Time.time < nextShotTime)
         {
             return;
         }
@@ -72,12 +57,7 @@ public class EnemyShooter : MonoBehaviour
             enemyBullet.SetMoveSpeed(projectileSpeed);
         }
 
-        nextShotTime = Time.time + GetShotInterval();
-        targetInAimTime = 0f;
-    }
-
-    private float GetShotInterval()
-    {
-        return shotsPerSecond > 0f ? 1f / shotsPerSecond : float.PositiveInfinity;
+        nextShotTime = Time.time + (1f / Mathf.Max(0.1f, fireRate));
+        aimTime = 0f;
     }
 }
