@@ -20,16 +20,12 @@ public class PlayerBullet : MonoBehaviour
         Destroy(gameObject);
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Enemy"))
+        EnemyHit enemy = collision.GetComponentInParent<EnemyHit>();
+        if (enemy != null)
         {
-            EnemyHit enemy = collision.GetComponentInParent<EnemyHit>();
-            if (enemy != null)
-            {
-                enemy.TakeDamage(damage);
-            }
-
+            enemy.TakeDamage(damage);
             Destroy(gameObject);
         }
     }

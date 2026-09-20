@@ -109,6 +109,8 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.LeftShift) && dashTimer <= 0f)
         {
+            if (AudioManager != null)
+                AudioManager.playSFX(AudioManager.DashSFX);
             velocity = (Vector2)transform.up * dashSpeed;
             dashTimeRemaining = dashDuration;
             dashTimer = dashCooldown;

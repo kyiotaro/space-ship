@@ -2,8 +2,16 @@ using UnityEngine;
 
 public class ButtonTest : MonoBehaviour
 {
+    private AudioManager audioManager;
+
+    private void Awake()
+    {
+        audioManager = FindFirstObjectByType<AudioManager>();
+    }
+
     public void ButtonClick()
     {
+        audioManager?.playClickSFX();
         PlayerStats playerStats = PlayerStats.Instance;
         LevelSystem levelSystem = LevelSystem.instance;
 

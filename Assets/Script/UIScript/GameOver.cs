@@ -3,10 +3,12 @@ using UnityEngine.SceneManagement;
 
 public class GameOver : MonoBehaviour
 {
+    private AudioManager audioManager;
     private bool isSetup;
 
     void Awake()
     {
+        audioManager = FindFirstObjectByType<AudioManager>();
         isSetup = false;
     }
 
@@ -27,6 +29,7 @@ public class GameOver : MonoBehaviour
     }
     public void restart()
     {
+        audioManager?.playClickSFX();
         SceneManager.LoadScene("Game");
     }
 }
