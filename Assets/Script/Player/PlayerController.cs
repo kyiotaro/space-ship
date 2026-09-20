@@ -107,11 +107,24 @@ public class PlayerController : MonoBehaviour
 
     void HandleDash()
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift) && dashTimer <= 0f)
+        float horizontalInput = 0f;
+        float verticalInput = 0f;
+        if (Input.GetKey(KeyCode.A)) horizontalInput -= 1f;
+        if (Input.GetKey(KeyCode.D)) horizontalInput += 1f;
+        if (Input.GetKey(KeyCode.S)) verticalInput -= 1f;
+        if (Input.GetKey(KeyCode.W)) verticalInput += 1f;
+
+        Vector2 dashDirection = (Vector2)transform.right * horizontalInput +
+                                (Vector2)transform.up * verticalInput;
+
+        bool dashPressed = Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.S) ||
+                           Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D);
+
+        if (dashPressed && dashTimer <= 0f)
         {
             if (AudioManager != null)
                 AudioManager.playSFX(AudioManager.DashSFX);
-            velocity = (Vector2)transform.up * dashSpeed;
+            velocity = dashDirection.normalized * dashSpeed;
             dashTimeRemaining = dashDuration;
             dashTimer = dashCooldown;
         }
