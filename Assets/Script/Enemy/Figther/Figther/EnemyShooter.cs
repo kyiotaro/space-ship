@@ -6,6 +6,7 @@ public class EnemyShooter : MonoBehaviour
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private float shotsPerSecond = 1.5f;
     [SerializeField] private float projectileSpeed = 20f;
+    [SerializeField] private float projectileDamage = 10f;
     [SerializeField] private Transform muzzle;
     [SerializeField] private float aimTolerance = 12f;
     [SerializeField] private float aimReactionTime = 0.4f;
@@ -69,7 +70,8 @@ public class EnemyShooter : MonoBehaviour
         EnemyBullet enemyBullet = spawnedBullet.GetComponent<EnemyBullet>();
         if (enemyBullet != null)
         {
-            enemyBullet.SetMoveSpeed(projectileSpeed);
+            enemyBullet.SetMoveSpeed(projectileSpeed * Score.DifficultyMultiplier);
+            enemyBullet.SetDamage(projectileDamage * Score.DifficultyMultiplier);
         }
 
         nextShotTime = Time.time + GetShotInterval();

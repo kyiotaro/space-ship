@@ -35,9 +35,10 @@ public class EnemyMovement : MonoBehaviour
         velocity += (Vector2)transform.up * thrustForce * Time.deltaTime;
         velocity *= damping;
 
-        if (velocity.magnitude > maxSpeed)
+        float scaledMaxSpeed = maxSpeed * Score.DifficultyMultiplier;
+        if (velocity.magnitude > scaledMaxSpeed)
         {
-            velocity = velocity.normalized * maxSpeed;
+            velocity = velocity.normalized * scaledMaxSpeed;
         }
 
         transform.position += (Vector3)velocity * Time.deltaTime;

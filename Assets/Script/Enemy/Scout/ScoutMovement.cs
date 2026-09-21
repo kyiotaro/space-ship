@@ -33,7 +33,7 @@ public class ScoutMovement : MonoBehaviour
             rotationSpeed * Time.deltaTime);
 
         Vector2 desiredVelocity = distance > desiredRange
-            ? (Vector2)transform.up * moveSpeed
+            ? (Vector2)transform.up * (moveSpeed * Score.DifficultyMultiplier)
             : Vector2.zero;
 
         velocity = Vector2.Lerp(velocity, desiredVelocity, 0.12f);

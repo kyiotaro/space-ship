@@ -7,6 +7,7 @@ public class ScoutShooter : MonoBehaviour
     [SerializeField] private Transform muzzle;
     [SerializeField] private float fireRate = 0.8f;
     [SerializeField] private float projectileSpeed = 28f;
+    [SerializeField] private float projectileDamage = 10f;
     [SerializeField] private float aimTolerance = 10f;
     [SerializeField] private float reactionTime = 0.2f;
     [SerializeField] private float aimError = 5f;
@@ -54,7 +55,8 @@ public class ScoutShooter : MonoBehaviour
         EnemyBullet enemyBullet = spawnedBullet.GetComponent<EnemyBullet>();
         if (enemyBullet != null)
         {
-            enemyBullet.SetMoveSpeed(projectileSpeed);
+            enemyBullet.SetMoveSpeed(projectileSpeed * Score.DifficultyMultiplier);
+            enemyBullet.SetDamage(projectileDamage * Score.DifficultyMultiplier);
         }
 
         nextShotTime = Time.time + (1f / Mathf.Max(0.1f, fireRate));

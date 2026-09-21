@@ -4,7 +4,9 @@ public class EnemyHit : MonoBehaviour
 {
     [Header("Health")]
     [SerializeField, Min(1f)] private float maxHealth = 30f;
+    [SerializeField, Min(0f)] private float defense = 0f;
     [SerializeField, Min(0)] private int expValue = 20;
+    [SerializeField, Min(0)] private int scoreValue = 20;
 
     [Header("Death")]
     [Tooltip("Optional animation played before this enemy is destroyed.")]
@@ -33,12 +35,13 @@ public class EnemyHit : MonoBehaviour
     }
 
     public float CurrentHealth => currentHealth;
-    public float MaxHealth => maxHealth;
+    public float MaxHealth => maxHealth * Score.DifficultyMultiplier;
+    public float Defense => defense * Score.DifficultyMultiplier;
     public bool IsDead => isDead;
 
     public void ResetHealth()
     {
-        currentHealth = maxHealth;
+        currentHealth = MaxHealth;
         isDead = false;
     }
 
@@ -49,7 +52,7 @@ public class EnemyHit : MonoBehaviour
             return;
         }
 
-        float damage = Mathf.Max(0f, amount);
+        float damage = Mathf.Max(0f, amount - Defense);
         if (audioManager != null)
             audioManager.playSFX(audioManager.HitSFX);
         currentHealth = Mathf.Max(0f, currentHealth - damage);
@@ -71,6 +74,7 @@ public class EnemyHit : MonoBehaviour
         if (audioManager != null)
             audioManager.playSFX(audioManager.DieSFX);
         LevelSystem.instance?.AddExp(expValue);
+        Score.instance?.AddScore(scoreValue);
 
         if (deathAnimation != null)
         {
@@ -96,7 +100,9 @@ public class EnemyHit : MonoBehaviour
     private void OnValidate()
     {
         maxHealth = Mathf.Max(1f, maxHealth);
+        defense = Mathf.Max(0f, defense);
         expValue = Mathf.Max(0, expValue);
+        scoreValue = Mathf.Max(0, scoreValue);
         currentHealth = Mathf.Clamp(currentHealth, 0f, maxHealth);
     }
 }

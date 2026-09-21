@@ -5,6 +5,11 @@ public class PlayerStats : MonoBehaviour
 {
     public static PlayerStats Instance { get; private set; }
 
+    private const string MaxHealthKey = "playerMaxHealth";
+    private const string AttackKey = "playerAttack";
+    private const string DefenseKey = "playerDefense";
+    private const string TopSpeedKey = "playerTopSpeed";
+
     [Header("Core Stats")]
     [SerializeField] private float maxHealth = 100f;
     [SerializeField] private float health = 100f;
@@ -75,6 +80,10 @@ public class PlayerStats : MonoBehaviour
         }
 
         Instance = this;
+        maxHealth = PlayerPrefs.GetFloat(MaxHealthKey, maxHealth);
+        attack = PlayerPrefs.GetFloat(AttackKey, attack);
+        defense = PlayerPrefs.GetFloat(DefenseKey, defense);
+        topSpeed = PlayerPrefs.GetFloat(TopSpeedKey, topSpeed);
         Health = maxHealth;
         Debug.Log($"[PlayerStats] Initialized on {gameObject.name} with {Health}/{MaxHealth} HP.", this);
     }
@@ -107,6 +116,7 @@ public class PlayerStats : MonoBehaviour
         if (!TrySpendUpgradePoint()) return;
 
         Attack += attackUpgrade;
+        SaveStats();
     }
 
     public void UpgradeDefense()
@@ -120,6 +130,7 @@ public class PlayerStats : MonoBehaviour
         if (!TrySpendUpgradePoint()) return;
 
         Defense += defenseUpgrade;
+        SaveStats();
     }
 
     public void UpgradeTopSpeed()
@@ -133,6 +144,7 @@ public class PlayerStats : MonoBehaviour
         if (!TrySpendUpgradePoint()) return;
 
         TopSpeed += topSpeedUpgrade;
+        SaveStats();
     }
 
     public void UpgradeMaxHealth()
@@ -148,6 +160,16 @@ public class PlayerStats : MonoBehaviour
         maxHealth += maxHealthUpgrade;
         Health += maxHealthUpgrade;
         OnStatsChanged?.Invoke();
+        SaveStats();
+    }
+
+    private void SaveStats()
+    {
+        PlayerPrefs.SetFloat(MaxHealthKey, maxHealth);
+        PlayerPrefs.SetFloat(AttackKey, attack);
+        PlayerPrefs.SetFloat(DefenseKey, defense);
+        PlayerPrefs.SetFloat(TopSpeedKey, topSpeed);
+        PlayerPrefs.Save();
     }
 
     private bool TrySpendUpgradePoint()
