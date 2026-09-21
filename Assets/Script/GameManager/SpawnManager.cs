@@ -13,6 +13,8 @@ public class SpawnManager : MonoBehaviour
 
     private float spawnTimer = 0f;
     private float spawnInterval = 5f;
+    private float enemyScanTimer;
+    [SerializeField] private float enemyScanInterval = 0.25f;
     [SerializeField] private float spawnMargin = 2f;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -49,7 +51,12 @@ public class SpawnManager : MonoBehaviour
             return;
         }
 
-        enemyCount = GameObject.FindGameObjectsWithTag("Enemy").Length;
+        enemyScanTimer -= Time.deltaTime;
+        if (enemyScanTimer <= 0f)
+        {
+            enemyCount = GameObject.FindGameObjectsWithTag("Enemy").Length;
+            enemyScanTimer = enemyScanInterval;
+        }
         maxEnemy = LevelSystem.instance != null
             ? Mathf.Max(1, LevelSystem.instance.GetCurrentLevel())
             : 1;
