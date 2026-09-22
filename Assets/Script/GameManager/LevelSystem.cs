@@ -194,4 +194,16 @@ public class LevelSystem : MonoBehaviour
         OnUpgradePointsChanged?.Invoke(upgradePoints);
         return true;
     }
+
+    public void ResetUpgradePoints()
+    {
+        if (!isPrimary)
+        {
+            instance?.ResetUpgradePoints();
+            return;
+        }
+
+        upgradePoints = 0;
+        OnUpgradePointsChanged?.Invoke(upgradePoints);
+    }
 }

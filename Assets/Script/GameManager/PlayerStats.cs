@@ -10,6 +10,11 @@ public class PlayerStats : MonoBehaviour
     private const string DefenseKey = "playerDefense";
     private const string TopSpeedKey = "playerTopSpeed";
 
+    private const float DefaultMaxHealth = 100f;
+    private const float DefaultAttack = 10f;
+    private const float DefaultDefense = 5f;
+    private const float DefaultTopSpeed = 5f;
+
     [Header("Core Stats")]
     [SerializeField] private float maxHealth = 100f;
     [SerializeField] private float health = 100f;
@@ -102,6 +107,28 @@ public class PlayerStats : MonoBehaviour
     public void ResetStats()
     {
         Health = maxHealth;
+        OnStatsChanged?.Invoke();
+    }
+
+    [ContextMenu("Reset Stats To Defaults")]
+    public void ResetStatsToDefaults()
+    {
+        maxHealth = DefaultMaxHealth;
+        attack = DefaultAttack;
+        defense = DefaultDefense;
+        topSpeed = DefaultTopSpeed;
+        Health = maxHealth;
+
+        PlayerPrefs.DeleteKey(MaxHealthKey);
+        PlayerPrefs.DeleteKey(AttackKey);
+        PlayerPrefs.DeleteKey(DefenseKey);
+        PlayerPrefs.DeleteKey(TopSpeedKey);
+        PlayerPrefs.Save();
+
+        LevelSystem levelSystem = LevelSystem.instance;
+        if (levelSystem != null)
+            levelSystem.ResetUpgradePoints();
+
         OnStatsChanged?.Invoke();
     }
 
