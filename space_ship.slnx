@@ -1,3 +1,6 @@
 ﻿<Solution>
+  <Project Path="com.sanar.skilltree.csproj" />
+  <Project Path="com.sanar.skilltree.tests.csproj" />
   <Project Path="Assembly-CSharp.csproj" />
+  <Project Path="com.sanar.skilltree.editor.csproj" />
 </Solution>

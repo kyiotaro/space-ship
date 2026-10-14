@@ -1,0 +1,329 @@
+using NUnit.Framework;
+using SkillTree.Core.Data;
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace SkillTree.Tests.Runtime
+{
+    /// <summary>
+    /// Unit tests for SkillTreeGraph validation logic.
+    /// Tests cycle detection, orphan detection, duplicate ID detection, and invalid references.
+    /// </summary>
+    public class SkillTreeGraphValidationTests
+    {
+        private SkillTreeGraph CreateGraph()
+        {
+            var graph = ScriptableObject.CreateInstance<SkillTreeGraph>();
+            // TreeId is auto-generated, read-only
+            graph.DisplayName = "Test Tree";
+            return graph;
+        }
+
+        // Helper method to replace SetNodes (which doesn't exist in the API)
+        private void SetNodes(SkillTreeGraph graph, List<SkillNode> nodes)
+        {
+            // Clear existing nodes
+            foreach (var node in new List<SkillNode>(graph.Nodes))
+            {
+                graph.RemoveNode(node.Id);
+            }
+            // Add new nodes
+            foreach (var node in nodes)
+            {
+                graph.AddNode(node);
+            }
+        }
+
+        [Test]
+        public void Validate_EmptyGraph_ReturnsValid()
+        {
+            // Arrange
+            var graph = CreateGraph();
+            SetNodes(graph, new List<SkillNode>());
+
+            // Act
+            var result = graph.Validate();
+
+            // Assert
+            Assert.IsTrue(result.IsValid);
+            Assert.AreEqual(0, result.Errors.Count);
+        }
+
+        [Test]
+        public void Validate_SingleNode_ReturnsValid()
+        {
+            // Arrange
+            var graph = CreateGraph();
+            var node = new SkillNode("node1") { DisplayName = "Node 1" };
+            SetNodes(graph, new List<SkillNode> { node });
+
+            // Act
+            var result = graph.Validate();
+
+            // Assert
+            Assert.IsTrue(result.IsValid);
+        }
+
+        [Test]
+        public void Validate_DuplicateNodeIds_ReturnsInvalid()
+        {
+            // Arrange
+            var graph = CreateGraph();
+            var node1 = new SkillNode("node1") { DisplayName = "Node 1" };
+            var node2 = new SkillNode("node1") { DisplayName = "Node 2" }; // Duplicate ID
+
+            SetNodes(graph, new List<SkillNode> { node1, node2 });
+
+            // Act
+            var result = graph.Validate();
+
+            // Assert
+            Assert.IsFalse(result.IsValid);
+            Assert.IsTrue(result.Errors.Exists(e => e.Contains("Duplicate")));
+        }
+
+        [Test]
+        public void Validate_SimpleCycle_ReturnsInvalid()
+        {
+            // Arrange
+            var graph = CreateGraph();
+            var node1 = new SkillNode("node1") { DisplayName = "Node 1" };
+            var node2 = new SkillNode("node2") { DisplayName = "Node 2" };
+
+            // Create cycle: node1 -> node2 -> node1
+            node1.PrerequisiteNodeIds.Add("node2");
+            node2.PrerequisiteNodeIds.Add("node1");
+
+            SetNodes(graph, new List<SkillNode> { node1, node2 });
+
+            // Act
+            var result = graph.Validate();
+
+            // Assert
+            Assert.IsFalse(result.IsValid);
+            Assert.IsTrue(result.Errors.Exists(e => e.Contains("Cycle") || e.Contains("circular")));
+        }
+
+        [Test]
+        public void Validate_ComplexCycle_ReturnsInvalid()
+        {
+            // Arrange
+            var graph = CreateGraph();
+            var node1 = new SkillNode("node1") { DisplayName = "Node 1" };
+            var node2 = new SkillNode("node2") { DisplayName = "Node 2" };
+            var node3 = new SkillNode("node3") { DisplayName = "Node 3" };
+
+            // Create cycle: node1 -> node2 -> node3 -> node1
+            node1.PrerequisiteNodeIds.Add("node3");
+            node2.PrerequisiteNodeIds.Add("node1");
+            node3.PrerequisiteNodeIds.Add("node2");
+
+            SetNodes(graph, new List<SkillNode> { node1, node2, node3 });
+
+            // Act
+            var result = graph.Validate();
+
+            // Assert
+            Assert.IsFalse(result.IsValid);
+            Assert.IsTrue(result.Errors.Exists(e => e.Contains("Cycle") || e.Contains("circular")));
+        }
+
+        [Test]
+        public void Validate_InvalidPrerequisiteReference_ReturnsInvalid()
+        {
+            // Arrange
+            var graph = CreateGraph();
+            var node1 = new SkillNode("node1") { DisplayName = "Node 1" };
+            node1.PrerequisiteNodeIds.Add("nonexistent_node"); // Invalid reference
+
+            SetNodes(graph, new List<SkillNode> { node1 });
+
+            // Act
+            var result = graph.Validate();
+
+            // Assert
+            Assert.IsFalse(result.IsValid);
+            Assert.IsTrue(result.Errors.Exists(e => e.Contains("Invalid") || e.Contains("reference")));
+        }
+
+        [Test]
+        public void Validate_ValidLinearChain_ReturnsValid()
+        {
+            // Arrange
+            var graph = CreateGraph();
+            var node1 = new SkillNode("node1") { DisplayName = "Node 1", NodeType = SkillNodeType.Root };
+            var node2 = new SkillNode("node2") { DisplayName = "Node 2" };
+            var node3 = new SkillNode("node3") { DisplayName = "Node 3" };
+
+            node2.PrerequisiteNodeIds.Add("node1");
+            node3.PrerequisiteNodeIds.Add("node2");
+
+            SetNodes(graph, new List<SkillNode> { node1, node2, node3 });
+
+            // Act
+            var result = graph.Validate();
+
+            // Assert
+            Assert.IsTrue(result.IsValid);
+        }
+
+        [Test]
+        public void Validate_ValidBranchingTree_ReturnsValid()
+        {
+            // Arrange
+            var graph = CreateGraph();
+            var root = new SkillNode("root") { DisplayName = "Root", NodeType = SkillNodeType.Root };
+            var branch1 = new SkillNode("branch1") { DisplayName = "Branch 1" };
+            var branch2 = new SkillNode("branch2") { DisplayName = "Branch 2" };
+            var leaf1 = new SkillNode("leaf1") { DisplayName = "Leaf 1" };
+            var leaf2 = new SkillNode("leaf2") { DisplayName = "Leaf 2" };
+
+            branch1.PrerequisiteNodeIds.Add("root");
+            branch2.PrerequisiteNodeIds.Add("root");
+            leaf1.PrerequisiteNodeIds.Add("branch1");
+            leaf2.PrerequisiteNodeIds.Add("branch2");
+
+            SetNodes(graph, new List<SkillNode> { root, branch1, branch2, leaf1, leaf2 });
+
+            // Act
+            var result = graph.Validate();
+
+            // Assert
+            Assert.IsTrue(result.IsValid);
+        }
+
+        [Test]
+        public void GetNodeById_ExistingNode_ReturnsNode()
+        {
+            // Arrange
+            var graph = CreateGraph();
+            var node = new SkillNode("test_node") { DisplayName = "Test Node" };
+            SetNodes(graph, new List<SkillNode> { node });
+
+            // Act
+            var result = graph.GetNodeById("test_node");
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual("test_node", result.Id);
+            Assert.AreEqual("Test Node", result.DisplayName);
+        }
+
+        [Test]
+        public void GetNodeById_NonexistentNode_ReturnsNull()
+        {
+            // Arrange
+            var graph = CreateGraph();
+            SetNodes(graph, new List<SkillNode>());
+
+            // Act
+            var result = graph.GetNodeById("nonexistent");
+
+            // Assert
+            Assert.IsNull(result);
+        }
+
+        [Test]
+        public void GetPrerequisites_NodeWithPrereqs_ReturnsCorrectNodes()
+        {
+            // Arrange
+            var graph = CreateGraph();
+            var prereq1 = new SkillNode("prereq1") { DisplayName = "Prereq 1" };
+            var prereq2 = new SkillNode("prereq2") { DisplayName = "Prereq 2" };
+            var node = new SkillNode("node") { DisplayName = "Node" };
+
+            node.PrerequisiteNodeIds.Add("prereq1");
+            node.PrerequisiteNodeIds.Add("prereq2");
+
+            SetNodes(graph, new List<SkillNode> { prereq1, prereq2, node });
+
+            // Act
+            var result = graph.GetPrerequisites("node");
+
+            // Assert
+            Assert.AreEqual(2, result.Count);
+            Assert.IsTrue(result.Exists(n => n.Id == "prereq1"));
+            Assert.IsTrue(result.Exists(n => n.Id == "prereq2"));
+        }
+
+        [Test]
+        public void GetDependents_NodeWithDependents_ReturnsCorrectNodes()
+        {
+            // Arrange
+            var graph = CreateGraph();
+            var node = new SkillNode("node") { DisplayName = "Node" };
+            var dependent1 = new SkillNode("dep1") { DisplayName = "Dep 1" };
+            var dependent2 = new SkillNode("dep2") { DisplayName = "Dep 2" };
+
+            dependent1.PrerequisiteNodeIds.Add("node");
+            dependent2.PrerequisiteNodeIds.Add("node");
+
+            SetNodes(graph, new List<SkillNode> { node, dependent1, dependent2 });
+
+            // Act
+            var result = graph.GetDependents("node");
+
+            // Assert
+            Assert.AreEqual(2, result.Count);
+            Assert.IsTrue(result.Exists(n => n.Id == "dep1"));
+            Assert.IsTrue(result.Exists(n => n.Id == "dep2"));
+        }
+
+        [Test]
+        public void HasPath_DirectConnection_ReturnsTrue()
+        {
+            // Arrange
+            var graph = CreateGraph();
+            var node1 = new SkillNode("node1") { DisplayName = "Node 1" };
+            var node2 = new SkillNode("node2") { DisplayName = "Node 2" };
+
+            node2.PrerequisiteNodeIds.Add("node1");
+
+            SetNodes(graph, new List<SkillNode> { node1, node2 });
+
+            // Act
+            var result = graph.HasPath("node1", "node2");
+
+            // Assert
+            Assert.IsTrue(result);
+        }
+
+        [Test]
+        public void HasPath_IndirectConnection_ReturnsTrue()
+        {
+            // Arrange
+            var graph = CreateGraph();
+            var node1 = new SkillNode("node1") { DisplayName = "Node 1" };
+            var node2 = new SkillNode("node2") { DisplayName = "Node 2" };
+            var node3 = new SkillNode("node3") { DisplayName = "Node 3" };
+
+            node2.PrerequisiteNodeIds.Add("node1");
+            node3.PrerequisiteNodeIds.Add("node2");
+
+            SetNodes(graph, new List<SkillNode> { node1, node2, node3 });
+
+            // Act
+            var result = graph.HasPath("node1", "node3");
+
+            // Assert
+            Assert.IsTrue(result);
+        }
+
+        [Test]
+        public void HasPath_NoConnection_ReturnsFalse()
+        {
+            // Arrange
+            var graph = CreateGraph();
+            var node1 = new SkillNode("node1") { DisplayName = "Node 1" };
+            var node2 = new SkillNode("node2") { DisplayName = "Node 2" };
+
+            SetNodes(graph, new List<SkillNode> { node1, node2 });
+
+            // Act
+            var result = graph.HasPath("node1", "node2");
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+    }
+}

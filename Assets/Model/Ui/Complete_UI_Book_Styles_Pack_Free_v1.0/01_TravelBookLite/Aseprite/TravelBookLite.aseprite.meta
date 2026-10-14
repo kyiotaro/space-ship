@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f2158f7861398f849a9085327e12737f
+guid: 12ba08c7ca9d44b489c6b3af70657b94
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -127,9 +127,9 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: Frame_0
+  - name: TravelBookLite
     originalName: 
-    pivot: {x: 0.5, y: -0.3}
+    pivot: {x: 0.5671642, y: 0.25417766}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -137,9 +137,9 @@ ScriptedImporter:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 20
-      height: 20
-    spriteID: 7ea6a2d0b4fdb674583d2c00d40fcaf4
+      width: 536
+      height: 1137
+    spriteID: 2c2f53571f722e845972964f1b353206
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -153,25 +153,25 @@ ScriptedImporter:
   asepriteLayers:
   - layerIndex: 0
     uuid:
-      value0: 1347953147
+      value0: 1573219833
       value1: 0
       value2: 0
       value3: 0
     guid: 0
-    name: Croshair
+    name: TravelBookLite
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: Croshair
+    - name: TravelBookLite
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
-        x: 6
-        y: 6
-        width: 20
-        height: 20
-      spriteId: 7ea6a2d0b4fdb674583d2c00d40fcaf4
+        x: 0
+        y: -289
+        width: 536
+        height: 1137
+      spriteId: 2c2f53571f722e845972964f1b353206
     linkedCells: []
     tileCells: []
     tileSetIndex: 0
@@ -181,5 +181,5 @@ ScriptedImporter:
   generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
-  canvasSize: {x: 32, y: 32}
-  previousTextureSize: {x: 32, y: 32}
+  canvasSize: {x: 608, y: 880}
+  previousTextureSize: {x: 1024, y: 2048}

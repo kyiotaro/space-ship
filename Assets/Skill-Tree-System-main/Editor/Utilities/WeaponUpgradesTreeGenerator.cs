@@ -1,0 +1,289 @@
+using UnityEngine;
+using UnityEditor;
+using SkillTree.Core.Data;
+using System.Collections.Generic;
+
+namespace SkillTree.Editor.Utilities
+{
+    /// <summary>
+    /// Generates a weapon upgrade tree with parallel upgrade paths for different weapon types.
+    /// Each weapon has: Base → Enhanced → Elite → Legendary tiers
+    /// </summary>
+    public static class WeaponUpgradesTreeGenerator
+    {
+        [MenuItem("Tools/Skill Tree/Create Example/Weapon Upgrades Tree")]
+        public static void CreateWeaponUpgradesTree()
+        {
+            var skillTree = ScriptableObject.CreateInstance<SkillTreeGraph>();
+            // TreeId is auto-generated and read-only
+            skillTree.DisplayName = "Weapon Upgrades";
+            skillTree.Description = "Upgrade paths for different weapon types";
+
+            var nodes = new List<SkillNode>();
+
+            // === ROOT - Starting Weapon ===
+            var root = CreateWeapon("weapon_basic", "Basic Weapon",
+                "Standard starting weapon\nDamage: 10", SkillNodeType.Root, 0, 0, "Basic", 10);
+            nodes.Add(root);
+
+            // === SWORD PATH ===
+            var sword1 = CreateWeapon("weapon_iron_sword", "Iron Sword",
+                "Damage: 25\nSpeed: Medium\nCost: 100 Gold", SkillNodeType.Standard, -400, 150, "Common", 25);
+            sword1.PrerequisiteNodeIds.Add(root.Id);
+            sword1.Costs.Add(CreateMultiCurrencyCost(100, 0));
+            nodes.Add(sword1);
+
+            var sword2 = CreateWeapon("weapon_steel_sword", "Steel Sword",
+                "Damage: 45\nSpeed: Medium\n+10% Critical\nCost: 250 Gold", SkillNodeType.Standard, -400, 300, "Rare", 45);
+            sword2.PrerequisiteNodeIds.Add(sword1.Id);
+            sword2.Costs.Add(CreateMultiCurrencyCost(250, 0));
+            nodes.Add(sword2);
+
+            var sword3 = CreateWeapon("weapon_mithril_sword", "Mithril Sword",
+                "Damage: 75\nSpeed: Fast\n+20% Critical\nCost: 500 Gold, 50 Gems", SkillNodeType.Milestone, -400, 450, "Epic", 75);
+            sword3.PrerequisiteNodeIds.Add(sword2.Id);
+            sword3.Costs.Add(CreateMultiCurrencyCost(500, 50));
+            nodes.Add(sword3);
+
+            var swordLegendary = CreateWeapon("weapon_excalibur", "Excalibur",
+                "Damage: 120\nSpeed: Fast\n+35% Critical\nLife Steal: 10%\nCost: 1000 Gold, 200 Gems",
+                SkillNodeType.Capstone, -400, 600, "Legendary", 120);
+            swordLegendary.PrerequisiteNodeIds.Add(sword3.Id);
+            swordLegendary.Costs.Add(CreateMultiCurrencyCost(1000, 200));
+            nodes.Add(swordLegendary);
+
+            // === AXE PATH ===
+            var axe1 = CreateWeapon("weapon_battle_axe", "Battle Axe",
+                "Damage: 35\nSpeed: Slow\nHigh Crit Damage\nCost: 100 Gold", SkillNodeType.Standard, -200, 150, "Common", 35);
+            axe1.PrerequisiteNodeIds.Add(root.Id);
+            axe1.Costs.Add(CreateMultiCurrencyCost(100, 0));
+            nodes.Add(axe1);
+
+            var axe2 = CreateWeapon("weapon_great_axe", "Great Axe",
+                "Damage: 60\nSpeed: Slow\n+50% Crit Damage\nCost: 250 Gold", SkillNodeType.Standard, -200, 300, "Rare", 60);
+            axe2.PrerequisiteNodeIds.Add(axe1.Id);
+            axe2.Costs.Add(CreateMultiCurrencyCost(250, 0));
+            nodes.Add(axe2);
+
+            var axe3 = CreateWeapon("weapon_executioners_axe", "Executioner's Axe",
+                "Damage: 95\nSpeed: Slow\n+75% Crit Damage\nCleave nearby enemies\nCost: 500 Gold, 50 Gems",
+                SkillNodeType.Milestone, -200, 450, "Epic", 95);
+            axe3.PrerequisiteNodeIds.Add(axe2.Id);
+            axe3.Costs.Add(CreateMultiCurrencyCost(500, 50));
+            nodes.Add(axe3);
+
+            var axeLegendary = CreateWeapon("weapon_ragnarok", "Ragnarok",
+                "Damage: 150\nSpeed: Slow\n+100% Crit Damage\nCleave + Thunder Strike\nCost: 1000 Gold, 200 Gems",
+                SkillNodeType.Capstone, -200, 600, "Legendary", 150);
+            axeLegendary.PrerequisiteNodeIds.Add(axe3.Id);
+            axeLegendary.Costs.Add(CreateMultiCurrencyCost(1000, 200));
+            nodes.Add(axeLegendary);
+
+            // === BOW PATH ===
+            var bow1 = CreateWeapon("weapon_hunting_bow", "Hunting Bow",
+                "Damage: 20\nSpeed: Fast\nRange: Long\nCost: 100 Gold", SkillNodeType.Standard, 0, 150, "Common", 20);
+            bow1.PrerequisiteNodeIds.Add(root.Id);
+            bow1.Costs.Add(CreateMultiCurrencyCost(100, 0));
+            nodes.Add(bow1);
+
+            var bow2 = CreateWeapon("weapon_composite_bow", "Composite Bow",
+                "Damage: 40\nSpeed: Fast\nRange: Long\n+15% Crit\nCost: 250 Gold", SkillNodeType.Standard, 0, 300, "Rare", 40);
+            bow2.PrerequisiteNodeIds.Add(bow1.Id);
+            bow2.Costs.Add(CreateMultiCurrencyCost(250, 0));
+            nodes.Add(bow2);
+
+            var bow3 = CreateWeapon("weapon_elven_bow", "Elven Bow",
+                "Damage: 70\nSpeed: Very Fast\nRange: Very Long\n+25% Crit\nPiercing Arrows\nCost: 500 Gold, 50 Gems",
+                SkillNodeType.Milestone, 0, 450, "Epic", 70);
+            bow3.PrerequisiteNodeIds.Add(bow2.Id);
+            bow3.Costs.Add(CreateMultiCurrencyCost(500, 50));
+            nodes.Add(bow3);
+
+            var bowLegendary = CreateWeapon("weapon_artemis_bow", "Artemis' Bow",
+                "Damage: 110\nSpeed: Very Fast\nRange: Infinite\n+40% Crit\nMulti-shot + Homing Arrows\nCost: 1000 Gold, 200 Gems",
+                SkillNodeType.Capstone, 0, 600, "Legendary", 110);
+            bowLegendary.PrerequisiteNodeIds.Add(bow3.Id);
+            bowLegendary.Costs.Add(CreateMultiCurrencyCost(1000, 200));
+            nodes.Add(bowLegendary);
+
+            // === STAFF PATH (Magic) ===
+            var staff1 = CreateWeapon("weapon_oak_staff", "Oak Staff",
+                "Magic Damage: 22\nSpeed: Medium\n+10 Mana\nCost: 100 Gold", SkillNodeType.Standard, 200, 150, "Common", 22);
+            staff1.PrerequisiteNodeIds.Add(root.Id);
+            staff1.Costs.Add(CreateMultiCurrencyCost(100, 0));
+            nodes.Add(staff1);
+
+            var staff2 = CreateWeapon("weapon_arcane_staff", "Arcane Staff",
+                "Magic Damage: 42\nSpeed: Medium\n+25 Mana\n+10% Spell Power\nCost: 250 Gold",
+                SkillNodeType.Standard, 200, 300, "Rare", 42);
+            staff2.PrerequisiteNodeIds.Add(staff1.Id);
+            staff2.Costs.Add(CreateMultiCurrencyCost(250, 0));
+            nodes.Add(staff2);
+
+            var staff3 = CreateWeapon("weapon_elder_staff", "Elder Staff",
+                "Magic Damage: 72\nSpeed: Fast\n+50 Mana\n+25% Spell Power\nMana Regeneration\nCost: 500 Gold, 50 Gems",
+                SkillNodeType.Milestone, 200, 450, "Epic", 72);
+            staff3.PrerequisiteNodeIds.Add(staff2.Id);
+            staff3.Costs.Add(CreateMultiCurrencyCost(500, 50));
+            nodes.Add(staff3);
+
+            var staffLegendary = CreateWeapon("weapon_staff_cosmos", "Staff of the Cosmos",
+                "Magic Damage: 115\nSpeed: Fast\n+100 Mana\n+50% Spell Power\nCast Time -50%\nCost: 1000 Gold, 200 Gems",
+                SkillNodeType.Capstone, 200, 600, "Legendary", 115);
+            staffLegendary.PrerequisiteNodeIds.Add(staff3.Id);
+            staffLegendary.Costs.Add(CreateMultiCurrencyCost(1000, 200));
+            nodes.Add(staffLegendary);
+
+            // === DAGGER PATH (Fast, Low Damage) ===
+            var dagger1 = CreateWeapon("weapon_iron_dagger", "Iron Dagger",
+                "Damage: 15\nSpeed: Very Fast\n+20% Crit\nCost: 100 Gold", SkillNodeType.Standard, 400, 150, "Common", 15);
+            dagger1.PrerequisiteNodeIds.Add(root.Id);
+            dagger1.Costs.Add(CreateMultiCurrencyCost(100, 0));
+            nodes.Add(dagger1);
+
+            var dagger2 = CreateWeapon("weapon_assassin_blade", "Assassin's Blade",
+                "Damage: 30\nSpeed: Very Fast\n+35% Crit\nPoison Damage\nCost: 250 Gold",
+                SkillNodeType.Standard, 400, 300, "Rare", 30);
+            dagger2.PrerequisiteNodeIds.Add(dagger1.Id);
+            dagger2.Costs.Add(CreateMultiCurrencyCost(250, 0));
+            nodes.Add(dagger2);
+
+            var dagger3 = CreateWeapon("weapon_shadow_fang", "Shadow Fang",
+                "Damage: 55\nSpeed: Very Fast\n+50% Crit\nPoison + Bleed\nBackstab x3 Damage\nCost: 500 Gold, 50 Gems",
+                SkillNodeType.Milestone, 400, 450, "Epic", 55);
+            dagger3.PrerequisiteNodeIds.Add(dagger2.Id);
+            dagger3.Costs.Add(CreateMultiCurrencyCost(500, 50));
+            nodes.Add(dagger3);
+
+            var daggerLegendary = CreateWeapon("weapon_nightfall", "Nightfall",
+                "Damage: 90\nSpeed: Very Fast\n+70% Crit\nPoison + Bleed + Curse\nBackstab x5 Damage\nCost: 1000 Gold, 200 Gems",
+                SkillNodeType.Capstone, 400, 600, "Legendary", 90);
+            daggerLegendary.PrerequisiteNodeIds.Add(dagger3.Id);
+            daggerLegendary.Costs.Add(CreateMultiCurrencyCost(1000, 200));
+            nodes.Add(daggerLegendary);
+
+            // === ULTIMATE WEAPON (requires all legendary weapons) ===
+            var ultimate = CreateWeapon("weapon_godslayer", "Godslayer",
+                "Damage: 200\nSpeed: Variable\nAll Abilities Unlocked\nShapeshifts to match situation\nCost: 5000 Gold, 1000 Gems",
+                SkillNodeType.Special, 0, 800, "Legendary", 200);
+            ultimate.PrerequisiteNodeIds.Add(swordLegendary.Id);
+            ultimate.PrerequisiteNodeIds.Add(axeLegendary.Id);
+            ultimate.PrerequisiteNodeIds.Add(bowLegendary.Id);
+            ultimate.PrerequisiteNodeIds.Add(staffLegendary.Id);
+            ultimate.PrerequisiteNodeIds.Add(daggerLegendary.Id);
+            ultimate.Costs.Add(CreateMultiCurrencyCost(5000, 1000));
+            nodes.Add(ultimate);
+
+            // Add nodes to the graph
+            foreach (var node in nodes)
+            {
+                skillTree.AddNode(node);
+            }
+
+            // Create connections
+            CreateAllConnections(skillTree);
+
+            // Save asset
+            string path = "Assets/SkillTrees/WeaponUpgradesTree.asset";
+            string directory = System.IO.Path.GetDirectoryName(path);
+
+            // Create directory if it doesn't exist
+            if (!AssetDatabase.IsValidFolder(directory))
+            {
+                string[] folders = directory.Split('/');
+                string currentPath = folders[0];
+
+                for (int i = 1; i < folders.Length; i++)
+                {
+                    string newPath = currentPath + "/" + folders[i];
+                    if (!AssetDatabase.IsValidFolder(newPath))
+                    {
+                        AssetDatabase.CreateFolder(currentPath, folders[i]);
+                    }
+                    currentPath = newPath;
+                }
+            }
+
+            AssetDatabase.CreateAsset(skillTree, path);
+            AssetDatabase.SaveAssets();
+
+            EditorUtility.FocusProjectWindow();
+            Selection.activeObject = skillTree;
+
+            Debug.Log($"<color=green>✓ Created Weapon Upgrades Tree at {path}</color>");
+        }
+
+        private static SkillNode CreateWeapon(string id, string name, string description,
+            SkillNodeType type, float x, float y, string rarity, int damage)
+        {
+            var node = new SkillNode(id)
+            {
+                DisplayName = name,
+                Description = description,
+                NodeType = type,
+                EditorPosition = new Vector2(x, y)
+            };
+
+            node.CustomData["Rarity"] = rarity;
+            node.CustomData["WeaponDamage"] = damage.ToString();
+            node.CustomData["NodeExtensionType"] = "WeaponUnlock";
+
+            return node;
+        }
+
+        private static SkillCost CreateMultiCurrencyCost(int gold, int gems)
+        {
+            var cost = new SkillCost
+            {
+                ResourceType = "Currency"
+            };
+
+            cost.CustomData["CostProvider"] = "MultiCurrency";
+            cost.CustomData["Gold"] = gold.ToString();
+
+            if (gems > 0)
+            {
+                cost.CustomData["Gems"] = gems.ToString();
+            }
+
+            return cost;
+        }
+
+        private static void CreateAllConnections(SkillTreeGraph graph)
+        {
+            var connections = new List<SkillConnection>();
+
+            foreach (var node in graph.Nodes)
+            {
+                foreach (var prereqId in node.PrerequisiteNodeIds)
+                {
+                    // Color connections based on weapon tier
+                    Color connectionColor = node.CustomData["Rarity"] switch
+                    {
+                        "Common" => new Color(0.8f, 0.8f, 0.8f),
+                        "Rare" => new Color(0.3f, 0.6f, 1.0f),
+                        "Epic" => new Color(0.8f, 0.3f, 1.0f),
+                        "Legendary" => new Color(1.0f, 0.8f, 0.2f),
+                        _ => Color.white
+                    };
+
+                    var connection = new SkillConnection
+                    {
+                        FromNodeId = prereqId,
+                        ToNodeId = node.Id,
+                        Type = ConnectionType.Prerequisite,
+                        Color = connectionColor,
+                        Width = 2f
+                    };
+                    connections.Add(connection);
+                }
+            }
+
+            // Add connections to the graph
+            foreach (var connection in connections)
+            {
+                graph.AddConnection(connection);
+            }
+        }
+    }
+}

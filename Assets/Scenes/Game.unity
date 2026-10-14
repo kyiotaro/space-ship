@@ -5020,6 +5020,7 @@ GameObject:
   - component: {fileID: 1944157784}
   - component: {fileID: 1944157786}
   - component: {fileID: 1944157787}
+  - component: {fileID: 1944157788}
   m_Layer: 0
   m_Name: UIManager
   m_TagString: Untagged
@@ -5139,6 +5140,20 @@ MonoBehaviour:
   scorePerDifficultyStep: 100
   difficultyIncreasePerStep: 0.1
   maxDifficultyMultiplier: 3
+--- !u!114 &1944157788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1944157780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b742429e6b55fb340b00e0eaa43d8ae4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DynamicCursor
+  defaultCursor: {fileID: 8264336940764989084, guid: f2158f7861398f849a9085327e12737f, type: 3}
+  hotSpot: {x: 0, y: 0}
 --- !u!1 &1958975133
 GameObject:
   m_ObjectHideFlags: 0

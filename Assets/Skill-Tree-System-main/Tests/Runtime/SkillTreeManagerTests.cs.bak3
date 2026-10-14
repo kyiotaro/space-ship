@@ -1,0 +1,447 @@
+using NUnit.Framework;
+using SkillTree.Core.Data;
+using SkillTree.Core.Logic;
+using SkillTree.Core.Events;
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace SkillTree.Tests.Runtime
+{
+    /// <summary>
+    /// Unit tests for SkillTreeManager functionality.
+    /// Tests unlock/lock operations, resource management, and event publishing.
+    /// </summary>
+    public class SkillTreeManagerTests
+    {
+        private SkillTreeGraph _graph;
+        private ISkillTreeEventBus _eventBus;
+        private SkillTreeManager _manager;
+
+        [SetUp]
+        public void SetUp()
+        {
+            _graph = ScriptableObject.CreateInstance<SkillTreeGraph>();
+            // TreeId is auto-generated, read-only
+            _graph.DisplayName = "Test Tree";
+
+            _eventBus = new SkillTreeEventBus();
+            _manager = new SkillTreeManager(_graph, _eventBus);
+        }
+
+        // Helper method to replace _graph.SetNodes (which doesn't exist in the API)
+        private void SetGraphNodes(List<SkillNode> nodes)
+        {
+            // Clear existing nodes
+            foreach (var node in new List<SkillNode>(_graph.Nodes))
+            {
+                _graph.RemoveNode(node.Id);
+            }
+            // Add new nodes
+            foreach (var node in nodes)
+            {
+                _graph.AddNode(node);
+            }
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            if (_graph != null)
+                Object.DestroyImmediate(_graph);
+        }
+
+        #region Resource Management Tests
+
+        [Test]
+        public void SetResource_NewResource_SetsValue()
+        {
+            // Act
+            _manager.SetResource("SkillPoints", 10);
+
+            // Assert
+            Assert.AreEqual(10, _manager.GetResource("SkillPoints"));
+        }
+
+        [Test]
+        public void SetResource_ExistingResource_UpdatesValue()
+        {
+            // Arrange
+            _manager.SetResource("SkillPoints", 10);
+
+            // Act
+            _manager.SetResource("SkillPoints", 20);
+
+            // Assert
+            Assert.AreEqual(20, _manager.GetResource("SkillPoints"));
+        }
+
+        [Test]
+        public void GetResource_NonexistentResource_ReturnsZero()
+        {
+            // Act
+            var result = _manager.GetResource("NonexistentResource");
+
+            // Assert
+            Assert.AreEqual(0, result);
+        }
+
+        [Test]
+        public void ConsumeResource_SufficientAmount_DeductsCorrectly()
+        {
+            // Arrange
+            _manager.SetResource("Gold", 100);
+
+            // Act
+            _manager.ConsumeResource("Gold", 30);
+
+            // Assert
+            Assert.AreEqual(70, _manager.GetResource("Gold"));
+        }
+
+        [Test]
+        public void ConsumeResource_InsufficientAmount_DeductsToZero()
+        {
+            // Arrange
+            _manager.SetResource("Gold", 100);
+
+            // Act
+            _manager.ConsumeResource("Gold", 150);
+
+            // Assert
+            Assert.AreEqual(0, _manager.GetResource("Gold")); // Should not go negative
+        }
+
+        #endregion
+
+        #region Node Unlock Tests
+
+        [Test]
+        public void UnlockNode_SimpleNode_SucceedsAndPublishesEvent()
+        {
+            // Arrange
+            var node = new SkillNode("skill1") { DisplayName = "Skill 1", NodeType = SkillNodeType.Root };
+            _graph.SetNodes(new List<SkillNode> { node });
+
+            bool eventReceived = false;
+            _manager.Subscribe<SkillUnlockedEvent>(evt => {
+                eventReceived = true;
+                Assert.AreEqual("skill1", evt.Node.Id);
+            });
+
+            // Act
+            var result = _manager.UnlockNode("skill1");
+
+            // Assert
+            Assert.IsTrue(result);
+            Assert.IsTrue(_manager.IsNodeUnlocked("skill1"));
+            Assert.IsTrue(eventReceived);
+        }
+
+        [Test]
+        public void UnlockNode_AlreadyUnlocked_ReturnsFalse()
+        {
+            // Arrange
+            var node = new SkillNode("skill1") { DisplayName = "Skill 1", NodeType = SkillNodeType.Root };
+            _graph.SetNodes(new List<SkillNode> { node });
+            _manager.UnlockNode("skill1");
+
+            // Act
+            var result = _manager.UnlockNode("skill1");
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void UnlockNode_WithPrerequisites_SucceedsWhenMetF()
+        {
+            // Arrange
+            var prereq = new SkillNode("prereq") { DisplayName = "Prerequisite", NodeType = SkillNodeType.Root };
+            var node = new SkillNode("skill1") { DisplayName = "Skill 1" };
+            node.PrerequisiteNodeIds.Add("prereq");
+
+            _graph.SetNodes(new List<SkillNode> { prereq, node });
+
+            _manager.UnlockNode("prereq");
+
+            // Act
+            var result = _manager.UnlockNode("skill1");
+
+            // Assert
+            Assert.IsTrue(result);
+            Assert.IsTrue(_manager.IsNodeUnlocked("skill1"));
+        }
+
+        [Test]
+        public void UnlockNode_WithUnmetPrerequisites_Fails()
+        {
+            // Arrange
+            var prereq = new SkillNode("prereq") { DisplayName = "Prerequisite", NodeType = SkillNodeType.Root };
+            var node = new SkillNode("skill1") { DisplayName = "Skill 1" };
+            node.PrerequisiteNodeIds.Add("prereq");
+
+            _graph.SetNodes(new List<SkillNode> { prereq, node });
+
+            // Act (don't unlock prerequisite)
+            var result = _manager.UnlockNode("skill1");
+
+            // Assert
+            Assert.IsFalse(result);
+            Assert.IsFalse(_manager.IsNodeUnlocked("skill1"));
+        }
+
+        [Test]
+        public void UnlockNode_WithCost_DeductsCostOnSuccess()
+        {
+            // Arrange
+            var node = new SkillNode("skill1") { DisplayName = "Skill 1", NodeType = SkillNodeType.Root };
+            node.Costs.Add(new SkillCost { ResourceType = "SkillPoints", Amount = 5 });
+
+            _graph.SetNodes(new List<SkillNode> { node });
+            _manager.SetResource("SkillPoints", 10);
+
+            // Act
+            var result = _manager.UnlockNode("skill1");
+
+            // Assert
+            Assert.IsTrue(result);
+            Assert.AreEqual(5, _manager.GetResource("SkillPoints"));
+        }
+
+        [Test]
+        public void UnlockNode_InsufficientCost_Fails()
+        {
+            // Arrange
+            var node = new SkillNode("skill1") { DisplayName = "Skill 1", NodeType = SkillNodeType.Root };
+            node.Costs.Add(new SkillCost { ResourceType = "SkillPoints", Amount = 10 });
+
+            _graph.SetNodes(new List<SkillNode> { node });
+            _manager.SetResource("SkillPoints", 5);
+
+            // Act
+            var result = _manager.UnlockNode("skill1");
+
+            // Assert
+            Assert.IsFalse(result);
+            Assert.IsFalse(_manager.IsNodeUnlocked("skill1"));
+            Assert.AreEqual(5, _manager.GetResource("SkillPoints")); // Cost not deducted
+        }
+
+        [Test]
+        public void UnlockNode_NonexistentNode_Fails()
+        {
+            // Arrange
+            _graph.SetNodes(new List<SkillNode>());
+
+            // Act
+            var result = _manager.UnlockNode("nonexistent");
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        #endregion
+
+        #region Node Lock Tests
+
+        [Test]
+        public void LockNode_UnlockedNode_SucceedsAndPublishesEvent()
+        {
+            // Arrange
+            var node = new SkillNode("skill1") { DisplayName = "Skill 1", NodeType = SkillNodeType.Root };
+            _graph.SetNodes(new List<SkillNode> { node });
+            _manager.UnlockNode("skill1");
+
+            bool eventReceived = false;
+            _manager.Subscribe<SkillLockedEvent>(evt => {
+                eventReceived = true;
+                Assert.AreEqual("skill1", evt.Node.Id);
+            });
+
+            // Act
+            var result = _manager.LockNode("skill1");
+
+            // Assert
+            Assert.IsTrue(result);
+            Assert.IsFalse(_manager.IsNodeUnlocked("skill1"));
+            Assert.IsTrue(eventReceived);
+        }
+
+        [Test]
+        public void LockNode_AlreadyLocked_ReturnsFalse()
+        {
+            // Arrange
+            var node = new SkillNode("skill1") { DisplayName = "Skill 1", NodeType = SkillNodeType.Root };
+            _graph.SetNodes(new List<SkillNode> { node });
+
+            // Act
+            var result = _manager.LockNode("skill1");
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void LockNode_WithUnlockedDependents_Fails()
+        {
+            // Arrange
+            var node = new SkillNode("skill1") { DisplayName = "Skill 1", NodeType = SkillNodeType.Root };
+            var dependent = new SkillNode("skill2") { DisplayName = "Skill 2" };
+            dependent.PrerequisiteNodeIds.Add("skill1");
+
+            _graph.SetNodes(new List<SkillNode> { node, dependent });
+
+            _manager.UnlockNode("skill1");
+            _manager.UnlockNode("skill2");
+
+            // Act
+            var result = _manager.LockNode("skill1");
+
+            // Assert
+            Assert.IsFalse(result);
+            Assert.IsTrue(_manager.IsNodeUnlocked("skill1")); // Should remain unlocked
+        }
+
+        #endregion
+
+        #region State Management Tests
+
+        [Test]
+        public void ResetTree_ClearsAllUnlockedNodes()
+        {
+            // Arrange
+            var node1 = new SkillNode("skill1") { DisplayName = "Skill 1", NodeType = SkillNodeType.Root };
+            var node2 = new SkillNode("skill2") { DisplayName = "Skill 2", NodeType = SkillNodeType.Root };
+            _graph.SetNodes(new List<SkillNode> { node1, node2 });
+
+            _manager.UnlockNode("skill1");
+            _manager.UnlockNode("skill2");
+
+            bool eventReceived = false;
+            _manager.Subscribe<TreeResetEvent>(evt => eventReceived = true);
+
+            // Act
+            _manager.ResetTree();
+
+            // Assert
+            Assert.IsFalse(_manager.IsNodeUnlocked("skill1"));
+            Assert.IsFalse(_manager.IsNodeUnlocked("skill2"));
+            Assert.IsTrue(eventReceived);
+        }
+
+        [Test]
+        public void GetState_ReturnsCorrectState()
+        {
+            // Arrange
+            var node = new SkillNode("skill1") { DisplayName = "Skill 1", NodeType = SkillNodeType.Root };
+            _graph.SetNodes(new List<SkillNode> { node });
+
+            _manager.SetResource("SkillPoints", 10);
+            _manager.UnlockNode("skill1");
+
+            // Act
+            var state = _manager.GetState();
+
+            // Assert
+            Assert.IsNotNull(state);
+            Assert.AreEqual("test_tree", state.SkillTreeId);
+            Assert.IsTrue(state.IsNodeUnlocked("skill1"));
+            Assert.AreEqual(10, state.GetResource("SkillPoints"));
+            Assert.AreEqual(1, state.UnlockedNodeCount);
+        }
+
+        #endregion
+
+        #region Validation Tests
+
+        [Test]
+        public void CanUnlockNode_ValidNode_ReturnsTrue()
+        {
+            // Arrange
+            var node = new SkillNode("skill1") { DisplayName = "Skill 1", NodeType = SkillNodeType.Root };
+            _graph.SetNodes(new List<SkillNode> { node });
+            _manager.SetResource("SkillPoints", 10);
+
+            // Act
+            var result = _manager.CanUnlockNode("skill1");
+
+            // Assert
+            Assert.IsTrue(result);
+        }
+
+        [Test]
+        public void CanUnlockNode_InsufficientResources_ReturnsFalse()
+        {
+            // Arrange
+            var node = new SkillNode("skill1") { DisplayName = "Skill 1", NodeType = SkillNodeType.Root };
+            node.Costs.Add(new SkillCost { ResourceType = "SkillPoints", Amount = 10 });
+            _graph.SetNodes(new List<SkillNode> { node });
+            _manager.SetResource("SkillPoints", 5);
+
+            // Act
+            var result = _manager.CanUnlockNode("skill1");
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void CanUnlockNode_UnmetPrerequisites_ReturnsFalse()
+        {
+            // Arrange
+            var prereq = new SkillNode("prereq") { DisplayName = "Prerequisite", NodeType = SkillNodeType.Root };
+            var node = new SkillNode("skill1") { DisplayName = "Skill 1" };
+            node.PrerequisiteNodeIds.Add("prereq");
+            _graph.SetNodes(new List<SkillNode> { prereq, node });
+
+            // Act
+            var result = _manager.CanUnlockNode("skill1");
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        #endregion
+
+        #region Event System Tests
+
+        [Test]
+        public void Subscribe_ReceivesPublishedEvents()
+        {
+            // Arrange
+            var node = new SkillNode("skill1") { DisplayName = "Skill 1", NodeType = SkillNodeType.Root };
+            _graph.SetNodes(new List<SkillNode> { node });
+
+            int eventCount = 0;
+            _manager.Subscribe<SkillUnlockedEvent>(evt => eventCount++);
+
+            // Act
+            _manager.UnlockNode("skill1");
+
+            // Assert
+            Assert.AreEqual(1, eventCount);
+        }
+
+        [Test]
+        public void Unsubscribe_StopsReceivingEvents()
+        {
+            // Arrange
+            var node = new SkillNode("skill1") { DisplayName = "Skill 1", NodeType = SkillNodeType.Root };
+            _graph.SetNodes(new List<SkillNode> { node });
+
+            int eventCount = 0;
+            void handler(SkillUnlockedEvent evt) => eventCount++;
+
+            _manager.Subscribe<SkillUnlockedEvent>(handler);
+            _manager.Unsubscribe<SkillUnlockedEvent>(handler);
+
+            // Act
+            _manager.UnlockNode("skill1");
+
+            // Assert
+            Assert.AreEqual(0, eventCount);
+        }
+
+        #endregion
+    }
+}

@@ -1,0 +1,26 @@
+{
+  "name": "com.sanar.skilltree",
+  "version": "0.2.0",
+  "displayName": "Skill Tree System",
+  "description": "A comprehensive, plug-and-play skill tree system for Unity featuring visual node editor, runtime UI, save/load persistence, and VContainer integration.",
+  "unity": "2021.3",
+  "keywords": [
+    "skill tree",
+    "progression",
+    "rpg",
+    "graph",
+    "node editor"
+  ],
+  "author": {
+    "name": "Sanar",
+    "email": "sanarberkebayram@gmail.com"
+  },
+  "dependencies": {},
+  "samples": [
+    {
+      "displayName": "Basic Skill Tree",
+      "description": "Simple linear progression example",
+      "path": "Samples~/BasicSkillTree"
+    }
+  ]
+}
