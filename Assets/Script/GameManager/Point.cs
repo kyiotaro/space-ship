@@ -8,6 +8,7 @@ public class Point : MonoBehaviour
     [SerializeField, Min(0)] private int balance;
     private Label pointsText;
     private Label statsCreditsText;
+    private Label shopCreditsText;
 
     public int Balance => balance;
 
@@ -34,7 +35,8 @@ public class Point : MonoBehaviour
 
         pointsText = document.rootVisualElement.Q<Label>("points-value");
         statsCreditsText = document.rootVisualElement.Q<Label>("stats-credits");
-        if (pointsText == null || statsCreditsText == null)
+        shopCreditsText = document.rootVisualElement.Q<Label>("shop-credits");
+        if (pointsText == null || statsCreditsText == null || shopCreditsText == null)
         {
             Debug.LogError("[Point] The UI Toolkit document is missing a credits label.", this);
             return;
@@ -74,6 +76,8 @@ public class Point : MonoBehaviour
             pointsText.text = balance.ToString();
         if (statsCreditsText != null)
             statsCreditsText.text = $"Credits: {balance}";
+        if (shopCreditsText != null)
+            shopCreditsText.text = balance.ToString();
     }
 
     private void OnValidate()

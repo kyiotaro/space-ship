@@ -1,19 +1,23 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
+using System;
 
 public class UIManager : MonoBehaviour
 {
     private AudioManager audioManager;
     private UIDocument uiDocument;
     private VisualElement hud;
+    private VisualElement shopOverlay;
     private VisualElement statsOverlay;
     private VisualElement pauseOverlay;
     private VisualElement gameOverOverlay;
+    private VisualElement shopCards;
     private Image minimapImage;
     private PlayerStats playerStats;
     private GameOver gameOver;
     private bool isStatsOpen;
+    private bool isShopOpen;
     private bool isPaused;
 
     private void Start()
@@ -32,11 +36,16 @@ public class UIManager : MonoBehaviour
 
         VisualElement root = uiDocument.rootVisualElement;
         hud = RequireElement<VisualElement>(root, "hud");
+        shopOverlay = RequireElement<VisualElement>(root, "shop-overlay");
         statsOverlay = RequireElement<VisualElement>(root, "stats-overlay");
         pauseOverlay = RequireElement<VisualElement>(root, "pause-overlay");
         gameOverOverlay = RequireElement<VisualElement>(root, "game-over-overlay");
+        shopCards = RequireElement<VisualElement>(root, "shop-cards");
         minimapImage = RequireElement<Image>(root, "minimap-image");
 
+        BuildShopCards();
+        RegisterButton(root, "open-shop-button", OpenShop);
+        RegisterButton(root, "close-shop-button", CloseShop);
         RegisterButton(root, "pause-button", Pause);
         RegisterButton(root, "resume-button", onResumeButtonClicked);
         RegisterButton(root, "restart-button", onRestartButtonClicked);
@@ -64,6 +73,7 @@ public class UIManager : MonoBehaviour
             minimapImage.image = minimapCamera.targetTexture;
 
         SetDisplay(statsOverlay, false);
+        SetDisplay(shopOverlay, false);
         SetDisplay(pauseOverlay, false);
         if (gameOver != null && gameOver.IsSetup)
             SetGameOverVisible(true);
@@ -79,7 +89,7 @@ public class UIManager : MonoBehaviour
         if (gameOver != null && gameOver.IsSetup)
             return;
 
-        if (Input.GetKeyDown(KeyCode.Tab) && !isPaused)
+        if (Input.GetKeyDown(KeyCode.Tab) && !isPaused && !isShopOpen)
         {
             if (isStatsOpen)
                 CloseStats();
@@ -89,7 +99,9 @@ public class UIManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (isStatsOpen)
+            if (isShopOpen)
+                CloseShop();
+            else if (isStatsOpen)
                 CloseStats();
             else if (isPaused)
                 onResumeButtonClicked();
@@ -104,6 +116,8 @@ public class UIManager : MonoBehaviour
             return;
 
         VisualElement root = uiDocument.rootVisualElement;
+        UnregisterButton(root, "open-shop-button", OpenShop);
+        UnregisterButton(root, "close-shop-button", CloseShop);
         UnregisterButton(root, "pause-button", Pause);
         UnregisterButton(root, "resume-button", onResumeButtonClicked);
         UnregisterButton(root, "restart-button", onRestartButtonClicked);
@@ -123,7 +137,9 @@ public class UIManager : MonoBehaviour
         if (visible)
         {
             isStatsOpen = false;
+            isShopOpen = false;
             isPaused = false;
+            SetDisplay(shopOverlay, false);
             SetDisplay(statsOverlay, false);
             SetDisplay(pauseOverlay, false);
             SetDisplay(hud, false);
@@ -132,6 +148,7 @@ public class UIManager : MonoBehaviour
         else
         {
             SetDisplay(hud, true);
+            SetDisplay(shopOverlay, false);
             SetDisplay(statsOverlay, false);
             SetDisplay(pauseOverlay, false);
             Time.timeScale = 1f;
@@ -177,6 +194,94 @@ public class UIManager : MonoBehaviour
         SetDisplay(hud, false);
         SetDisplay(statsOverlay, true);
         Time.timeScale = 0f;
+    }
+
+    private void OpenShop()
+    {
+        audioManager?.playClickSFX();
+        isShopOpen = true;
+        SetDisplay(hud, false);
+        SetDisplay(shopOverlay, true);
+        Time.timeScale = 0f;
+    }
+
+    private void BuildShopCards()
+    {
+        if (shopCards == null)
+            return;
+
+        ShopUpgradeData[] upgrades = Resources.LoadAll<ShopUpgradeData>("ShopUpgrades");
+        if (upgrades.Length == 0)
+        {
+            Debug.LogError("[UIManager] No shop upgrade assets were found in Resources/ShopUpgrades.", this);
+            return;
+        }
+
+        Array.Sort(upgrades, (left, right) =>
+        {
+            if (left == null)
+                return right == null ? 0 : 1;
+            if (right == null)
+                return -1;
+
+            return left.SortOrder.CompareTo(right.SortOrder);
+        });
+        foreach (ShopUpgradeData upgrade in upgrades)
+        {
+            if (upgrade == null)
+            {
+                Debug.LogError("[UIManager] A shop upgrade asset is null.", this);
+                continue;
+            }
+
+            shopCards.Add(CreateShopCard(upgrade));
+        }
+    }
+
+    private static VisualElement CreateShopCard(ShopUpgradeData upgrade)
+    {
+        VisualElement card = new VisualElement();
+        card.AddToClassList("shop-card");
+
+        Label category = new Label(upgrade.Category);
+        category.AddToClassList("shop-card-category");
+        card.Add(category);
+
+        Label title = new Label(upgrade.DisplayName);
+        title.AddToClassList("shop-card-title");
+        card.Add(title);
+
+        Label description = new Label(upgrade.Description);
+        description.AddToClassList("shop-card-description");
+        card.Add(description);
+
+        Label bonus = new Label(upgrade.BonusText);
+        bonus.AddToClassList("shop-card-bonus");
+        card.Add(bonus);
+
+        VisualElement footer = new VisualElement();
+        footer.AddToClassList("shop-card-footer");
+
+        Label price = new Label($"{upgrade.CreditCost} CREDITS");
+        price.AddToClassList("shop-card-price");
+        footer.Add(price);
+
+        Button buyButton = new Button { text = "BUY" };
+        buyButton.SetEnabled(false);
+        buyButton.AddToClassList("shop-buy-button");
+        footer.Add(buyButton);
+
+        card.Add(footer);
+        return card;
+    }
+
+    private void CloseShop()
+    {
+        audioManager?.playClickSFX();
+        isShopOpen = false;
+        SetDisplay(shopOverlay, false);
+        SetDisplay(hud, true);
+        Time.timeScale = 1f;
     }
 
     private void CloseStats()

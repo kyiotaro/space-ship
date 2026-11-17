@@ -1,6 +1,6 @@
 .game-root {
     flex-grow: 1;
-    color: #eef6ff;
+    color: rgb(238, 246, 255);
     background-color: transparent;
 }
 
@@ -8,7 +8,7 @@
     flex-grow: 1;
     justify-content: center;
     align-items: center;
-    color: #eef6ff;
+    color: rgb(238, 246, 255);
     background-color: rgba(4, 9, 20, 0.62);
 }
 
@@ -18,11 +18,11 @@
     align-items: center;
     background-color: rgba(8, 18, 38, 0.92);
     border-top-width: 3px;
-    border-top-color: #4de0d0;
+    border-top-color: rgb(77, 224, 208);
 }
 
 .home-kicker {
-    color: #4de0d0;
+    color: rgb(77, 224, 208);
     font-size: 13px;
     -unity-font-style: bold;
     letter-spacing: 4px;
@@ -30,7 +30,7 @@
 
 .home-title {
     margin-top: 8px;
-    color: #f1f7ff;
+    color: rgb(241, 247, 255);
     font-size: 42px;
     -unity-font-style: bold;
     letter-spacing: 4px;
@@ -39,7 +39,7 @@
 .home-subtitle {
     margin-top: 12px;
     margin-bottom: 25px;
-    color: #9cb1c8;
+    color: rgb(156, 177, 200);
     font-size: 12px;
     letter-spacing: 1px;
 }
@@ -50,7 +50,7 @@
 
 .home-controls {
     margin-top: 27px;
-    color: #7189a3;
+    color: rgb(113, 137, 163);
     font-size: 9px;
     letter-spacing: 1px;
 }
@@ -68,7 +68,7 @@
 }
 
 .brand {
-    color: #eff8ff;
+    color: rgb(239, 248, 255);
     font-size: 23px;
     -unity-font-style: bold;
     letter-spacing: 3px;
@@ -76,7 +76,7 @@
 
 .level-label {
     margin-top: 5px;
-    color: #4de0d0;
+    color: rgb(77, 224, 208);
     font-size: 13px;
     -unity-font-style: bold;
     letter-spacing: 2px;
@@ -93,12 +93,12 @@
     padding: 8px 12px;
     background-color: rgba(8, 18, 38, 0.82);
     border-left-width: 2px;
-    border-left-color: #3a90b9;
+    border-left-color: rgb(58, 144, 185);
 }
 
 .stat-caption,
 .section-caption {
-    color: #91a8c0;
+    color: rgb(145, 168, 192);
     font-size: 10px;
     -unity-font-style: bold;
     letter-spacing: 1.4px;
@@ -106,26 +106,154 @@
 
 .stat-value {
     margin-top: 3px;
-    color: #f3f8ff;
+    color: rgb(243, 248, 255);
     font-size: 17px;
     -unity-font-style: bold;
 }
 
 .accent,
 .currency-label {
-    color: #4de0d0;
+    color: rgb(77, 224, 208);
 }
 
 .icon-button {
     width: 42px;
     height: 42px;
     margin-left: 12px;
-    color: #eff8ff;
+    color: rgb(239, 248, 255);
     background-color: rgba(20, 43, 69, 0.92);
     border-width: 1px;
-    border-color: #3a90b9;
+    border-color: rgb(58, 144, 185);
     font-size: 20px;
     -unity-font-style: bold;
+}
+
+.shop-open-button {
+    min-width: 90px;
+    height: 42px;
+    margin-left: 12px;
+    color: #eff8ff;
+    background-color: #176f83;
+    border-width: 0;
+    font-size: 13px;
+    -unity-font-style: bold;
+    letter-spacing: 1px;
+}
+
+.shop-open-button:hover,
+.shop-buy-button:hover {
+    background-color: #238da0;
+}
+
+.shop-dialog {
+    width: 1060px;
+    padding: 32px;
+}
+
+.shop-header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.shop-title {
+    -unity-text-align: upper-left;
+}
+
+.shop-subtitle {
+    -unity-text-align: upper-left;
+}
+
+.shop-balance {
+    min-width: 150px;
+    padding: 10px 14px;
+    background-color: #142b45;
+    border-left-width: 2px;
+    border-left-color: #4de0d0;
+}
+
+.shop-cards {
+    flex-direction: row;
+    margin-left: -8px;
+    margin-right: -8px;
+}
+
+.shop-card {
+    flex-grow: 1;
+    flex-basis: 0;
+    min-height: 255px;
+    margin: 8px;
+    padding: 18px;
+    background-color: #111f33;
+    border-top-width: 2px;
+    border-top-color: #3a90b9;
+}
+
+.shop-card-category {
+    color: #4de0d0;
+    font-size: 11px;
+    -unity-font-style: bold;
+    letter-spacing: 2px;
+}
+
+.shop-card-title {
+    margin-top: 12px;
+    color: #f1f7ff;
+    font-size: 20px;
+    -unity-font-style: bold;
+}
+
+.shop-card-description {
+    flex-grow: 1;
+    margin-top: 8px;
+    color: #9cb1c8;
+    font-size: 13px;
+    white-space: normal;
+}
+
+.shop-card-bonus {
+    margin-top: 16px;
+    color: #4de0d0;
+    font-size: 13px;
+    -unity-font-style: bold;
+    letter-spacing: 1px;
+}
+
+.shop-card-footer {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 14px;
+    padding-top: 12px;
+    border-top-width: 1px;
+    border-top-color: #24374d;
+}
+
+.shop-card-price {
+    color: #f3f8ff;
+    font-size: 12px;
+    -unity-font-style: bold;
+}
+
+.shop-buy-button {
+    min-width: 68px;
+    min-height: 34px;
+    color: #f4fbff;
+    background-color: #176f83;
+    border-width: 0;
+    font-size: 12px;
+    -unity-font-style: bold;
+}
+
+.shop-buy-button:disabled {
+    color: #7189a3;
+    background-color: #26374b;
+}
+
+.shop-close-button {
+    align-self: flex-end;
+    min-width: 210px;
+    margin-top: 18px;
 }
 
 .lower-hud {
@@ -139,7 +267,7 @@
     padding: 13px 15px;
     background-color: rgba(8, 18, 38, 0.86);
     border-left-width: 2px;
-    border-left-color: #3a90b9;
+    border-left-color: rgb(58, 144, 185);
 }
 
 .status-card {
@@ -150,8 +278,9 @@
     height: 13px;
     margin-top: 8px;
     margin-bottom: 12px;
-    --unity-progress-bar-background: #17283b;
-    --unity-progress-bar-color: #4de0d0;
+    --unity-progress-bar-background: rgb(23, 40, 59);
+    --unity-progress-bar-color: rgb(77, 224, 208);
+    -unity-background-image-tint-color: rgb(255, 255, 255);
 }
 
 .exp-row {
@@ -163,13 +292,13 @@
     flex-grow: 1;
     height: 7px;
     margin-left: 12px;
-    --unity-progress-bar-background: #17283b;
-    --unity-progress-bar-color: #6ea8ff;
+    --unity-progress-bar-background: rgb(23, 40, 59);
+    --unity-progress-bar-color: rgb(110, 168, 255);
 }
 
 .ammo-label {
     margin-top: 11px;
-    color: #e6f0fc;
+    color: rgb(230, 240, 252);
     font-size: 12px;
     -unity-font-style: bold;
     letter-spacing: 1px;
@@ -184,9 +313,9 @@
     height: 140px;
     margin-top: 8px;
     align-self: center;
-    background-color: #091321;
+    background-color: rgb(9, 19, 33);
     border-width: 1px;
-    border-color: #3a90b9;
+    border-color: rgb(58, 144, 185);
 }
 
 .overlay {
@@ -204,9 +333,9 @@
 .dialog {
     width: 460px;
     padding: 26px 30px;
-    background-color: #0c192b;
+    background-color: rgb(12, 25, 43);
     border-top-width: 3px;
-    border-top-color: #4de0d0;
+    border-top-color: rgb(77, 224, 208);
 }
 
 .stats-dialog {
@@ -219,7 +348,7 @@
 }
 
 .dialog-title {
-    color: #f1f7ff;
+    color: rgb(241, 247, 255);
     font-size: 25px;
     -unity-font-style: bold;
     letter-spacing: 2px;
@@ -227,13 +356,13 @@
 }
 
 .danger-title {
-    color: #ff6a7f;
+    color: rgb(255, 106, 127);
 }
 
 .dialog-subtitle {
     margin-top: 7px;
     margin-bottom: 20px;
-    color: #9cb1c8;
+    color: rgb(156, 177, 200);
     font-size: 13px;
     -unity-text-align: middle-center;
 }
@@ -255,19 +384,19 @@
     align-items: center;
     padding: 5px 0;
     border-bottom-width: 1px;
-    border-bottom-color: #24374d;
+    border-bottom-color: rgb(36, 55, 77);
 }
 
 .row-label {
     flex-grow: 1;
-    color: #dce8f6;
+    color: rgb(220, 232, 246);
     font-size: 14px;
 }
 
 .row-value {
     min-width: 76px;
     margin-right: 10px;
-    color: #4de0d0;
+    color: rgb(77, 224, 208);
     font-size: 14px;
     -unity-font-style: bold;
     -unity-text-align: middle-right;
@@ -278,8 +407,8 @@
 .small-button {
     min-height: 42px;
     margin-top: 7px;
-    color: #f4fbff;
-    background-color: #176f83;
+    color: rgb(244, 251, 255);
+    background-color: rgb(23, 111, 131);
     border-width: 0;
     font-size: 13px;
     -unity-font-style: bold;
@@ -287,7 +416,7 @@
 }
 
 .secondary-button {
-    background-color: #1b2b40;
+    background-color: rgb(27, 43, 64);
 }
 
 .small-button {
@@ -300,9 +429,9 @@
 .primary-button:hover,
 .small-button:hover,
 .icon-button:hover {
-    background-color: #238da0;
+    background-color: rgb(35, 141, 160);
 }
 
 .secondary-button:hover {
-    background-color: #2a405b;
+    background-color: rgb(42, 64, 91);
 }

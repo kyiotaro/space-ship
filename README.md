@@ -30,6 +30,10 @@ There is no separate victory screen in the current demo. The run ends when the p
 
 Your weapon has limited ammunition and reloads automatically. Watch the health and ammunition displays while fighting.
 
+## Shop Upgrades
+
+Shop card data is stored as `ShopUpgradeData` assets in `Assets/Resources/ShopUpgrades`. Create more with **Assets → Create → Space Ship → Shop Upgrade**. The shop loads these assets at runtime and displays their category, name, description, bonus, and credit cost. Purchase buttons are placeholders and do not yet apply upgrades.
+
 ## Run Locally
 
 1. Clone the repository.
