@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class ButtonTest : MonoBehaviour
 {
+    [SerializeField] private float attackUpgradeAmount = 10f;
+
     private AudioManager audioManager;
 
     private void Awake()
@@ -13,7 +15,6 @@ public class ButtonTest : MonoBehaviour
     {
         audioManager?.playClickSFX();
         PlayerStats playerStats = PlayerStats.Instance;
-        LevelSystem levelSystem = LevelSystem.instance;
 
         if (playerStats == null)
         {
@@ -21,18 +22,19 @@ public class ButtonTest : MonoBehaviour
             return;
         }
 
-        if (levelSystem == null)
+        Point pointManager = Point.instance;
+        if (pointManager == null)
         {
-            Debug.LogError("[ButtonTest] LevelSystem.instance is null.", this);
+            Debug.LogError("[ButtonTest] Point.instance is null.", this);
             return;
         }
 
         float oldAttack = playerStats.Attack;
-        int oldPoints = levelSystem.GetUpgradePoints();
-        playerStats.UpgradeAttack();
+        int oldPoints = pointManager.Balance;
+        playerStats.UpgradeAttack(attackUpgradeAmount);
 
         Debug.Log(
-            $"[ButtonTest] UpgradeAttack clicked. Points: {oldPoints} -> {levelSystem.GetUpgradePoints()}, " +
+            $"[ButtonTest] UpgradeAttack clicked. Points: {oldPoints} -> {pointManager.Balance}, " +
             $"Attack: {oldAttack} -> {playerStats.Attack}.",
             this);
     }

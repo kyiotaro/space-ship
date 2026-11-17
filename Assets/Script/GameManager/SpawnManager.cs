@@ -1,4 +1,5 @@
-using UnityEngine; 
+using System.Collections.Generic;
+using UnityEngine;
 
 
 public class SpawnManager : MonoBehaviour
@@ -7,39 +8,24 @@ public class SpawnManager : MonoBehaviour
     public GameObject[] rareEnemyPrefab;
     public GameObject CameraPos;
     public Camera minimapCamera;
-    private int enemyCount;
-    private int maxEnemy;
-    private int rareEnemySpawnedAtLevel = -1;
 
+    private const int InitialEnemiesPerWave = 10;
+    private const int AdditionalEnemiesPerWave = 5;
+
+    private readonly List<GameObject> spawnedEnemies = new List<GameObject>();
+    private int currentWave = 1;
+    private int enemiesSpawnedThisWave;
     private float spawnTimer = 0f;
     private float spawnInterval = 5f;
-    private float enemyScanTimer;
-    [SerializeField] private float enemyScanInterval = 0.25f;
     [SerializeField] private float spawnMargin = 2f;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        if (LevelSystem.instance != null)
-        {
-            LevelSystem.instance.OnLevelUp += HandleLevelUp;
-        }
+        if (!HasPrefab(enemyPrefab))
+            Debug.LogError("[SpawnManager] No valid enemy prefabs are assigned.", this);
 
-        maxEnemy = 1;
-        Debug.Log("Max Enemy: " + maxEnemy);
-        SpawnEnemy();
-
-        if (LevelSystem.instance != null)
-        {
-            HandleLevelUp(LevelSystem.instance.GetCurrentLevel());
-        }
-    }
-
-    private void OnDestroy()
-    {
-        if (LevelSystem.instance != null)
-        {
-            LevelSystem.instance.OnLevelUp -= HandleLevelUp;
-        }
+        StartNextWave();
     }
 
     // Update is called once per frame
@@ -51,54 +37,92 @@ public class SpawnManager : MonoBehaviour
             return;
         }
 
-        enemyScanTimer -= Time.deltaTime;
-        if (enemyScanTimer <= 0f)
-        {
-            enemyCount = GameObject.FindGameObjectsWithTag("Enemy").Length;
-            enemyScanTimer = enemyScanInterval;
-        }
-        maxEnemy = LevelSystem.instance != null
-            ? Mathf.Max(1, LevelSystem.instance.GetCurrentLevel())
-            : 1;
-
         transform.position = new Vector3(CameraPos.transform.position.x, CameraPos.transform.position.y + 10, transform.position.z);
+
+        spawnedEnemies.RemoveAll(enemy => enemy == null);
+        if (enemiesSpawnedThisWave >= GetEnemiesPerWave())
+        {
+            if (spawnedEnemies.Count == 0)
+            {
+                currentWave++;
+                StartNextWave();
+            }
+
+            return;
+        }
+
         spawnTimer += Time.deltaTime;
-        if (spawnTimer >= spawnInterval && enemyCount < maxEnemy)
+        if (spawnTimer >= spawnInterval)
         {
-            spawnTimer = 0f;           
-            SpawnEnemy();
+            spawnTimer = 0f;
+            if (SpawnEnemy())
+                enemiesSpawnedThisWave++;
         }
-
     }
 
-    void SpawnEnemy()
+    private void StartNextWave()
     {
-        if (enemyPrefab == null || enemyPrefab.Length == 0) return;
+        enemiesSpawnedThisWave = 0;
+        spawnTimer = 0f;
+        Debug.Log($"Starting wave {currentWave}: {GetEnemiesPerWave()} enemies.");
 
-        int enemyIndex = Random.Range(0, enemyPrefab.Length);
-        SpawnPrefab(enemyPrefab[enemyIndex]);
+        if (SpawnEnemy())
+            enemiesSpawnedThisWave++;
     }
 
-    private void HandleLevelUp(int newLevel)
+    private int GetEnemiesPerWave()
     {
-        if (rareEnemyPrefab == null || rareEnemyPrefab.Length == 0 || newLevel < 3 || newLevel % 3 != 0)
-        {
-            return;
-        }
-
-        if (rareEnemySpawnedAtLevel == newLevel)
-        {
-            return;
-        }
-
-        rareEnemySpawnedAtLevel = newLevel;
-        int rareEnemyIndex = Random.Range(0, rareEnemyPrefab.Length);
-        SpawnPrefab(rareEnemyPrefab[rareEnemyIndex]);
+        return InitialEnemiesPerWave + (currentWave - 1) * AdditionalEnemiesPerWave;
     }
 
-    private void SpawnPrefab(GameObject prefab)
+    private bool SpawnEnemy()
     {
-        if (prefab == null) return;
+        if (currentWave % 3 == 0 && enemiesSpawnedThisWave == 0 && TrySpawnFromPrefabs(rareEnemyPrefab))
+            return true;
+
+        return TrySpawnFromPrefabs(enemyPrefab);
+    }
+
+    private bool TrySpawnFromPrefabs(GameObject[] prefabs)
+    {
+        if (prefabs == null || prefabs.Length == 0)
+            return false;
+
+        int startIndex = Random.Range(0, prefabs.Length);
+        for (int i = 0; i < prefabs.Length; i++)
+        {
+            GameObject prefab = prefabs[(startIndex + i) % prefabs.Length];
+            if (prefab == null)
+                continue;
+
+            GameObject spawnedEnemy = SpawnPrefab(prefab);
+            if (spawnedEnemy != null)
+            {
+                spawnedEnemies.Add(spawnedEnemy);
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private bool HasPrefab(GameObject[] prefabs)
+    {
+        if (prefabs == null)
+            return false;
+
+        foreach (GameObject prefab in prefabs)
+        {
+            if (prefab != null)
+                return true;
+        }
+
+        return false;
+    }
+
+    private GameObject SpawnPrefab(GameObject prefab)
+    {
+        if (prefab == null) return null;
 
         Vector3 spawnPosition = transform.position;
 
@@ -113,6 +137,6 @@ public class SpawnManager : MonoBehaviour
             spawnPosition.y = minimapCamera.transform.position.y + visibleHeight / 2f + spawnMargin;
         }
 
-        Instantiate(prefab, spawnPosition, prefab.transform.rotation);
+        return Instantiate(prefab, spawnPosition, prefab.transform.rotation);
     }
 }

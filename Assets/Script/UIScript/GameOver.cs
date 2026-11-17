@@ -5,6 +5,7 @@ public class GameOver : MonoBehaviour
 {
     private AudioManager audioManager;
     private bool isSetup;
+    public bool IsSetup => isSetup;
 
     void Awake()
     {
@@ -12,20 +13,17 @@ public class GameOver : MonoBehaviour
         isSetup = false;
     }
 
-    void Update()
-    {
-        if (isSetup && Input.GetMouseButtonDown(0))
-        {
-            restart(); 
-        }
-    }
-
     public void setup(bool value)
     {
-        Debug.Log($"[GameOver] setup({value}) called. Panel before: {gameObject.activeSelf}", this);
-        gameObject.SetActive(value); 
         isSetup = value;
-        Debug.Log($"[GameOver] Panel after: {gameObject.activeSelf}, isSetup: {isSetup}", this);
+        UIManager uiManager = FindFirstObjectByType<UIManager>();
+        if (uiManager == null)
+        {
+            Debug.LogError("[GameOver] UIManager was not found.", this);
+            return;
+        }
+
+        uiManager.SetGameOverVisible(value);
     }
     public void restart()
     {

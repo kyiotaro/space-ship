@@ -1,0 +1,1022 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8abd4a1cf81946e9aa3696341bda0a4, type: 3}
+  m_Name: RPGSkillTree
+  m_EditorClassIdentifier: com.sanar.skilltree::SkillTree.Core.Data.SkillTreeGraph
+  _treeId: 
+  _displayName: RPG Skill Tree
+  _description: Classic RPG skill tree with Warrior, Mage, and Rogue paths
+  _nodes:
+  - _id: root_combat_basics
+    _displayName: Combat Basics
+    _description: Foundation of all combat skills
+    _icon: {fileID: 0}
+    _displayNameLocalizationKey: 
+    _descriptionLocalizationKey: 
+    _editorPosition: {x: 0, y: 0}
+    _prerequisiteNodeIds: []
+    _nodeType: 1
+    _requirements: []
+    _costs: []
+    _customData:
+      _keys:
+      - NodeExtensionType
+      - StatType
+      - Amount
+      _values:
+      - StatBoost
+      - Health
+      - 50
+    OnUnlocked:
+      m_PersistentCalls:
+        m_Calls: []
+    OnLocked:
+      m_PersistentCalls:
+        m_Calls: []
+  - _id: warrior_melee_training
+    _displayName: Melee Training
+    _description: +10 Melee Damage
+    _icon: {fileID: 0}
+    _displayNameLocalizationKey: 
+    _descriptionLocalizationKey: 
+    _editorPosition: {x: -300, y: 150}
+    _prerequisiteNodeIds:
+    - root_combat_basics
+    _nodeType: 0
+    _requirements: []
+    _costs:
+    - _resourceType: SkillPoints
+      _amount: 1
+      _customData:
+        _keys: []
+        _values: []
+    _customData:
+      _keys:
+      - NodeExtensionType
+      - StatType
+      - Amount
+      - Rarity
+      _values:
+      - StatBoost
+      - Damage
+      - 10
+      - Common
+    OnUnlocked:
+      m_PersistentCalls:
+        m_Calls: []
+    OnLocked:
+      m_PersistentCalls:
+        m_Calls: []
+  - _id: warrior_shield_mastery
+    _displayName: Shield Mastery
+    _description: +20 Defense, unlock Shield Block ability
+    _icon: {fileID: 0}
+    _displayNameLocalizationKey: 
+    _descriptionLocalizationKey: 
+    _editorPosition: {x: -400, y: 300}
+    _prerequisiteNodeIds:
+    - warrior_melee_training
+    _nodeType: 0
+    _requirements: []
+    _costs:
+    - _resourceType: SkillPoints
+      _amount: 1
+      _customData:
+        _keys: []
+        _values: []
+    _customData:
+      _keys:
+      - NodeExtensionType
+      - StatType
+      - Amount
+      - Rarity
+      _values:
+      - StatBoost
+      - Defense
+      - 20
+      - Rare
+    OnUnlocked:
+      m_PersistentCalls:
+        m_Calls: []
+    OnLocked:
+      m_PersistentCalls:
+        m_Calls: []
+  - _id: warrior_berserker_rage
+    _displayName: Berserker Rage
+    _description: +30 Damage, -10 Defense, gain Rage ability
+    _icon: {fileID: 0}
+    _displayNameLocalizationKey: 
+    _descriptionLocalizationKey: 
+    _editorPosition: {x: -500, y: 450}
+    _prerequisiteNodeIds:
+    - warrior_shield_mastery
+    _nodeType: 2
+    _requirements: []
+    _costs:
+    - _resourceType: SkillPoints
+      _amount: 2
+      _customData:
+        _keys: []
+        _values: []
+    _customData:
+      _keys:
+      - NodeExtensionType
+      - StatType
+      - Amount
+      - Rarity
+      _values:
+      - StatBoost
+      - Damage
+      - 30
+      - Epic
+    OnUnlocked:
+      m_PersistentCalls:
+        m_Calls: []
+    OnLocked:
+      m_PersistentCalls:
+        m_Calls: []
+  - _id: warrior_titan_strength
+    _displayName: Titan's Strength
+    _description: +50 Damage, +30 Defense, unlock Titan Form
+    _icon: {fileID: 0}
+    _displayNameLocalizationKey: 
+    _descriptionLocalizationKey: 
+    _editorPosition: {x: -450, y: 600}
+    _prerequisiteNodeIds:
+    - warrior_berserker_rage
+    _nodeType: 3
+    _requirements: []
+    _costs:
+    - _resourceType: SkillPoints
+      _amount: 3
+      _customData:
+        _keys: []
+        _values: []
+    _customData:
+      _keys:
+      - NodeExtensionType
+      - StatType
+      - Amount
+      - Rarity
+      _values:
+      - StatBoost
+      - Damage
+      - 50
+      - Legendary
+    OnUnlocked:
+      m_PersistentCalls:
+        m_Calls: []
+    OnLocked:
+      m_PersistentCalls:
+        m_Calls: []
+  - _id: mage_arcane_study
+    _displayName: Arcane Studies
+    _description: +20 Mana, unlock basic spells
+    _icon: {fileID: 0}
+    _displayNameLocalizationKey: 
+    _descriptionLocalizationKey: 
+    _editorPosition: {x: 0, y: 150}
+    _prerequisiteNodeIds:
+    - root_combat_basics
+    _nodeType: 0
+    _requirements: []
+    _costs:
+    - _resourceType: SkillPoints
+      _amount: 1
+      _customData:
+        _keys: []
+        _values: []
+    _customData:
+      _keys:
+      - NodeExtensionType
+      - StatType
+      - Amount
+      - Rarity
+      _values:
+      - StatBoost
+      - Mana
+      - 20
+      - Common
+    OnUnlocked:
+      m_PersistentCalls:
+        m_Calls: []
+    OnLocked:
+      m_PersistentCalls:
+        m_Calls: []
+  - _id: mage_fire_mastery
+    _displayName: Fire Mastery
+    _description: +15 Fire Damage, unlock Fireball
+    _icon: {fileID: 0}
+    _displayNameLocalizationKey: 
+    _descriptionLocalizationKey: 
+    _editorPosition: {x: -100, y: 300}
+    _prerequisiteNodeIds:
+    - mage_arcane_study
+    _nodeType: 0
+    _requirements: []
+    _costs:
+    - _resourceType: SkillPoints
+      _amount: 1
+      _customData:
+        _keys: []
+        _values: []
+    _customData:
+      _keys:
+      - NodeExtensionType
+      - StatType
+      - Amount
+      - Rarity
+      _values:
+      - StatBoost
+      - FireDamage
+      - 15
+      - Rare
+    OnUnlocked:
+      m_PersistentCalls:
+        m_Calls: []
+    OnLocked:
+      m_PersistentCalls:
+        m_Calls: []
+  - _id: mage_frost_mastery
+    _displayName: Frost Mastery
+    _description: +15 Frost Damage, unlock Ice Lance
+    _icon: {fileID: 0}
+    _displayNameLocalizationKey: 
+    _descriptionLocalizationKey: 
+    _editorPosition: {x: 100, y: 300}
+    _prerequisiteNodeIds:
+    - mage_arcane_study
+    _nodeType: 0
+    _requirements: []
+    _costs:
+    - _resourceType: SkillPoints
+      _amount: 1
+      _customData:
+        _keys: []
+        _values: []
+    _customData:
+      _keys:
+      - NodeExtensionType
+      - StatType
+      - Amount
+      - Rarity
+      _values:
+      - StatBoost
+      - FrostDamage
+      - 15
+      - Rare
+    OnUnlocked:
+      m_PersistentCalls:
+        m_Calls: []
+    OnLocked:
+      m_PersistentCalls:
+        m_Calls: []
+  - _id: mage_elemental_fusion
+    _displayName: Elemental Fusion
+    _description: Combine fire and frost magic
+    _icon: {fileID: 0}
+    _displayNameLocalizationKey: 
+    _descriptionLocalizationKey: 
+    _editorPosition: {x: 0, y: 450}
+    _prerequisiteNodeIds:
+    - mage_fire_mastery
+    - mage_frost_mastery
+    _nodeType: 2
+    _requirements: []
+    _costs:
+    - _resourceType: SkillPoints
+      _amount: 2
+      _customData:
+        _keys: []
+        _values: []
+    _customData:
+      _keys:
+      - Rarity
+      _values:
+      - Epic
+    OnUnlocked:
+      m_PersistentCalls:
+        m_Calls: []
+    OnLocked:
+      m_PersistentCalls:
+        m_Calls: []
+  - _id: mage_archmage
+    _displayName: Archmage
+    _description: +100 Mana, +50 Spell Power, unlock Meteor
+    _icon: {fileID: 0}
+    _displayNameLocalizationKey: 
+    _descriptionLocalizationKey: 
+    _editorPosition: {x: 0, y: 600}
+    _prerequisiteNodeIds:
+    - mage_elemental_fusion
+    _nodeType: 3
+    _requirements: []
+    _costs:
+    - _resourceType: SkillPoints
+      _amount: 3
+      _customData:
+        _keys: []
+        _values: []
+    _customData:
+      _keys:
+      - NodeExtensionType
+      - StatType
+      - Amount
+      - Rarity
+      _values:
+      - StatBoost
+      - SpellPower
+      - 50
+      - Legendary
+    OnUnlocked:
+      m_PersistentCalls:
+        m_Calls: []
+    OnLocked:
+      m_PersistentCalls:
+        m_Calls: []
+  - _id: rogue_stealth_training
+    _displayName: Stealth Training
+    _description: +10 Stealth, unlock Sneak ability
+    _icon: {fileID: 0}
+    _displayNameLocalizationKey: 
+    _descriptionLocalizationKey: 
+    _editorPosition: {x: 300, y: 150}
+    _prerequisiteNodeIds:
+    - root_combat_basics
+    _nodeType: 0
+    _requirements: []
+    _costs:
+    - _resourceType: SkillPoints
+      _amount: 1
+      _customData:
+        _keys: []
+        _values: []
+    _customData:
+      _keys:
+      - NodeExtensionType
+      - StatType
+      - Amount
+      - Rarity
+      _values:
+      - StatBoost
+      - Stealth
+      - 10
+      - Common
+    OnUnlocked:
+      m_PersistentCalls:
+        m_Calls: []
+    OnLocked:
+      m_PersistentCalls:
+        m_Calls: []
+  - _id: rogue_critical_strikes
+    _displayName: Critical Strikes
+    _description: +15% Critical Hit Chance
+    _icon: {fileID: 0}
+    _displayNameLocalizationKey: 
+    _descriptionLocalizationKey: 
+    _editorPosition: {x: 400, y: 300}
+    _prerequisiteNodeIds:
+    - rogue_stealth_training
+    _nodeType: 0
+    _requirements: []
+    _costs:
+    - _resourceType: SkillPoints
+      _amount: 1
+      _customData:
+        _keys: []
+        _values: []
+    _customData:
+      _keys:
+      - NodeExtensionType
+      - StatType
+      - Amount
+      - Rarity
+      _values:
+      - StatBoost
+      - CritChance
+      - 15
+      - Rare
+    OnUnlocked:
+      m_PersistentCalls:
+        m_Calls: []
+    OnLocked:
+      m_PersistentCalls:
+        m_Calls: []
+  - _id: rogue_poison_mastery
+    _displayName: Poison Mastery
+    _description: +20 Poison Damage, unlock Envenom
+    _icon: {fileID: 0}
+    _displayNameLocalizationKey: 
+    _descriptionLocalizationKey: 
+    _editorPosition: {x: 500, y: 450}
+    _prerequisiteNodeIds:
+    - rogue_critical_strikes
+    _nodeType: 2
+    _requirements: []
+    _costs:
+    - _resourceType: SkillPoints
+      _amount: 2
+      _customData:
+        _keys: []
+        _values: []
+    _customData:
+      _keys:
+      - NodeExtensionType
+      - StatType
+      - Amount
+      - Rarity
+      _values:
+      - StatBoost
+      - PoisonDamage
+      - 20
+      - Epic
+    OnUnlocked:
+      m_PersistentCalls:
+        m_Calls: []
+    OnLocked:
+      m_PersistentCalls:
+        m_Calls: []
+  - _id: rogue_shadow_master
+    _displayName: Shadow Master
+    _description: +30 Stealth, +25% Crit Chance, unlock Shadow Clone
+    _icon: {fileID: 0}
+    _displayNameLocalizationKey: 
+    _descriptionLocalizationKey: 
+    _editorPosition: {x: 450, y: 600}
+    _prerequisiteNodeIds:
+    - rogue_poison_mastery
+    _nodeType: 3
+    _requirements: []
+    _costs:
+    - _resourceType: SkillPoints
+      _amount: 3
+      _customData:
+        _keys: []
+        _values: []
+    _customData:
+      _keys:
+      - NodeExtensionType
+      - StatType
+      - Amount
+      - Rarity
+      _values:
+      - StatBoost
+      - Stealth
+      - 30
+      - Legendary
+    OnUnlocked:
+      m_PersistentCalls:
+        m_Calls: []
+    OnLocked:
+      m_PersistentCalls:
+        m_Calls: []
+  - _id: hybrid_master_combatant
+    _displayName: Master Combatant
+    _description: Ultimate mastery combining all paths
+    _icon: {fileID: 0}
+    _displayNameLocalizationKey: 
+    _descriptionLocalizationKey: 
+    _editorPosition: {x: 0, y: 750}
+    _prerequisiteNodeIds:
+    - warrior_titan_strength
+    - mage_archmage
+    - rogue_shadow_master
+    _nodeType: 4
+    _requirements: []
+    _costs:
+    - _resourceType: SkillPoints
+      _amount: 5
+      _customData:
+        _keys: []
+        _values: []
+    _customData:
+      _keys:
+      - Rarity
+      _values:
+      - Legendary
+    OnUnlocked:
+      m_PersistentCalls:
+        m_Calls: []
+    OnLocked:
+      m_PersistentCalls:
+        m_Calls: []
+  _connections:
+  - _id: 963a868c-77d8-494d-adf6-c181ec03de70
+    _fromNodeId: root_combat_basics
+    _toNodeId: warrior_melee_training
+    _connectionType: 0
+    _color: {r: 1, g: 1, b: 1, a: 1}
+    _width: 2
+    _curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 1
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 1
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  - _id: f7c60c33-71c2-4e13-955b-0d0d7d1274f9
+    _fromNodeId: warrior_melee_training
+    _toNodeId: warrior_shield_mastery
+    _connectionType: 0
+    _color: {r: 1, g: 1, b: 1, a: 1}
+    _width: 2
+    _curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 1
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 1
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  - _id: aa38ef49-ba88-4ff4-8571-f2bc9f8f2d57
+    _fromNodeId: warrior_shield_mastery
+    _toNodeId: warrior_berserker_rage
+    _connectionType: 0
+    _color: {r: 1, g: 1, b: 1, a: 1}
+    _width: 2
+    _curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 1
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 1
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  - _id: b9eaf460-80b5-4641-a1df-9dd520a84e2b
+    _fromNodeId: warrior_berserker_rage
+    _toNodeId: warrior_titan_strength
+    _connectionType: 0
+    _color: {r: 1, g: 1, b: 1, a: 1}
+    _width: 2
+    _curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 1
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 1
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  - _id: 3be97a80-1c89-4191-8b56-0fae984e5293
+    _fromNodeId: root_combat_basics
+    _toNodeId: mage_arcane_study
+    _connectionType: 0
+    _color: {r: 1, g: 1, b: 1, a: 1}
+    _width: 2
+    _curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 1
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 1
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  - _id: 425f98a2-aa38-4fb5-b829-5d048b6ebed3
+    _fromNodeId: mage_arcane_study
+    _toNodeId: mage_fire_mastery
+    _connectionType: 0
+    _color: {r: 1, g: 1, b: 1, a: 1}
+    _width: 2
+    _curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 1
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 1
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  - _id: 02a12834-240c-4df3-b77d-54af720e2151
+    _fromNodeId: mage_arcane_study
+    _toNodeId: mage_frost_mastery
+    _connectionType: 0
+    _color: {r: 1, g: 1, b: 1, a: 1}
+    _width: 2
+    _curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 1
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 1
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  - _id: 3e828011-1c89-4064-9612-faa44506bcdd
+    _fromNodeId: mage_fire_mastery
+    _toNodeId: mage_elemental_fusion
+    _connectionType: 0
+    _color: {r: 1, g: 1, b: 1, a: 1}
+    _width: 2
+    _curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 1
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 1
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  - _id: 5011aed4-b472-4924-ad6c-2dea7799a5b5
+    _fromNodeId: mage_frost_mastery
+    _toNodeId: mage_elemental_fusion
+    _connectionType: 0
+    _color: {r: 1, g: 1, b: 1, a: 1}
+    _width: 2
+    _curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 1
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 1
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  - _id: 8294e456-4e83-42e4-bc6d-6460f79e21c8
+    _fromNodeId: mage_elemental_fusion
+    _toNodeId: mage_archmage
+    _connectionType: 0
+    _color: {r: 1, g: 1, b: 1, a: 1}
+    _width: 2
+    _curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 1
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 1
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  - _id: 6262e129-3a88-4776-ad7c-26439681a107
+    _fromNodeId: root_combat_basics
+    _toNodeId: rogue_stealth_training
+    _connectionType: 0
+    _color: {r: 1, g: 1, b: 1, a: 1}
+    _width: 2
+    _curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 1
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 1
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  - _id: 03952e6d-1004-4ccc-8415-7a7e54da40a2
+    _fromNodeId: rogue_stealth_training
+    _toNodeId: rogue_critical_strikes
+    _connectionType: 0
+    _color: {r: 1, g: 1, b: 1, a: 1}
+    _width: 2
+    _curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 1
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 1
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  - _id: 9c079a35-54ef-47fb-870c-0e4e127f9d85
+    _fromNodeId: rogue_critical_strikes
+    _toNodeId: rogue_poison_mastery
+    _connectionType: 0
+    _color: {r: 1, g: 1, b: 1, a: 1}
+    _width: 2
+    _curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 1
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 1
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  - _id: 219e2efb-7533-40bc-b0b0-7f014d007e29
+    _fromNodeId: rogue_poison_mastery
+    _toNodeId: rogue_shadow_master
+    _connectionType: 0
+    _color: {r: 1, g: 1, b: 1, a: 1}
+    _width: 2
+    _curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 1
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 1
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  - _id: 635d9043-1a99-48a4-9072-79c9962813c7
+    _fromNodeId: warrior_titan_strength
+    _toNodeId: hybrid_master_combatant
+    _connectionType: 0
+    _color: {r: 1, g: 1, b: 1, a: 1}
+    _width: 2
+    _curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 1
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 1
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  - _id: 799850be-9514-4e1d-8159-f1cb3024f862
+    _fromNodeId: mage_archmage
+    _toNodeId: hybrid_master_combatant
+    _connectionType: 0
+    _color: {r: 1, g: 1, b: 1, a: 1}
+    _width: 2
+    _curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 1
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 1
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  - _id: 70c39c7e-4849-4b95-856a-8459bc109965
+    _fromNodeId: rogue_shadow_master
+    _toNodeId: hybrid_master_combatant
+    _connectionType: 0
+    _color: {r: 1, g: 1, b: 1, a: 1}
+    _width: 2
+    _curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 1
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 1
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4

@@ -1,17 +1,15 @@
-using TMPro;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class StatsManager : MonoBehaviour
 {
-    [Header("UI")]
-    public TextMeshProUGUI HealthText;
-    public TextMeshProUGUI AttackText;
-    public TextMeshProUGUI DefenseText;
-    public TextMeshProUGUI SpeedText;
-    public TextMeshProUGUI AmmoText;
-
     private PlayerStats playerStats;
     private PlayerController playerController;
+    private Label healthLabel;
+    private Label attackLabel;
+    private Label defenseLabel;
+    private Label speedLabel;
+    private Label ammoLabel;
 
     private void Start()
     {
@@ -30,7 +28,27 @@ public class StatsManager : MonoBehaviour
         if (playerController != null)
             playerController.OnAmmoChanged += UpdateAmmoUI;
 
-        // Initial update
+        UIDocument document = FindFirstObjectByType<UIDocument>();
+        if (document == null)
+        {
+            Debug.LogError("[StatsManager] No UI Toolkit document was found.", this);
+            enabled = false;
+            return;
+        }
+
+        VisualElement root = document.rootVisualElement;
+        healthLabel = root.Q<Label>("stats-health");
+        attackLabel = root.Q<Label>("stats-attack");
+        defenseLabel = root.Q<Label>("stats-defense");
+        speedLabel = root.Q<Label>("stats-speed");
+        ammoLabel = root.Q<Label>("ammo-value");
+        if (healthLabel == null || attackLabel == null || defenseLabel == null || speedLabel == null || ammoLabel == null)
+        {
+            Debug.LogError("[StatsManager] The UI Toolkit document is missing one or more stats labels.", this);
+            enabled = false;
+            return;
+        }
+
         UpdateHealthUI();
         UpdateStatsUI();
         UpdateAmmoUI();
@@ -50,29 +68,27 @@ public class StatsManager : MonoBehaviour
 
     private void UpdateHealthUI()
     {
-        if (HealthText != null && playerStats != null)
-        {
-            HealthText.text = $"Health: {playerStats.Health:F0}/{playerStats.MaxHealth:F0}";
-        }
+        if (healthLabel != null && playerStats != null)
+            healthLabel.text = $"{playerStats.Health:F0} / {playerStats.MaxHealth:F0}";
     }
 
     private void UpdateStatsUI()
     {
         if (playerStats == null) return;
 
-        if (AttackText != null)
-            AttackText.text = $"Attack: {playerStats.Attack:F0}";
+        if (attackLabel != null)
+            attackLabel.text = playerStats.Attack.ToString("F0");
 
-        if (DefenseText != null)
-            DefenseText.text = $"Defense: {playerStats.Defense:F0}";
+        if (defenseLabel != null)
+            defenseLabel.text = playerStats.Defense.ToString("F0");
 
-        if (SpeedText != null)
-            SpeedText.text = $"Speed: {playerStats.TopSpeed:F0}";
+        if (speedLabel != null)
+            speedLabel.text = playerStats.TopSpeed.ToString("F0");
     }
 
     private void UpdateAmmoUI()
     {
-        if (AmmoText != null && playerController != null)
-            AmmoText.text = $"{playerController.Ammo}/{playerController.maxAmmo}";
+        if (ammoLabel != null && playerController != null)
+            ammoLabel.text = $"AMMO  {playerController.Ammo} / {playerController.maxAmmo}";
     }
 }

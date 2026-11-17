@@ -14,6 +14,7 @@ public class PlayerStats : MonoBehaviour
     private const float DefaultAttack = 10f;
     private const float DefaultDefense = 5f;
     private const float DefaultTopSpeed = 5f;
+    private int UpgradeCost;
 
     [Header("Core Stats")]
     [SerializeField] private float maxHealth = 100f;
@@ -21,12 +22,6 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] private float attack = 10f;
     [SerializeField] private float defense = 5f;
     [SerializeField] private float topSpeed = 5f;
-
-    [Header("Upgrade Amounts")]
-    [SerializeField] private float attackUpgrade = 2f;
-    [SerializeField] private float defenseUpgrade = 1f;
-    [SerializeField] private float topSpeedUpgrade = 0.5f;
-    [SerializeField] private float maxHealthUpgrade = 20f;
 
     // Events — anything that cares about stats subscribes here
     public event Action OnHealthChanged;
@@ -132,25 +127,26 @@ public class PlayerStats : MonoBehaviour
         OnStatsChanged?.Invoke();
     }
 
-    public void UpgradeAttack()
+    public void UpgradeAttack(float attackUpgrade)
     {
+        UpgradeCost = (int)(attackUpgrade * 10); // Set the cost for upgrading attack
         if (Instance != null && Instance != this)
         {
-            Instance.UpgradeAttack();
+            Instance.UpgradeAttack(attackUpgrade);
             return;
         }
 
-        if (!TrySpendUpgradePoint()) return;
+        if (!TrySpendPoints(UpgradeCost)) return;
 
         Attack += attackUpgrade;
         SaveStats();
     }
 
-    public void UpgradeDefense()
+    public void UpgradeDefense(float defenseUpgrade)
     {
         if (Instance != null && Instance != this)
         {
-            Instance.UpgradeDefense();
+            Instance.UpgradeDefense(defenseUpgrade);
             return;
         }
 
@@ -160,11 +156,11 @@ public class PlayerStats : MonoBehaviour
         SaveStats();
     }
 
-    public void UpgradeTopSpeed()
+    public void UpgradeTopSpeed(float topSpeedUpgrade)
     {
         if (Instance != null && Instance != this)
         {
-            Instance.UpgradeTopSpeed();
+            Instance.UpgradeTopSpeed(topSpeedUpgrade);
             return;
         }
 
@@ -174,11 +170,11 @@ public class PlayerStats : MonoBehaviour
         SaveStats();
     }
 
-    public void UpgradeMaxHealth()
+    public void UpgradeMaxHealth(float maxHealthUpgrade)
     {
         if (Instance != null && Instance != this)
         {
-            Instance.UpgradeMaxHealth();
+            Instance.UpgradeMaxHealth(maxHealthUpgrade);
             return;
         }
 
@@ -214,6 +210,35 @@ public class PlayerStats : MonoBehaviour
         if (!levelSystem.SpendUpgradePoint())
         {
             Debug.LogWarning($"[PlayerStats] Cannot upgrade: no upgrade points available. Current points: {levelSystem.GetUpgradePoints()}", this);
+            return false;
+        }
+
+        return true;
+    }
+
+    private bool TrySpendPoints(int points)
+    {
+        if (points <= 0)
+        {
+            Debug.LogWarning("[PlayerStats] Cannot upgrade: point cost must be greater than zero.", this);
+            return false;
+        }
+
+        Point pointManager = Point.instance;
+        if (pointManager == null)
+            pointManager = FindFirstObjectByType<Point>();
+
+        if (pointManager == null)
+        {
+            Debug.LogError("[PlayerStats] Cannot upgrade because no Point component exists.", this);
+            return false;
+        }
+
+        if (!pointManager.TrySpendPoints(points))
+        {
+            Debug.LogWarning(
+                $"[PlayerStats] Cannot upgrade: requires {points} points, but only {pointManager.Balance} are available.",
+                this);
             return false;
         }
 

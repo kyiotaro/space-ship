@@ -26,7 +26,7 @@ There is no separate victory screen in the current demo. The run ends when the p
 | Dash | Press `W`, `A`, `S`, or `D` |
 | Open stats | `Tab` |
 | Pause | `Esc` |
-| Restart after game over | Left mouse button |
+| Restart after game over | Click the restart button |
 
 Your weapon has limited ammunition and reloads automatically. Watch the health and ammunition displays while fighting.
 

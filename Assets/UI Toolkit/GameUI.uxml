@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <ui:Style src="GameUI.uss" />
+    <ui:VisualElement name="game-root" class="game-root">
+        <ui:VisualElement name="hud" class="hud">
+            <ui:VisualElement class="top-bar">
+                <ui:VisualElement>
+                    <ui:Label text="SPACE SHIP" class="brand" />
+                    <ui:Label name="level-label" text="LV. 1" class="level-label" />
+                </ui:VisualElement>
+                <ui:VisualElement class="top-stats">
+                    <ui:VisualElement class="stat-chip">
+                        <ui:Label text="SCORE" class="stat-caption" />
+                        <ui:Label name="score-value" text="0" class="stat-value" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="stat-chip">
+                        <ui:Label text="BEST" class="stat-caption" />
+                        <ui:Label name="high-score" text="0" class="stat-value" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="stat-chip">
+                        <ui:Label text="CREDITS" class="stat-caption" />
+                        <ui:Label name="points-value" text="0" class="stat-value accent" />
+                    </ui:VisualElement>
+                    <ui:Button name="pause-button" text="II" class="icon-button" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <ui:VisualElement class="lower-hud">
+                <ui:VisualElement class="status-card">
+                    <ui:Label text="HULL INTEGRITY" class="section-caption" />
+                    <ui:ProgressBar name="health-bar" class="health-bar" />
+                    <ui:VisualElement class="exp-row">
+                        <ui:Label text="EXPERIENCE" class="section-caption" />
+                        <ui:ProgressBar name="exp-bar" class="exp-bar" />
+                    </ui:VisualElement>
+                    <ui:Label name="ammo-value" text="AMMO  6 / 6" class="ammo-label" />
+                </ui:VisualElement>
+
+                <ui:VisualElement name="minimap-panel" class="minimap-panel">
+                    <ui:Label text="SECTOR SCAN" class="section-caption" />
+                    <ui:Image name="minimap-image" class="minimap-image" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <ui:VisualElement name="stats-overlay" class="overlay">
+            <ui:VisualElement class="dialog stats-dialog">
+                <ui:Label text="PILOT STATUS" class="dialog-title" />
+                <ui:Label text="Upgrade your ship systems" class="dialog-subtitle" />
+                <ui:Label name="upgrade-points" text="Upgrade points: 0" class="currency-label" />
+                <ui:Label name="stats-credits" text="Credits: 0" class="currency-label" />
+                <ui:VisualElement class="stats-list">
+                    <ui:VisualElement class="stat-row">
+                        <ui:Label text="Hull" class="row-label" />
+                        <ui:Label name="stats-health" text="100 / 100" class="row-value" />
+                        <ui:Button name="upgrade-health" text="+ HULL" class="small-button" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="stat-row">
+                        <ui:Label text="Attack" class="row-label" />
+                        <ui:Label name="stats-attack" text="10" class="row-value" />
+                        <ui:Button name="upgrade-attack" text="+ ATTACK (100 CREDITS)" class="small-button" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="stat-row">
+                        <ui:Label text="Defense" class="row-label" />
+                        <ui:Label name="stats-defense" text="5" class="row-value" />
+                        <ui:Button name="upgrade-defense" text="+ DEFENSE" class="small-button" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="stat-row">
+                        <ui:Label text="Speed" class="row-label" />
+                        <ui:Label name="stats-speed" text="5" class="row-value" />
+                        <ui:Button name="upgrade-speed" text="+ SPEED" class="small-button" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:Button name="close-stats-button" text="BACK TO FLIGHT" class="primary-button" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <ui:VisualElement name="pause-overlay" class="overlay">
+            <ui:VisualElement class="dialog compact-dialog">
+                <ui:Label text="FLIGHT PAUSED" class="dialog-title" />
+                <ui:Label text="Take a moment, pilot." class="dialog-subtitle" />
+                <ui:Button name="resume-button" text="RESUME" class="primary-button" />
+                <ui:Button name="restart-button" text="RESTART RUN" class="secondary-button" />
+                <ui:Button name="home-button" text="MAIN MENU" class="secondary-button" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <ui:VisualElement name="game-over-overlay" class="overlay">
+            <ui:VisualElement class="dialog compact-dialog">
+                <ui:Label text="SHIP LOST" class="dialog-title danger-title" />
+                <ui:Label text="Your run has ended." class="dialog-subtitle" />
+                <ui:Button name="game-over-restart-button" text="TRY AGAIN" class="primary-button" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

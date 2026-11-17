@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <ui:Style src="GameUI.uss" />
+    <ui:VisualElement class="home-root">
+        <ui:VisualElement class="home-card">
+            <ui:Label text="DEEP SPACE" class="home-kicker" />
+            <ui:Label text="SPACE SHIP" class="home-title" />
+            <ui:Label text="SURVIVE THE VOID. UPGRADE YOUR SHIP." class="home-subtitle" />
+            <ui:Button name="play-button" text="START FLIGHT" class="primary-button home-play" />
+            <ui:Label text="WASD DASH   |   RIGHT CLICK THRUST   |   LEFT CLICK FIRE" class="home-controls" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

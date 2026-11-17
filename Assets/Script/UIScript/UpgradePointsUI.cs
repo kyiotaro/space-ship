@@ -1,10 +1,10 @@
-using TMPro;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class UpgradePointsUI : MonoBehaviour
 {
-    [SerializeField] private TMP_Text pointsText;
     [SerializeField] private LevelSystem levelSystem;
+    private Label pointsText;
 
     private void Start()
     {
@@ -13,6 +13,22 @@ public class UpgradePointsUI : MonoBehaviour
         if (levelSystem == null)
         {
             Debug.LogError("[UpgradePointsUI] LevelSystem is not assigned or available.", this);
+            enabled = false;
+            return;
+        }
+
+        UIDocument document = FindFirstObjectByType<UIDocument>();
+        if (document == null)
+        {
+            Debug.LogError("[UpgradePointsUI] No UI Toolkit document was found.", this);
+            enabled = false;
+            return;
+        }
+
+        pointsText = document.rootVisualElement.Q<Label>("upgrade-points");
+        if (pointsText == null)
+        {
+            Debug.LogError("[UpgradePointsUI] The UI Toolkit document is missing the upgrade-points label.", this);
             enabled = false;
             return;
         }

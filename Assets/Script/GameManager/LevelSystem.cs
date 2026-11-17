@@ -1,14 +1,11 @@
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
 using System;
+using UnityEngine.UIElements;
 
 public class LevelSystem : MonoBehaviour
 {
     public static LevelSystem instance;
 
-    public Slider expSlider;
-    public TMP_Text levelText;
     public int baseExpRequired = 100;
     public float expCurveMultiplier = 1.5f;
     [Range(0f, 1f)] public float levelUpHealPercent = 0.25f;
@@ -16,6 +13,8 @@ public class LevelSystem : MonoBehaviour
     [SerializeField] private int currentExp = 0;
     [SerializeField] private int expToNextLevel = 100;
     [SerializeField] private int upgradePoints = 0;
+    private ProgressBar expBar;
+    private Label levelLabel;
 
     // Events you can hook into from other scripts
     public event Action<int> OnLevelUp;      // Fires with new level
@@ -36,29 +35,28 @@ public class LevelSystem : MonoBehaviour
     private void Start()
     {
         if (!isPrimary)
+            return;
+
+        UIDocument document = FindFirstObjectByType<UIDocument>();
+        if (document == null)
         {
-            if (instance != null)
-            {
-                instance.OnExpChanged += MirrorPrimaryUI;
-                MirrorPrimaryUI(instance.currentExp, instance.expToNextLevel);
-            }
+            Debug.LogError("[LevelSystem] No UI Toolkit document was found.", this);
             return;
         }
 
-        if (expSlider == null)
-            Debug.LogError("[LevelSystem] EXP Slider is not assigned!", this);
-
-        if (levelText == null)
-            Debug.LogError("[LevelSystem] Level Text (TMP) is not assigned!", this);
+        expBar = document.rootVisualElement.Q<ProgressBar>("exp-bar");
+        levelLabel = document.rootVisualElement.Q<Label>("level-label");
+        if (expBar == null || levelLabel == null)
+        {
+            Debug.LogError("[LevelSystem] The UI Toolkit document is missing the EXP bar or level label.", this);
+            return;
+        }
 
         UpdateUI();
     }
 
     private void OnDestroy()
     {
-        if (!isPrimary && instance != null)
-            instance.OnExpChanged -= MirrorPrimaryUI;
-
         if (instance == this)
             instance = null;
     }
@@ -147,27 +145,13 @@ public class LevelSystem : MonoBehaviour
 
     private void UpdateUI()
     {
-        if (levelText != null)
-            levelText.text = $"Lv. {currentLevel}";
+        if (levelLabel != null)
+            levelLabel.text = $"LV. {currentLevel}";
 
-        if (expSlider != null)
+        if (expBar != null)
         {
-            expSlider.maxValue = expToNextLevel;
-            expSlider.value = currentExp;
-        }
-    }
-
-    private void MirrorPrimaryUI(int exp, int expRequired)
-    {
-        if (instance == null) return;
-
-        if (levelText != null)
-            levelText.text = $"Lv. {instance.currentLevel}";
-
-        if (expSlider != null)
-        {
-            expSlider.maxValue = expRequired;
-            expSlider.value = exp;
+            expBar.highValue = expToNextLevel;
+            expBar.value = currentExp;
         }
     }
 

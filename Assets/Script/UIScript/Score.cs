@@ -1,14 +1,15 @@
 using UnityEngine;
-using TMPro;
+using UnityEngine.UIElements;
 
 public class Score : MonoBehaviour
 {   
     public static Score instance;
-    public TMP_Text scoreText;
-    public TMP_Text highScoreText;
 
     public int score = 0;
     private int highScore = 0;
+    private Label scoreLabel;
+    private Label highScoreLabel;
+    public int HighScore => highScore;
 
     public static float DifficultyMultiplier => instance != null ? instance.GetDifficultyMultiplier() : 1f;
 
@@ -26,6 +27,21 @@ public class Score : MonoBehaviour
     void Start()
     {
         highScore = PlayerPrefs.GetInt("highScore", 0);
+        UIDocument document = FindFirstObjectByType<UIDocument>();
+        if (document == null)
+        {
+            Debug.LogError("[Score] No UI Toolkit document was found.", this);
+            return;
+        }
+
+        scoreLabel = document.rootVisualElement.Q<Label>("score-value");
+        highScoreLabel = document.rootVisualElement.Q<Label>("high-score");
+        if (scoreLabel == null || highScoreLabel == null)
+        {
+            Debug.LogError("[Score] The UI Toolkit document is missing the score or high-score label.", this);
+            return;
+        }
+
         UpdateScoreUI();
     }
 
@@ -71,10 +87,9 @@ public class Score : MonoBehaviour
 
     private void UpdateScoreUI()
     {
-        if (scoreText != null)
-            scoreText.text = "SCORES: " + score;
-
-        if (highScoreText != null)
-            highScoreText.text = "HIGH SCORES: " + highScore;
+        if (scoreLabel != null)
+            scoreLabel.text = score.ToString();
+        if (highScoreLabel != null)
+            highScoreLabel.text = highScore.ToString();
     }
 }

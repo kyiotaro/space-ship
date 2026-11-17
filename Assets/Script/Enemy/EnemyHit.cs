@@ -74,6 +74,7 @@ public class EnemyHit : MonoBehaviour
         if (audioManager != null)
             audioManager.playSFX(audioManager.DieSFX);
         LevelSystem.instance?.AddExp(expValue);
+        Point.instance?.AddPoints(scoreValue);
         Score.instance?.AddScore(scoreValue);
 
         if (deathAnimation != null)

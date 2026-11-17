@@ -1,0 +1,243 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8abd4a1cf81946e9aa3696341bda0a4, type: 3}
+  m_Name: ExampleSkillTree
+  m_EditorClassIdentifier: com.sanar.skilltree::SkillTree.Core.Data.SkillTreeGraph
+  _treeId: 99807e36-1247-489a-97df-22972d73227d
+  _displayName: Example Skill Tree
+  _description: A simple example skill tree demonstrating basic functionality.
+  _nodes:
+  - _id: e33ac92e-0cb5-4754-86f0-9f9b3b13edee
+    _displayName: Warrior
+    _description: Basic combat training
+    _icon: {fileID: 0}
+    _displayNameLocalizationKey: 
+    _descriptionLocalizationKey: 
+    _editorPosition: {x: -77, y: -61}
+    _prerequisiteNodeIds: []
+    _nodeType: 1
+    _requirements: []
+    _costs: []
+    _customData:
+      _keys: []
+      _values: []
+    OnUnlocked:
+      m_PersistentCalls:
+        m_Calls: []
+    OnLocked:
+      m_PersistentCalls:
+        m_Calls: []
+  - _id: e79db5c0-4211-433d-9448-ec5d5686d766
+    _displayName: Mage
+    _description: Basic magic training
+    _icon: {fileID: 0}
+    _displayNameLocalizationKey: 
+    _descriptionLocalizationKey: 
+    _editorPosition: {x: -109, y: -351}
+    _prerequisiteNodeIds: []
+    _nodeType: 1
+    _requirements: []
+    _costs: []
+    _customData:
+      _keys: []
+      _values: []
+    OnUnlocked:
+      m_PersistentCalls:
+        m_Calls: []
+    OnLocked:
+      m_PersistentCalls:
+        m_Calls: []
+  - _id: 9fe0d466-8575-456d-a9bc-f24feb078587
+    _displayName: Sword Mastery
+    _description: Improved sword combat
+    _icon: {fileID: 0}
+    _displayNameLocalizationKey: 
+    _descriptionLocalizationKey: 
+    _editorPosition: {x: 341, y: -77}
+    _prerequisiteNodeIds:
+    - e33ac92e-0cb5-4754-86f0-9f9b3b13edee
+    _nodeType: 0
+    _requirements: []
+    _costs: []
+    _customData:
+      _keys: []
+      _values: []
+    OnUnlocked:
+      m_PersistentCalls:
+        m_Calls: []
+    OnLocked:
+      m_PersistentCalls:
+        m_Calls: []
+  - _id: c2ee03f4-5a57-46bb-b030-68b3e2b3c4e2
+    _displayName: Fireball
+    _description: Launch a ball of fire
+    _icon: {fileID: 0}
+    _displayNameLocalizationKey: 
+    _descriptionLocalizationKey: 
+    _editorPosition: {x: 364, y: -351}
+    _prerequisiteNodeIds:
+    - e79db5c0-4211-433d-9448-ec5d5686d766
+    _nodeType: 0
+    _requirements: []
+    _costs: []
+    _customData:
+      _keys: []
+      _values: []
+    OnUnlocked:
+      m_PersistentCalls:
+        m_Calls: []
+    OnLocked:
+      m_PersistentCalls:
+        m_Calls: []
+  - _id: 5af7bb38-24cf-4631-9c19-6393ed1e4398
+    _displayName: Battle Mage
+    _description: Master of sword and sorcery
+    _icon: {fileID: 0}
+    _displayNameLocalizationKey: 
+    _descriptionLocalizationKey: 
+    _editorPosition: {x: 845, y: -288}
+    _prerequisiteNodeIds:
+    - 9fe0d466-8575-456d-a9bc-f24feb078587
+    - c2ee03f4-5a57-46bb-b030-68b3e2b3c4e2
+    _nodeType: 3
+    _requirements: []
+    _costs: []
+    _customData:
+      _keys: []
+      _values: []
+    OnUnlocked:
+      m_PersistentCalls:
+        m_Calls: []
+    OnLocked:
+      m_PersistentCalls:
+        m_Calls: []
+  _connections:
+  - _id: 23296fb7-279d-40ff-a183-f0c5f1530e5d
+    _fromNodeId: e33ac92e-0cb5-4754-86f0-9f9b3b13edee
+    _toNodeId: 9fe0d466-8575-456d-a9bc-f24feb078587
+    _connectionType: 0
+    _color: {r: 1, g: 1, b: 1, a: 1}
+    _width: 2
+    _curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 1
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 1
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  - _id: c832dddc-c8b6-410a-a690-67a9702d56d8
+    _fromNodeId: e79db5c0-4211-433d-9448-ec5d5686d766
+    _toNodeId: c2ee03f4-5a57-46bb-b030-68b3e2b3c4e2
+    _connectionType: 0
+    _color: {r: 1, g: 1, b: 1, a: 1}
+    _width: 2
+    _curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 1
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 1
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  - _id: d86a42c7-c434-4f80-aca9-2e4dd3057c59
+    _fromNodeId: 9fe0d466-8575-456d-a9bc-f24feb078587
+    _toNodeId: 5af7bb38-24cf-4631-9c19-6393ed1e4398
+    _connectionType: 0
+    _color: {r: 1, g: 1, b: 1, a: 1}
+    _width: 2
+    _curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 1
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 1
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  - _id: eb6a13cf-ffca-4a08-a3f4-e886b3ebc1d8
+    _fromNodeId: c2ee03f4-5a57-46bb-b030-68b3e2b3c4e2
+    _toNodeId: 5af7bb38-24cf-4631-9c19-6393ed1e4398
+    _connectionType: 0
+    _color: {r: 1, g: 1, b: 1, a: 1}
+    _width: 2
+    _curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 1
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 1
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4

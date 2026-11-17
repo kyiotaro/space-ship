@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -9,10 +9,10 @@ public class PlayerHealth : MonoBehaviour
         AudioManager = FindFirstObjectByType<AudioManager>();
     }
     [Header("References")]
-    public Slider healthBar;
     public GameOver gameOver;
 
     private bool isDead;
+    private ProgressBar healthBar;
     private HitEffect hitEffect;
     private PlayerStats playerStats;
     private PlayerCamera playerCamera;
@@ -30,6 +30,15 @@ public class PlayerHealth : MonoBehaviour
 
         hitEffect = GetComponent<HitEffect>();
         playerCamera = FindFirstObjectByType<PlayerCamera>();
+        UIDocument document = FindFirstObjectByType<UIDocument>();
+        if (document == null)
+            Debug.LogError("[PlayerHealth] No UI Toolkit document was found.", this);
+        else
+            healthBar = document.rootVisualElement.Q<ProgressBar>("health-bar");
+
+        if (healthBar == null)
+            Debug.LogError("[PlayerHealth] The UI Toolkit document is missing the health bar.", this);
+
         previousHealth = playerStats.Health;
         Debug.Log($"[PlayerHealth] Started. HP: {playerStats.Health}/{playerStats.MaxHealth}, GameOver reference: {gameOver}", this);
 
@@ -56,7 +65,7 @@ public class PlayerHealth : MonoBehaviour
     {
         if (healthBar != null && playerStats != null)
         {
-            healthBar.maxValue = playerStats.MaxHealth;
+            healthBar.highValue = playerStats.MaxHealth;
             healthBar.value = playerStats.Health;
         }
 
