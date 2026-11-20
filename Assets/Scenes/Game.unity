@@ -3960,7 +3960,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b742429e6b55fb340b00e0eaa43d8ae4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DynamicCursor
-  defaultCursor: {fileID: 8264336940764989084, guid: f2158f7861398f849a9085327e12737f, type: 3}
+  defaultCursor: {fileID: -2957538193082387235, guid: e962d868b4b6e6e458458d8d6da951cd, type: 3}
   hotSpot: {x: 0, y: 0}
 --- !u!114 &1944157789
 MonoBehaviour:

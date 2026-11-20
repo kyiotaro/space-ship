@@ -43,6 +43,11 @@ public class UIManager : MonoBehaviour
         shopCards = RequireElement<VisualElement>(root, "shop-cards");
         minimapImage = RequireElement<Image>(root, "minimap-image");
 
+        shopOverlay?.BringToFront();
+        statsOverlay?.BringToFront();
+        pauseOverlay?.BringToFront();
+        gameOverOverlay?.BringToFront();
+
         BuildShopCards();
         RegisterButton(root, "open-shop-button", OpenShop);
         RegisterButton(root, "close-shop-button", CloseShop);
@@ -133,6 +138,7 @@ public class UIManager : MonoBehaviour
 
     public void SetGameOverVisible(bool visible)
     {
+        gameOverOverlay?.BringToFront();
         SetDisplay(gameOverOverlay, visible);
         if (visible)
         {
@@ -160,6 +166,7 @@ public class UIManager : MonoBehaviour
         audioManager?.playClickSFX();
         isPaused = false;
         SetDisplay(pauseOverlay, false);
+        SetDisplay(hud, true);
         Time.timeScale = 1f;
     }
 
@@ -179,10 +186,17 @@ public class UIManager : MonoBehaviour
 
     private void Pause()
     {
+        if (isPaused || (gameOver != null && gameOver.IsSetup))
+            return;
+
         audioManager?.playClickSFX();
         isPaused = true;
         isStatsOpen = false;
+        isShopOpen = false;
+        SetDisplay(hud, false);
         SetDisplay(statsOverlay, false);
+        SetDisplay(shopOverlay, false);
+        pauseOverlay?.BringToFront();
         SetDisplay(pauseOverlay, true);
         Time.timeScale = 0f;
     }
@@ -191,6 +205,7 @@ public class UIManager : MonoBehaviour
     {
         audioManager?.playClickSFX();
         isStatsOpen = true;
+        statsOverlay?.BringToFront();
         SetDisplay(hud, false);
         SetDisplay(statsOverlay, true);
         Time.timeScale = 0f;
@@ -200,6 +215,7 @@ public class UIManager : MonoBehaviour
     {
         audioManager?.playClickSFX();
         isShopOpen = true;
+        shopOverlay?.BringToFront();
         SetDisplay(hud, false);
         SetDisplay(shopOverlay, true);
         Time.timeScale = 0f;

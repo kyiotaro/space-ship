@@ -132,8 +132,8 @@
     min-width: 90px;
     height: 42px;
     margin-left: 12px;
-    color: #eff8ff;
-    background-color: #176f83;
+    color: rgb(239, 248, 255);
+    background-color: rgb(23, 111, 131);
     border-width: 0;
     font-size: 13px;
     -unity-font-style: bold;
@@ -142,7 +142,7 @@
 
 .shop-open-button:hover,
 .shop-buy-button:hover {
-    background-color: #238da0;
+    background-color: rgb(35, 141, 160);
 }
 
 .shop-dialog {
@@ -167,9 +167,9 @@
 .shop-balance {
     min-width: 150px;
     padding: 10px 14px;
-    background-color: #142b45;
+    background-color: rgb(20, 43, 69);
     border-left-width: 2px;
-    border-left-color: #4de0d0;
+    border-left-color: rgb(77, 224, 208);
 }
 
 .shop-cards {
@@ -184,13 +184,13 @@
     min-height: 255px;
     margin: 8px;
     padding: 18px;
-    background-color: #111f33;
+    background-color: rgb(17, 31, 51);
     border-top-width: 2px;
-    border-top-color: #3a90b9;
+    border-top-color: rgb(58, 144, 185);
 }
 
 .shop-card-category {
-    color: #4de0d0;
+    color: rgb(77, 224, 208);
     font-size: 11px;
     -unity-font-style: bold;
     letter-spacing: 2px;
@@ -198,7 +198,7 @@
 
 .shop-card-title {
     margin-top: 12px;
-    color: #f1f7ff;
+    color: rgb(241, 247, 255);
     font-size: 20px;
     -unity-font-style: bold;
 }
@@ -206,14 +206,14 @@
 .shop-card-description {
     flex-grow: 1;
     margin-top: 8px;
-    color: #9cb1c8;
+    color: rgb(156, 177, 200);
     font-size: 13px;
     white-space: normal;
 }
 
 .shop-card-bonus {
     margin-top: 16px;
-    color: #4de0d0;
+    color: rgb(77, 224, 208);
     font-size: 13px;
     -unity-font-style: bold;
     letter-spacing: 1px;
@@ -226,11 +226,11 @@
     margin-top: 14px;
     padding-top: 12px;
     border-top-width: 1px;
-    border-top-color: #24374d;
+    border-top-color: rgb(36, 55, 77);
 }
 
 .shop-card-price {
-    color: #f3f8ff;
+    color: rgb(243, 248, 255);
     font-size: 12px;
     -unity-font-style: bold;
 }
@@ -238,16 +238,16 @@
 .shop-buy-button {
     min-width: 68px;
     min-height: 34px;
-    color: #f4fbff;
-    background-color: #176f83;
+    color: rgb(244, 251, 255);
+    background-color: rgb(23, 111, 131);
     border-width: 0;
     font-size: 12px;
     -unity-font-style: bold;
 }
 
 .shop-buy-button:disabled {
-    color: #7189a3;
-    background-color: #26374b;
+    color: rgb(113, 137, 163);
+    background-color: rgb(38, 55, 75);
 }
 
 .shop-close-button {
@@ -279,8 +279,14 @@
     margin-top: 8px;
     margin-bottom: 12px;
     --unity-progress-bar-background: rgb(23, 40, 59);
-    --unity-progress-bar-color: rgb(77, 224, 208);
-    -unity-background-image-tint-color: rgb(255, 255, 255);
+    --unity-progress-bar-color: rgb(41, 139, 185);
+    -unity-background-image-tint-color: rgb(245, 0, 0);
+    white-space: nowrap;
+    color: rgb(0, 0, 0);
+    -unity-text-outline-color: rgb(0, 0, 0);
+    background-image: none;
+    background-color: rgb(200, 27, 27);
+    border-left-width: 0;
 }
 
 .exp-row {
@@ -434,4 +440,9 @@
 
 .secondary-button:hover {
     background-color: rgb(42, 64, 91);
+}
+
+.unity-progress-bar {
+    background-color: rgb(255, 13, 0);
+    -unity-background-image-tint-color: rgb(243, 0, 0);
 }

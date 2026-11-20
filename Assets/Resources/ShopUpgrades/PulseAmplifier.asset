@@ -15,8 +15,8 @@ MonoBehaviour:
   sortOrder: 1
   category: WEAPONS
   displayName: Pulse Amplifier
-  description: Boost weapon output to take down threats faster.
-  bonusText: +10 ATTACK
-  creditCost: 100
+  description: Increase weapon damage by 20 percent.
+  bonusText: +2 ATTACK
+  creditCost: 250
   stat: 1
-  amount: 10
+  amount: 2

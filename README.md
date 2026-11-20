@@ -32,7 +32,16 @@ Your weapon has limited ammunition and reloads automatically. Watch the health a
 
 ## Shop Upgrades
 
-Shop card data is stored as `ShopUpgradeData` assets in `Assets/Resources/ShopUpgrades`. Create more with **Assets → Create → Space Ship → Shop Upgrade**. The shop loads these assets at runtime and displays their category, name, description, bonus, and credit cost. Purchase buttons are placeholders and do not yet apply upgrades.
+Shop card data is stored as `ShopUpgradeData` assets in `Assets/Resources/ShopUpgrades`. Create more with **Assets → Create → Space Ship → Shop Upgrade**. The shop loads these assets at runtime and displays their category, name, description, bonus, and credit cost. Current values are balanced around the starting stats (100 health, 10 attack, 5 defense, 5 speed) and 20 credits per defeated enemy:
+
+| Upgrade | Effect | Cost |
+| --- | --- | --- |
+| Reinforced Hull | +20 maximum health (20%) | 200 credits |
+| Pulse Amplifier | +2 attack (20%) | 250 credits |
+| Shield Plating | +1 defense | 300 credits |
+| Thruster Tuning | +0.5 top speed (10%) | 200 credits |
+
+These are initial tuning values and should be adjusted after playtesting. Purchase buttons are placeholders and do not yet apply upgrades.
 
 ## Run Locally
 

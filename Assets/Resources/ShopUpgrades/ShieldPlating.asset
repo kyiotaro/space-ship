@@ -15,8 +15,8 @@ MonoBehaviour:
   sortOrder: 2
   category: DEFENSE
   displayName: Shield Plating
-  description: Strengthen your shields against incoming damage.
+  description: Reduce incoming damage by one point per hit.
   bonusText: +1 DEFENSE
-  creditCost: 150
+  creditCost: 300
   stat: 2
   amount: 1

@@ -1,8 +1,8 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
-    <Style src="project://database/Assets/UI%20Toolkit/GameUI.uss?fileID=7433441132597879392&amp;guid=91ca527b9c9b4b55a5d514c77c660f3d&amp;type=3#GameUI"/>
+    <Style src="project://database/Assets/UI%20Toolkit/GameUI.uss?fileID=7433441132597879392&amp;guid=91ca527b9c9b4b55a5d514c77c660f3d&amp;type=3"/>
     <ui:VisualElement name="game-root" class="game-root">
         <ui:VisualElement name="shop-overlay" class="overlay" style="visibility: visible; opacity: 1; display: none;">
-            <ui:VisualElement class="dialog shop-dialog" style="visibility: visible; height: 560px; width: 694px;">
+            <ui:VisualElement class="dialog shop-dialog" style="visibility: visible; height: 560px; width: 968px; display: flex;">
                 <ui:VisualElement name="VisualElement" class="shop-header">
                     <ui:VisualElement>
                         <ui:Label text="SHOP UPGRADES" parse-escape-sequences="true" class="dialog-title shop-title"/>
@@ -14,33 +14,127 @@
                     </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:VisualElement class="shop-cards">
-                    <ui:VisualElement class="shop-card">
-                        <ui:Label text="HULL" class="shop-card-category"/>
-                        <ui:Label text="Reinforced Hull" class="shop-card-title"/>
-                        <ui:Label text="Increase your maximum health and stay in the fight longer." class="shop-card-description"/>
-                        <ui:Label text="+25 MAX HEALTH" class="shop-card-bonus"/>
+                    <ui:VisualElement data-source="project://database/Assets/Resources/ShopUpgrades/ReinforcedHull.asset?fileID=11400000&amp;guid=94c7e1739b974bc8a77a2858d448bed7&amp;type=2#ReinforcedHull" class="shop-card">
+                        <ui:Label text="HULL" class="shop-card-category">
+                            <Bindings>
+                                <ui:DataBinding property="text" data-source-path="category" binding-mode="ToTarget"/>
+                            </Bindings>
+                        </ui:Label>
+                        <ui:Label text="Reinforced Hull" class="shop-card-title">
+                            <Bindings>
+                                <ui:DataBinding property="text" data-source-path="displayName" binding-mode="ToTarget"/>
+                            </Bindings>
+                        </ui:Label>
+                        <ui:Label text="Increase your maximum health and stay in the fight longer." class="shop-card-description">
+                            <Bindings>
+                                <ui:DataBinding property="text" data-source-path="description" binding-mode="ToTarget"/>
+                            </Bindings>
+                        </ui:Label>
+                        <ui:Label text="+25 MAX HEALTH" class="shop-card-bonus">
+                            <Bindings>
+                                <ui:DataBinding property="text" data-source-path="bonusText" binding-mode="ToTarget"/>
+                            </Bindings>
+                        </ui:Label>
                         <ui:VisualElement class="shop-card-footer">
-                            <ui:Label text="250 CREDITS" class="shop-card-price"/>
+                            <ui:Label text="250" selectable="true" focusable="true" emoji-fallback-support="false" class="shop-card-price">
+                                <Bindings>
+                                    <ui:DataBinding property="text" data-source-path="creditCost" binding-mode="ToTarget"/>
+                                </Bindings>
+                            </ui:Label>
+                            <ui:Label text="CREDITS" selectable="true" focusable="true" class="shop-card-price"/>
                             <ui:Button text="BUY" enabled="false" class="shop-buy-button"/>
                         </ui:VisualElement>
                     </ui:VisualElement>
-                    <ui:VisualElement class="shop-card">
-                        <ui:Label text="WEAPONS" class="shop-card-category"/>
-                        <ui:Label text="Pulse Amplifier" class="shop-card-title"/>
-                        <ui:Label text="Boost weapon output to take down threats faster." class="shop-card-description"/>
-                        <ui:Label text="+10 ATTACK" class="shop-card-bonus"/>
+                    <ui:VisualElement data-source="project://database/Assets/Resources/ShopUpgrades/PulseAmplifier.asset?fileID=11400000&amp;guid=98ea7a4f23d04c369ae555c11541621b&amp;type=2#PulseAmplifier" class="shop-card">
+                        <ui:Label text="HULL" class="shop-card-category">
+                            <Bindings>
+                                <ui:DataBinding property="text" data-source-path="category" binding-mode="ToTarget"/>
+                            </Bindings>
+                        </ui:Label>
+                        <ui:Label text="Reinforced Hull" class="shop-card-title">
+                            <Bindings>
+                                <ui:DataBinding property="text" data-source-path="displayName" binding-mode="ToTarget"/>
+                            </Bindings>
+                        </ui:Label>
+                        <ui:Label text="Increase your maximum health and stay in the fight longer." class="shop-card-description">
+                            <Bindings>
+                                <ui:DataBinding property="text" data-source-path="description" binding-mode="ToTarget"/>
+                            </Bindings>
+                        </ui:Label>
+                        <ui:Label text="+25 MAX HEALTH" class="shop-card-bonus">
+                            <Bindings>
+                                <ui:DataBinding property="text" data-source-path="bonusText" binding-mode="ToTarget"/>
+                            </Bindings>
+                        </ui:Label>
                         <ui:VisualElement class="shop-card-footer">
-                            <ui:Label text="100 CREDITS" class="shop-card-price"/>
+                            <ui:Label text="250" selectable="true" focusable="true" emoji-fallback-support="false" class="shop-card-price">
+                                <Bindings>
+                                    <ui:DataBinding property="text" data-source-path="creditCost" binding-mode="ToTarget"/>
+                                </Bindings>
+                            </ui:Label>
+                            <ui:Label text="CREDITS" selectable="true" focusable="true" class="shop-card-price"/>
                             <ui:Button text="BUY" enabled="false" class="shop-buy-button"/>
                         </ui:VisualElement>
                     </ui:VisualElement>
-                    <ui:VisualElement class="shop-card">
-                        <ui:Label text="DEFENSE" class="shop-card-category"/>
-                        <ui:Label text="Shield Plating" class="shop-card-title"/>
-                        <ui:Label text="Strengthen your shields against incoming damage." class="shop-card-description"/>
-                        <ui:Label text="+1 DEFENSE" class="shop-card-bonus"/>
+                    <ui:VisualElement data-source="project://database/Assets/Resources/ShopUpgrades/ShieldPlating.asset?fileID=11400000&amp;guid=e9b5b13e5ea94257a0d01083bfd652dc&amp;type=2#ShieldPlating" class="shop-card">
+                        <ui:Label text="HULL" class="shop-card-category">
+                            <Bindings>
+                                <ui:DataBinding property="text" data-source-path="category" binding-mode="ToTarget"/>
+                            </Bindings>
+                        </ui:Label>
+                        <ui:Label text="Reinforced Hull" class="shop-card-title">
+                            <Bindings>
+                                <ui:DataBinding property="text" data-source-path="displayName" binding-mode="ToTarget"/>
+                            </Bindings>
+                        </ui:Label>
+                        <ui:Label text="Increase your maximum health and stay in the fight longer." class="shop-card-description">
+                            <Bindings>
+                                <ui:DataBinding property="text" data-source-path="description" binding-mode="ToTarget"/>
+                            </Bindings>
+                        </ui:Label>
+                        <ui:Label text="+25 MAX HEALTH" class="shop-card-bonus">
+                            <Bindings>
+                                <ui:DataBinding property="text" data-source-path="bonusText" binding-mode="ToTarget"/>
+                            </Bindings>
+                        </ui:Label>
                         <ui:VisualElement class="shop-card-footer">
-                            <ui:Label text="150 CREDITS" class="shop-card-price"/>
+                            <ui:Label text="250" selectable="true" focusable="true" emoji-fallback-support="false" class="shop-card-price">
+                                <Bindings>
+                                    <ui:DataBinding property="text" data-source-path="creditCost" binding-mode="ToTarget"/>
+                                </Bindings>
+                            </ui:Label>
+                            <ui:Label text="CREDITS" selectable="true" focusable="true" class="shop-card-price"/>
+                            <ui:Button text="BUY" enabled="false" class="shop-buy-button"/>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:VisualElement data-source="project://database/Assets/Resources/ShopUpgrades/ThrusterTuning.asset?fileID=11400000&amp;guid=42d9d4db3cb44c6bad8fb0ec6541f40a&amp;type=2#ThrusterTuning" class="shop-card">
+                        <ui:Label text="HULL" class="shop-card-category">
+                            <Bindings>
+                                <ui:DataBinding property="text" data-source-path="category" binding-mode="ToTarget"/>
+                            </Bindings>
+                        </ui:Label>
+                        <ui:Label text="Reinforced Hull" class="shop-card-title">
+                            <Bindings>
+                                <ui:DataBinding property="text" data-source-path="displayName" binding-mode="ToTarget"/>
+                            </Bindings>
+                        </ui:Label>
+                        <ui:Label text="Increase your maximum health and stay in the fight longer." class="shop-card-description">
+                            <Bindings>
+                                <ui:DataBinding property="text" data-source-path="description" binding-mode="ToTarget"/>
+                            </Bindings>
+                        </ui:Label>
+                        <ui:Label text="+25 MAX HEALTH" class="shop-card-bonus">
+                            <Bindings>
+                                <ui:DataBinding property="text" data-source-path="bonusText" binding-mode="ToTarget"/>
+                            </Bindings>
+                        </ui:Label>
+                        <ui:VisualElement class="shop-card-footer">
+                            <ui:Label text="250" selectable="true" focusable="true" emoji-fallback-support="false" class="shop-card-price">
+                                <Bindings>
+                                    <ui:DataBinding property="text" data-source-path="creditCost" binding-mode="ToTarget"/>
+                                </Bindings>
+                            </ui:Label>
+                            <ui:Label text="CREDITS" selectable="true" focusable="true" class="shop-card-price"/>
                             <ui:Button text="BUY" enabled="false" class="shop-buy-button"/>
                         </ui:VisualElement>
                     </ui:VisualElement>
@@ -105,16 +199,16 @@
                     <ui:Button name="open-shop-button" text="SHOP" class="shop-open-button"/>
                     <ui:Button name="pause-button" text="II" class="icon-button"/>
                 </ui:VisualElement>
+                <ui:VisualElement name="minimap-panel" class="minimap-panel" style="width: 250px; aspect-ratio: 1;">
+                    <ui:Label text="SECTOR SCAN" class="section-caption"/>
+                    <ui:Image name="minimap-image" class="minimap-image" style="height: 189px; width: 189px; aspect-ratio: 1;"/>
+                </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement class="lower-hud" style="width: 1867px; align-items: center; justify-content: space-between; align-self: center; flex-direction: row; bottom: 10px;">
-                <ui:VisualElement name="VisualElement" class="status-card" style="width: 525px; justify-content: center; align-items: stretch; height: 134px;">
+                <ui:VisualElement name="VisualElement" class="status-card" style="width: 435px; justify-content: center; align-items: stretch; height: 130px;">
                     <ui:Label text="Health Point" class="section-caption"/>
-                    <ui:ProgressBar name="health-bar" class="health-bar" style="width: 483px; align-items: stretch; justify-content: space-around; flex-direction: column; align-self: stretch; border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; border-top-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; border-bottom-left-radius: 5px; -unity-text-auto-size: none; background-color: rgb(0, 0, 0);"/>
+                    <ui:ProgressBar name="health-bar" class="health-bar" style="width: 388px; align-items: stretch; justify-content: space-around; flex-direction: column; align-self: stretch; border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; border-top-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; border-bottom-left-radius: 5px; -unity-text-auto-size: none; background-color: rgb(0, 0, 0); height: 13px; color: rgb(23, 111, 131); -unity-background-image-tint-color: rgb(255, 4, 4);"/>
                     <ui:Label name="ammo-value" text="AMMO  6 / 6" class="ammo-label" style="font-size: 12px;"/>
-                </ui:VisualElement>
-                <ui:VisualElement name="minimap-panel" class="minimap-panel">
-                    <ui:Label text="SECTOR SCAN" class="section-caption"/>
-                    <ui:Image name="minimap-image" class="minimap-image"/>
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
